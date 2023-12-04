@@ -1,0 +1,15 @@
+.admission_form_payment input {
+    background-color: var(--bg-light);
+    border: 1.8px solid var(--bg-dark-cream);
+    outline: none;
+  }
+  
+  .admission_form_payment select {
+    background-color: var(--bg-light);
+    border: 1.8px solid var(--bg-dark-cream);
+    outline: none;
+  }
+
+  .Entrance_Form_container{
+    background-color: var(--bg-light);
+  }

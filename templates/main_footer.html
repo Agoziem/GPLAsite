@@ -1,0 +1,93 @@
+{% load static %}
+<footer class="footer">
+    <div class="footer_link row justify-content-between pb-4 px-5">
+        <div class="col-10 col-sm-8 col-md-4 pe-1 pe-sm-4 pe-md-5">
+            <div id="sub_form_alert_success" class="alert alert-success" style="display: none;">
+                <i class="bi bi-check-circle-fill mx-2 text-success h5"></i>
+                <div>
+                    Your email has been sent successfully!
+                </div>
+            </div>
+
+            <div id="sub_form_alert_danger" class="alert alert-danger" style="display:none;">
+                <i class="fa-solid fa-triangle-exclamation mx-2 text-danger h5"></i>
+                <div>
+                    An error occurred while sending your message.
+                </div>
+            </div>
+            <form id="sub_form">
+                <h5>Subscribe to our newsletter</h5>
+                <p>Monthly digest of whats new and exciting from us.</p>
+                <div class="d-flex w-100 gap-2">
+                    <label for="newsletter1" class="visually-hidden">Email address</label>
+                    <input id="newsletter1" type="email" class="form-control" placeholder="Email address" name="email"
+                        required>
+                    <button class="btn btn-secondary" value="submit" type="submit">Subscribe</button>
+                </div>
+            </form>
+            <ul class="list-unstyled d-flex mt-3">
+                <li><a class="link-dark" href="#"><i class="fa-brands fa-facebook" style="font-size: 22px;"></i></a>
+                </li>
+                <li class="ms-3"><a class="link-dark" href="#"><i class="fa-brands fa-instagram"
+                            style="font-size: 22px;"></i></a></li>
+                <li class="ms-3"><a class="link-dark" href="#"><i class="fa-brands fa-whatsapp"
+                            style="font-size: 22px;"></i></a></li>
+                <li class="ms-3"><a class="link-dark" href="#"><i class="fa-brands fa-twitter"
+                            style="font-size: 22px;"></i></a></li>
+            </ul>
+        </div>
+
+        <div class="col-5 col-sm-3 col-md-2 py-3 pt-md-0">
+            <h5>Quick links</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="{% url 'home' %}" class="nav-link p-0">Home</a></li>
+                <li class="nav-item mb-2"><a href="/#About" class="nav-link p-0">About</a></li>
+                <li class="nav-item mb-2"><a href="/Accounts/" class="nav-link p-0">Management</a></li>
+                <li class="nav-item mb-2"><a href="/#Teachers" class="nav-link p-0">Teachers</a></li>
+                <li class="nav-item mb-2"><a href="/#gallery" class="nav-link p-0">Photogallery</a></li>
+                <li class="nav-item mb-2"><a href="/#FAQ" class="nav-link p-0">FAQ</a></li>
+            </ul>
+        </div>
+
+        <div class="col-5 col-md-2 py-3 pt-md-0">
+            <h5>Articles</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Health</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Politics</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Science</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Arts</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Literature</a></li>
+            </ul>
+        </div>
+
+        <div class="col-5 col-md-2">
+            <h5>Students portal</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="{% url 'Result_portal:classes' %}" class="nav-link p-0">Results</a>
+                </li>
+                <li class="nav-item mb-2"><a href="{% url 'Payment_portal:initiate_payment' %}"
+                        class="nav-link p-0">Payments</a></li>
+                <li class="nav-item mb-2"><a href="{% url 'Elibrary:subjects' %}" class="nav-link p-0">E-library</a>
+                </li>
+                <li class="nav-item mb-2"><a href="{% url 'Admission_form:initiate_payment' %}"
+                        class="nav-link p-0">Admission_form</a></li>
+                <li class="nav-item mb-2"><a href="{% url 'Teachers_portal:Teachers_dashboard' %}" class="nav-link p-0">Teacher Portal</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Entrance Exam Result</a></li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <div class="sub_footer d-flex justify-content-center align-items-center py-4">
+        <div>
+            <p class="my-0 text-center">&copy; 2022 SMSS Omagba, inst . All rights reserved.</p>
+            <p class="my-0 text-center">designed by Gozzy designs and development</p>
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>

@@ -1,0 +1,507 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/St Marks Logo.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/St Marks Logo.png' %}">
+  <link rel="icon" type="image/png" sizes="48x48" href="{% static 'images/St Marks Logo.png' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/oov2wcw.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/Home.css' %}">
+  <link rel="stylesheet" href="{% static 'css/Result.css' %}">
+  <link rel="stylesheet" href="{% static 'css/all.css' %}">
+  <title>SMSS Omagba</title>
+  <script>
+    var user = '{{request.user}}'
+
+    function getToken(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    var csrftoken = getToken('csrftoken')
+  </script>
+
+</head>
+
+<body>
+  <!-- Navbar for Large -->
+  <nav class="navbar navbar-expand-lg navbar-light mt-0 fixed-top shadow-sm">
+    <div class=" container px-2 d-flex justify-content-between">
+      <!-- First Part of the Nav bar -->
+  
+      <div class="d-flex justify-content-between">
+        <a href="{% url 'home' %}"><img src="{% static 'images/St Marks Logo.png' %}" alt="..."
+            class="brand_image img-fluid"></a>
+      </div>
+      <div class="d-flex d-lg-none align-items-center justify-content-center">
+        <div class="nav-item-envelope me-3 position-relative">
+          <i class="fas fa-search h5 " style="color:#3b0505;"></i>
+        </div>
+        <div class="hamburger-menu ">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+  
+  
+      <!-- Second Part of the Nav bar -->
+      <div class="d-none d-lg-flex collapse navbar-collapse" id="navmenu">
+        <ol class="navbar-nav mx-auto text-start ps-1">
+          <li class="nav-item me-2">
+            <a href="{% url 'home' %}" class="nav-link active">Home <i class="fa-solid fa-caret-down ms-1"></i></a>
+            <ul class="py-2 ps-0">
+              <li class="px-4"><a href="/#About">About Us</a></li>
+              <li class="px-4"><a href="/#Management">Teachers</a></li>
+              <li class="px-4"><a href="/#Management">Management</a></li>
+              <li class="px-4"><a href="/#review">Reviews</a></li>
+              <li class="px-4"><a href="/#contact">Contact us</a></li>
+              <li class="px-4"><a href="/#FAQ">FAQ</a></li>
+            </ul>
+          </li>
+  
+          <li class="nav-item me-2">
+            <a href="#" class="nav-link">Articles</a>
+          </li>
+          <li class="nav-item me-2">
+            <a href="{% url 'Teachers_portal:Teachers_dashboard' %}" class="nav-link">Teachers Portal</a>
+          </li>
+  
+          <li class="nav-item me-2">
+            <a class="nav-link">Students Section <i class="fa-solid fa-caret-down ms-1"></i></a>
+            <ul class="py-2 ps-0">
+              <li class="px-4"><a href="{% url 'Result_portal:classes' %}">Result Portal</a></li>
+              <li class="px-4"><a href="{% url 'CBT:Cbt' %}">CBT</a></li>
+              <li class="px-4"><a href="{% url 'Elibrary:subjects' %}">E-library</a></li>
+              <li class="px-4"><a href="{% url 'Payment_portal:initiate_payment' %}">Payment Portal</a></li>
+            </ul>
+          </li>
+  
+          <li class="nav-item me-2">
+            <a class="nav-link">Admissions <i class="fa-solid fa-caret-down ms-1"></i></a>
+            <ul class="py-2 ps-0">
+              <li class="px-4"><a href="{% url 'Admission_form:initiate_payment' %}">Purchase Form</a></li>
+              <li class="px-4"><a href="{% url 'CBT:Cbt' %}">CBT</a></li>
+              <li class="px-4"><a href="#">Ent Exam Result</a></li>
+            </ul>
+          </li>
+          <li class="nav-item me-2">
+            <a href="#" class="nav-link">Contact us</a>
+          </li>
+        </ol>
+      </div>
+  
+      <!-- Third Part of the Nav bar -->
+      <div class="d-none d-lg-flex">
+        <ol class="navbar-nav text-start ps-1">
+          <li class="nav-item-envelope me-3 position-relative">
+            <a class="nav-link">
+              <i class="fas fa-search h5"></i>
+            </a>
+          </li>
+          <li class="nav-item mx-3 ">
+            <a class="nav-link" href="#">
+              <i class="fa-solid fa-user h4"></i>
+              <i class="fa-solid fa-caret-down ms-1"></i>
+            </a>
+            <ul class="ps-0 py-3" style="right: 46px;">
+              {% if request.user.is_superuser %}
+              <li class="px-5"><a href="{% url 'activation_side' %}">Activation</a></li>
+              {% endif %}
+              <li class="px-5"><a href="/admin" target="_blank">Admin</a></li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+  
+  
+    </div>
+  </nav>
+  
+  <!-- Navbar for Small Screen -->
+  <nav class="menu">
+    <ul>
+      <li class="sub-menu-toggle">
+        <div class="d-flex justify-content-between align-items-center">
+          <a class="me-2">Quick links</a>
+          <i class="sub-menu-toggle-icon fas fa-plus"></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a href="{% url 'home' %}" class="menulink">Home</a></li>
+          <li><a href="/#About" class="menulink">About us</a></li>
+          <li><a href="/#Management" class="menulink">Teachers</a></li>
+          <li><a href="/#Management" class="menulink">Management</a></li>
+          <li><a href="/#review" class="menulink">Reviews</a></li>
+          <li><a href="/#contact" class="menulink">Contact us</a></li>
+          <li><a href="/#FAQ" class="menulink">FAQ</a></li>
+        </ul>
+      </li>
+      <li><a href="#" class="menulink">Articles</a></li>
+      <li><a href="{% url 'Teachers_portal:Teachers_dashboard' %}" class="menulink">Teachers Portal</a></li>
+      <li class="sub-menu-toggle">
+        <div class="d-flex justify-content-between align-items-center">
+          <a>Admissions</a>
+          <i class="sub-menu-toggle-icon fas fa-plus "></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a href="{% url 'Admission_form:initiate_payment' %}" class="menulink">Purchase Form</a></li>
+          <li><a href="{% url 'CBT:Cbt' %}" class="menulink">CBT</a></li>
+          <li><a href="" class="menulink">Ent Exam Result</a></li>
+        </ul>
+      </li>
+      <li class="sub-menu-toggle">
+        <div class="d-flex justify-content-between align-items-center">
+          <a class="me-2" class="menulink">Students Section</a>
+          <i class="sub-menu-toggle-icon fas fa-plus"></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a href="{% url 'Result_portal:classes' %}" class="menulink">Result Portal</a></li>
+          <li><a href="{% url 'CBT:Cbt' %}" class="menulink">CBT</a></li>
+          <li><a href="{% url 'Elibrary:subjects' %}" class="menulink">Elibrary</a></li>
+          <li><a href="{% url 'Payment_portal:initiate_payment' %}" class="menulink">Payment Portal</a></li>
+        </ul>
+      </li>
+      <li class="sub-menu-toggle">
+        <div class="d-flex justify-content-between align-items-center">
+          <a class="me-2" class="menulink">Admin</a>
+          <i class="sub-menu-toggle-icon fas fa-plus"></i>
+        </div>
+        <ul class="sub-menu">
+          {% if request.user.is_superuser %}
+          <li><a href="{% url 'activation_side' %}" class="menulink">Activation</a></li>
+          {% endif %}
+          <li><a href="/admin" target="_blank" class="menulink">Admin</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+
+<input id="labels" type="text" value="{{labels}}" hidden>
+<input id="data" type="text" value="{{data}}" hidden>
+  <!-- print  ///////////////////////////////////////////////////////////////////// -->
+  <div id="container_result">
+    <section class="mt-4">
+      <div class="d-flex justify-content-center">
+        <img src="{% static 'images/St Marks Logo.png' %}" alt="..." class="schoollogo img-fluid">
+      </div>
+    </section>
+
+    <section class="px-2 pt-2">
+      <div class="text-center  mb-0">
+        <h4>St Marks Standard Secondary School Omagba (Termly Result)</h4>
+        <h1>{{student_details.student_name}}</h1>
+        <div class="multiplerule my-3 d-flex justify-content-center">
+          <div class="rule"></div>
+          <div class="rule2"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="details_container">
+      <div class="details container p-4 rounded d-flex">
+        <div>
+          <span class="fw-bold">Class :</span> {{ student_details.student_class }}<br>
+          <span class="fw-bold">Term : {{ Result_details.Term }} </span><br>
+          <span class="fw-bold">Session :</span> {{ Result_details.AcademicSession }}<br>
+          <span class="fw-bold">Total score :</span> {{ Result_details.TotalScore }}<br>
+        </div>
+
+        <div class="ms-5">
+          <span class="fw-bold">Average :</span> {{ Result_details.Average|floatformat:2 }}<br>
+          <span class="fw-bold">Position :</span> {{ Result_details.Position }}<br>
+          <span class="fw-bold">Number in Class :</span> {{ Result_details.Totalnumber }}
+        </div>
+
+      </div>
+    </section>
+
+    <section class="px-3 pt-2">
+      <div class="result_table">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">S/N</th>
+              <th scope="col">Subjects </th>
+              <th scope="col">Test (5)</th>
+              <th scope="col">Project (5)</th>
+              <th scope="col">Mid Term Test (20)</th>
+              <th scope="col">Ass (5)</th>
+              <th scope="col">Note (5)</th>
+              <th scope="col">CA (40)</th>
+              <th scope="col">Exam (60)</th>
+              <th scope="col">Total (100)</th>
+              <th scope="col">Grade</th>
+              <th scope="col">Position</th>
+              <th scope="col">Remark</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for data in Results %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{data.Subject}}</td>
+              <td>{{data.FirstTest}}</td>
+              <td>{{data.FirstAss}}</td>
+              <td>{{data.MidTermTest}}</td>
+              <td> {{data.SecondAss}}</td>
+              <td>{{data.SecondTest}}</td>
+              <td> {{data.CA}}</td>
+              <td> {{data.Exam}}</td>
+              <td>{{data.Total}}</td>
+              <td>{{data.Grade}}</td>
+              <td>{{data.SubjectPosition}}</td>
+              <td>{{data.Remark}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- Charts & BarCode -->
+
+    <section class="p-4">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md d-flex justify-content-end ">
+          <div>
+            <canvas id="mybarChart" style="max-width: 450px; height: 300px;"></canvas>
+          </div>
+        </div>
+        <div class="col-md d-flex justify-content-center">
+          <div>
+            <img src="{% static 'images/Result_Code.png' %}" style="max-width:180px;" alt="">
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- Annual Results Starts here ///////////////////////////////////////-->
+
+    {% if Annual_Result %}
+
+    <section class="px-2 pt-2">
+      <div class=" text-center  mb-0">
+        <h1 class=" fw-normal">Annual Result </h1>
+        <div class="multiplerule my-3 d-flex justify-content-center">
+          <div class="rule"></div>
+          <div class="rule2"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="details_container">
+      <div class="details container p-4 rounded d-flex">
+        <div>
+          <span class="fw-bold">Class :</span> {{ student_details.student_class }}<br>
+          <span class="fw-bold">Term :</span> {{ AnnualStudent.Term }}<br>
+          <span class="fw-bold">Session :</span> {{ AnnualStudent.Academicsession }}<br>
+          <span class="fw-bold">Total score :</span> {{ AnnualStudent.TotalScore|floatformat:2 }}<br>
+          <span class="fw-bold">Average :</span> {{ AnnualStudent.Average|floatformat:2 }}<br>
+          <span class="fw-bold">Position :</span> {{ AnnualStudent.Position }}<br>
+          <span class="fw-bold">Number in Class :</span> {{ AnnualStudent.Totalnumber }}<br>
+          <span class="fw-bold">Principal's Verdict :</span>
+
+          {% if student_details.Class == "SS1A" or student_details.Class == "SS1B" or student_details.Class == "SS1C" or student_details.Class == "SS2A" or student_details.Class == "SS2B" %}
+            {% if PromotionVerdict >= 50 %}
+            Promoted
+            {% else %}
+            Not Promoted
+            {% endif %}
+          {% else %}
+            {% if PromotionVerdict >= 45 %}
+            Promoted
+            {% else %}
+            Not Promoted
+            {% endif %}
+         {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-3 pt-2">
+      <div class="result_table">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">S/N</th>
+              <th scope="col">Subjects</th>
+              <th scope="col">1st Term</th>
+              <th scope="col">2nd Term</th>
+              <th scope="col">3rd Term</th>
+              <th scope="col">Total</th>
+              <th scope="col">Average</th>
+              <th scope="col">Grade</th>
+              <th scope="col">Position</th>
+              <th scope="col">Remark</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for data in AnnualResult %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{data.Subject}}</td>
+              <td>{{data.FirstTerm}}</td>
+              <td>{{data.SecondTerm}}</td>
+              <td>{{data.ThirdTerm}}</td>
+              <td>{{data.Total|floatformat}} </td>
+              <td>{{data.Average|floatformat:2}}</td>
+              <td>{{data.Grade}}</td>
+              <td>{{data.SubjectPosition}}</td>
+              <td>{{data.Remark}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+  {% endif %}
+
+
+  </div>
+  <!--end of print ////////////////////////////////////////////////////////////// -->
+
+  <section class=" ms-5 my-3 ">
+    <div class="container px-2 px-md-5  mb-5">
+      <a id="result_btn" class="btn btn-primary">
+        Save as Pdf
+        <span class="spinner-border spinner-border-sm d-none ms-1" role="status" aria-hidden="true"></span>
+      </a>
+
+      <a id="redgrad2" href="{% url 'home' %}" class="btn btn-info"> Back to Home
+        <i class="fa fa-house ms-1"></i>
+      </a>
+    </div>
+  </section>
+
+<footer class="footer">
+    <div class="footer_link row justify-content-between pb-4 px-5">
+      <div class="col-10 col-sm-8 col-md-4 pe-1 pe-sm-4 pe-md-5">
+        <div id="sub_form_alert_success" class="alert alert-success" style="display: none;">
+          <i class="bi bi-check-circle-fill mx-2 text-success h5"></i>
+          <div>
+            Your email has been sent successfully!
+          </div>
+        </div>
+  
+        <div id="sub_form_alert_danger" class="alert alert-danger" style="display:none;">
+          <i class="fa-solid fa-triangle-exclamation mx-2 text-danger h5"></i>
+          <div>
+            An error occurred while sending your message.
+          </div>
+        </div>
+        <form id="sub_form">
+          <h5>Subscribe to our newsletter</h5>
+          <p>Monthly digest of whats new and exciting from us.</p>
+          <div class="d-flex w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden">Email address</label>
+            <input id="newsletter1" type="email" class="form-control" placeholder="Email address" name="email" required>
+            <button class="btn btn-secondary" value="submit" type="submit">Subscribe</button>
+          </div>
+        </form>
+        <ul class="list-unstyled d-flex mt-3">
+          <li><a class="link-dark" href="#"><i class="fa-brands fa-facebook" style="font-size: 22px;"></i></a>
+          </li>
+          <li class="ms-3"><a class="link-dark" href="#"><i class="fa-brands fa-instagram"
+                style="font-size: 22px;"></i></a></li>
+          <li class="ms-3"><a class="link-dark" href="#"><i class="fa-brands fa-whatsapp"
+                style="font-size: 22px;"></i></a></li>
+          <li class="ms-3"><a class="link-dark" href="#"><i class="fa-brands fa-twitter" style="font-size: 22px;"></i></a>
+          </li>
+        </ul>
+      </div>
+  
+      <div class="col-5 col-sm-3 col-md-2 py-3 pt-md-0">
+        <h5>Quick links</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="{% url 'home' %}" class="nav-link p-0">Home</a></li>
+          <li class="nav-item mb-2"><a href="/#About" class="nav-link p-0">About</a></li>
+          <li class="nav-item mb-2"><a href="/Accounts/" class="nav-link p-0">Management</a></li>
+          <li class="nav-item mb-2"><a href="/#Teachers" class="nav-link p-0">Teachers</a></li>
+          <li class="nav-item mb-2"><a href="/#gallery" class="nav-link p-0">Photogallery</a></li>
+          <li class="nav-item mb-2"><a href="/#FAQ" class="nav-link p-0">FAQ</a></li>
+        </ul>
+      </div>
+  
+      <div class="col-5 col-md-2 py-3 pt-md-0">
+        <h5>Articles</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Health</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Politics</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Science</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Arts</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Literature</a></li>
+        </ul>
+      </div>
+  
+      <div class="col-5 col-md-2">
+        <h5>Students portal</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="{% url 'Result_portal:classes' %}" class="nav-link p-0">Results</a>
+          </li>
+          <li class="nav-item mb-2"><a href="{% url 'Payment_portal:initiate_payment' %}"
+              class="nav-link p-0">Payments</a></li>
+          <li class="nav-item mb-2"><a href="{% url 'Elibrary:subjects' %}" class="nav-link p-0">E-library</a>
+          </li>
+          <li class="nav-item mb-2"><a href="{% url 'Admission_form:initiate_payment' %}"
+              class="nav-link p-0">Admission_form</a></li>
+          <li class="nav-item mb-2"><a href="{% url 'Teachers_portal:Teachers_dashboard' %}" class="nav-link p-0">Teacher
+              Portal</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Entrance Exam Result</a></li>
+        </ul>
+      </div>
+  
+  
+    </div>
+  
+    <div class="sub_footer d-flex justify-content-center align-items-center py-4">
+      <div>
+        <p class="my-0 text-center">&copy; 2022 SMSS Omagba, inst . All rights reserved.</p>
+        <p class="my-0 text-center">designed by Gozzy designs and development</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'js/Student_Portal/result.js' %}"></script>
+</body>
+
+</html>
