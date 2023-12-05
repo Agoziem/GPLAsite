@@ -153,7 +153,7 @@ AWS_S3_SIGNATURE_NAME = config('AWS_S3_SIGNATURE_NAME', default='')
 AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME', default='')
 AWS_S3_CUSTOM_DOMAIN='%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE='OKFSsite.storages.MediaStore'
+DEFAULT_FILE_STORAGE='GPLAsite.storages.MediaStore'
 
 STATIC_ROOT=os.path.join(BASE_DIR,'static')
 AWS_LOCATION = 'static'
