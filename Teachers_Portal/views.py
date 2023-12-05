@@ -145,12 +145,12 @@ def primary_result_computation_view(request,Classname,id):
     academic_session= AcademicSession.objects.all()
     classobject = Class.objects.get(Class=Classname)
     subjectsforclass=Subjectallocation.objects.get(classname=classobject)
-    subjects_taught_for_class = teacher.subjects_taught.filter(id__in=subjectsforclass.subjects.values_list('id', flat=True))
+    # subjects_taught_for_class = teacher.subjects_taught.filter(id__in=subjectsforclass.subjects.values_list('id', flat=True))
     context={
         'class':classobject,
         "Terms":Terms,
         "academic_session":academic_session,
-        "subjects_taught_for_class":subjects_taught_for_class
+        "subjects_taught_for_class":subjectsforclass
         } 
     return render(request,'Primary_Result_computation.html',context)
 
