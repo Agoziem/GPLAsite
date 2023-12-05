@@ -103,7 +103,7 @@ class StudentDataHandler {
         const startIndex = keys.indexOf("Name") + 1;
         const endIndex = keys.indexOf("Exam");
         const relevantKeys = keys.slice(startIndex,endIndex);
-        return relevantKeys.reduce((sum, key) => sum + (isNaN(student[key]) ? 0 : parseInt(student[key])), 0);;
+        return relevantKeys.reduce((sum, key) => sum + (isNaN(student[key]) || student[key] === '' ? 0 : parseInt(student[key])), 0);
     }
 
     calculateTotal(student) {
@@ -129,8 +129,15 @@ class StudentDataHandler {
 }
 
   calculatePosition() {
-    
-    this.students.sort((a, b) => b.Total - a.Total);
+      this.students.sort((a, b) => {
+          if (a.Total === '-' && b.Total === '-') {
+              return 0;
+          } else if (b.Total === '-') {
+              return -1;
+          } else {
+              return b.Total - a.Total;
+          }
+      });
 
     // Function to calculate ordinal suffix
     const getOrdinalSuffix = (number) => {
