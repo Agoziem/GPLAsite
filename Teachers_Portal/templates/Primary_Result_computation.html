@@ -143,7 +143,7 @@
                         <label>Subject: </label>
                         <select class="form-select" name="subject" required>
                             <option value="" disabled selected>Select your Class</option>
-                             {% for subject in subjects_taught_for_class %}
+                             {% for subject in subjects_taught_for_class.subjects.all %}
                             <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
                             {% endfor %}
                         </select>
