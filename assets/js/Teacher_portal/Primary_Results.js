@@ -106,11 +106,11 @@ class StudentDataHandler {
     // }
 
     calculateTotal(student) {
-        if (student['ResumptionTest'] === '-' || student['Test'] === '-' || student['Exam'] === '') {
+        if (student['Test'] === '-' || student['Exam'] === '') {
             return '-'
         } else {
             return Object.keys(student)
-                .filter(key => key.startsWith("ResumptionTest") || key.startsWith("Test") || key.startsWith("Exam"))
+                .filter(key => key.startsWith("Test") || key.startsWith("Exam"))
                 .reduce((sum, key) => sum + (isNaN(student[key]) ? 0 : parseInt(student[key])), 0);
         }
     }
@@ -269,7 +269,6 @@ function populatetable(tabledata) {
         <tr data-rowindex='${index + 1}'>
             <td>${index + 1}</td>
             <td class="text-primary text-uppercase"><a class="inputdetailsformmodelbtn text-decoration-none" style="cursor:pointer">${data.Name}</a></td>
-            <td>${data['ResumptionTest']}</td>
             <td>${data['Test']}</td>
             <td>${data['Exam']}</td> 
             <td>${data['Total'] || '-'}</td>
@@ -624,14 +623,11 @@ class DataTable {
     const studentnameinput = inputform.querySelector('#student_name')
     studentnameinput.value = tabledata[1].innerText
 
-        const ResumptionTest = inputform.querySelector('#ResumptionTest')
-        ResumptionTest.value = tabledata[2].innerText
-
         const Test = inputform.querySelector('#Test')
-        Test.value = tabledata[3].innerText
+        Test.value = tabledata[2].innerText
 
         const Exam = inputform.querySelector('#Exam')
-        Exam.value = tabledata[4].innerText
+        Exam.value = tabledata[3].innerText
 
     
     $(inputStudentResultModal).modal('show');

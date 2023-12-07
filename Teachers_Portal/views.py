@@ -169,7 +169,6 @@ def primary_get_students_result_view(request):
             student_result_object, created = PrimaryResult.objects.get_or_create(Subject=subjectobject, students_result_summary=student_result_details)
             studentResults.append({
                 'Name': student_result_object.students_result_summary.Student_name.student_name,
-                'ResumptionTest': student_result_object.ResumptionTest,
                 'Test': student_result_object.Test,
                 'Exam': student_result_object.Exam,
             })
@@ -190,7 +189,6 @@ def primary_update_student_result_view(request):
     subjectobject = Subject.objects.get(subject_name=subject)
     student_result_details = Student_Result_Data.objects.get(Student_name=studentobject,Term=term,AcademicSession=session)
     studentResult = PrimaryResult.objects.get(students_result_summary=student_result_details, Subject=subjectobject)
-    studentResult.ResumptionTest  = data['formDataObject']['ResumptionTest']
     studentResult.Test  = data['formDataObject']['Test']
     studentResult.Exam = data['formDataObject']['Exam']
     studentResult.save()
@@ -209,7 +207,6 @@ def primary_submitallstudentresult_view(request):
         studentobject= Students_Pin_and_ID.objects.get(student_name=result['Name'],student_class=classobject)
         student_result_details = Student_Result_Data.objects.get(Student_name=studentobject,Term=term,AcademicSession=session)
         studentResult = PrimaryResult.objects.get(students_result_summary=student_result_details, Subject=subjectobject)
-        studentResult.ResumptionTest=result['ResumptionTest']
         studentResult.Test=result['Test']
         studentResult.Exam=result['Exam']
         studentResult.Total_100=result['Total']

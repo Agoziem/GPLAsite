@@ -41,27 +41,16 @@
                     <a href="#" class="nav-link">Articles</a>
                 </li>
                 <li class="nav-item me-2">
-                    <a href="{% url 'Teachers_portal:Teachers_dashboard' %}" class="nav-link">Teachers Portal</a>
+                    <a href="{% url 'Teachers_Portal:Teachers_dashboard' %}" class="nav-link">Teachers Portal</a>
                 </li>
 
                 <li class="nav-item me-2">
-                    <a class="nav-link">Students Section <i class="fa-solid fa-caret-down ms-1"></i></a>
+                    <a class="nav-link">Students Portal <i class="fa-solid fa-caret-down ms-1"></i></a>
                     <ul class="py-2 ps-0">
-                        <li class="px-4"><a href="{% url 'Result_portal:classes' %}">Result Portal</a></li>
-                        <li class="px-4"><a href="{% url 'CBT:Cbt' %}">CBT</a></li>
-                        <li class="px-4"><a href="{% url 'Elibrary:subjects' %}">E-library</a></li>
-                        <li class="px-4"><a href="{% url 'Payment_portal:initiate_payment' %}">Payment Portal</a></li>
+                        <li class="px-4"><a href="{% url 'Student_Portal:classes' %}">Results</a></li>
                     </ul>
                 </li>
 
-                <li class="nav-item me-2">
-                    <a class="nav-link">Admissions <i class="fa-solid fa-caret-down ms-1"></i></a>
-                    <ul class="py-2 ps-0">
-                        <li class="px-4"><a href="{% url 'Admission_form:initiate_payment' %}">Purchase Form</a></li>
-                        <li class="px-4"><a href="{% url 'CBT:Cbt' %}">CBT</a></li>
-                        <li class="px-4"><a href="#">Ent Exam Result</a></li>
-                    </ul>
-                </li>
                 <li class="nav-item me-2">
                     <a href="#" class="nav-link">Contact us</a>
                 </li>
@@ -82,9 +71,6 @@
                         <i class="fa-solid fa-caret-down ms-1"></i>
                     </a>
                     <ul class="ps-0 py-3" style="right: 46px;">
-                        {% if request.user.is_superuser %}
-                        <li class="px-5"><a href="{% url 'activation_side' %}">Activation</a></li>
-                        {% endif %}
                         <li class="px-5"><a href="/admin" target="_blank">Admin</a></li>
                     </ul>
                 </li>
@@ -114,28 +100,15 @@
             </ul>
         </li>
         <li><a href="#" class="menulink">Articles</a></li>
-        <li><a href="{% url 'Teachers_portal:Teachers_dashboard' %}" class="menulink">Teachers Portal</a></li>
+        <li><a href="{% url 'Teachers_Portal:Teachers_dashboard' %}" class="menulink">Teachers Portal</a></li>
+
         <li class="sub-menu-toggle">
             <div class="d-flex justify-content-between align-items-center">
-                <a>Admissions</a>
-                <i class="sub-menu-toggle-icon fas fa-plus "></i>
-            </div>
-            <ul class="sub-menu">
-                <li><a href="{% url 'Admission_form:initiate_payment' %}" class="menulink">Purchase Form</a></li>
-                <li><a href="{% url 'CBT:Cbt' %}" class="menulink">CBT</a></li>
-                <li><a href="" class="menulink">Ent Exam Result</a></li>
-            </ul>
-        </li>
-        <li class="sub-menu-toggle">
-            <div class="d-flex justify-content-between align-items-center">
-                <a class="me-2" class="menulink">Students Section</a>
+                <a class="me-2" class="menulink">Students Portal</a>
                 <i class="sub-menu-toggle-icon fas fa-plus"></i>
             </div>
             <ul class="sub-menu">
-                <li><a href="{% url 'Result_portal:classes' %}" class="menulink">Result Portal</a></li>
-                <li><a href="{% url 'CBT:Cbt' %}" class="menulink">CBT</a></li>
-                <li><a href="{% url 'Elibrary:subjects' %}" class="menulink">Elibrary</a></li>
-                <li><a href="{% url 'Payment_portal:initiate_payment' %}" class="menulink">Payment Portal</a></li>
+                <li><a href="{% url 'Student_Portal:classes' %}" class="menulink">Result Portal</a></li>
             </ul>
         </li>
         <li class="sub-menu-toggle">
@@ -144,9 +117,6 @@
                 <i class="sub-menu-toggle-icon fas fa-plus"></i>
             </div>
             <ul class="sub-menu">
-                {% if request.user.is_superuser %}
-                <li><a href="{% url 'activation_side' %}" class="menulink">Activation</a></li>
-                {% endif %}
                 <li><a href="/admin" target="_blank" class="menulink">Admin</a></li>
             </ul>
         </li>

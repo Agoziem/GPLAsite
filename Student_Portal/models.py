@@ -129,7 +129,6 @@ class Student_Result_Data(models.Model):
 class PrimaryResult(models.Model):
 	students_result_summary = models.ForeignKey(Student_Result_Data,on_delete=models.CASCADE,blank=True,null=True)
 	Subject= models.ForeignKey(Subject,on_delete=models.CASCADE)
-	ResumptionTest= models.CharField(max_length=100, blank=True,null=True , default="-")
 	Test= models.CharField(max_length=100, blank=True,null=True , default="-")
 	Exam= models.CharField(max_length=100, blank=True,null=True , default="-")
 	Total_100= models.CharField(max_length=100, blank=True,null=True , default="-")
