@@ -71,12 +71,13 @@ def get_students_result_view(request):
             
             studentResults.append({
                 'Name': student_result_object.students_result_summary.Student_name.student_name,
-                '1sttest': student_result_object.FirstTest,
-                '1stAss': student_result_object.FirstAss,
-                'Project': student_result_object.Project,
-                'MidTermTest': student_result_object.MidTermTest,
-                '2ndTest': student_result_object.SecondAss,
-                '2ndAss': student_result_object.SecondTest,
+                # '1sttest': student_result_object.FirstTest,
+                # '1stAss': student_result_object.FirstAss,
+                # 'Project': student_result_object.Project,
+                # 'MidTermTest': student_result_object.MidTermTest,
+                # '2ndTest': student_result_object.SecondAss,
+                # '2ndAss': student_result_object.SecondTest,
+                'CA': student_result_object.CA,
                 'Exam': student_result_object.Exam,
             })
         return JsonResponse(studentResults, safe=False)
@@ -97,12 +98,13 @@ def update_student_result_view(request):
     subjectobject = Subject.objects.get(subject_name=subject)
     student_result_details = Student_Result_Data.objects.get(Student_name=studentobject,Term=term,AcademicSession=session)
     studentResult = Result.objects.get(students_result_summary=student_result_details, Subject=subjectobject)
-    studentResult.FirstTest  = data['formDataObject']['1sttest']
-    studentResult.FirstAss  = data['formDataObject']['1stAss']
-    studentResult.Project  = data['formDataObject']['Project']
-    studentResult.MidTermTest  = data['formDataObject']['MidTermTest']
-    studentResult.SecondAss = data['formDataObject']['2ndAss']
-    studentResult.SecondTest = data['formDataObject']['2ndTest']
+    # studentResult.FirstTest  = data['formDataObject']['1sttest']
+    # studentResult.FirstAss  = data['formDataObject']['1stAss']
+    # studentResult.Project  = data['formDataObject']['Project']
+    # studentResult.MidTermTest  = data['formDataObject']['MidTermTest']
+    # studentResult.SecondAss = data['formDataObject']['2ndAss']
+    # studentResult.SecondTest = data['formDataObject']['2ndTest']
+    studentResult.CA = data['formDataObject']['CA']
     studentResult.Exam = data['formDataObject']['Exam']
     studentResult.save()
 
@@ -121,12 +123,12 @@ def submitallstudentresult_view(request):
         studentobject= Students_Pin_and_ID.objects.get(student_name=result['Name'],student_class=classobject)
         student_result_details = Student_Result_Data.objects.get(Student_name=studentobject,Term=term,AcademicSession=session)
         studentResult = Result.objects.get(students_result_summary=student_result_details, Subject=subjectobject)
-        studentResult.FirstTest=result['1sttest']
-        studentResult.FirstAss=result['1stAss']
-        studentResult.Project=result['Project']
-        studentResult.MidTermTest=result['MidTermTest']
-        studentResult.SecondAss=result['2ndTest']
-        studentResult.SecondTest=result['2ndAss']
+        # studentResult.FirstTest=result['1sttest']
+        # studentResult.FirstAss=result['1stAss']
+        # studentResult.Project=result['Project']
+        # studentResult.MidTermTest=result['MidTermTest']
+        # studentResult.SecondAss=result['2ndTest']
+        # studentResult.SecondTest=result['2ndAss']
         studentResult.CA=result['CA']
         studentResult.Exam=result['Exam']
         studentResult.Total=result['Total']

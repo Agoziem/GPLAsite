@@ -83,7 +83,7 @@ class StudentDataHandler {
 
     calculateFields() {   
     this.students.forEach(student => {
-      student.CA = this.calculateCA(student);
+    //   student.CA = this.calculateCA(student);
       student.Total = this.calculateTotal(student);
       student.Grade = this.calculateGrade(student);
       student.Position = "-";
@@ -97,17 +97,17 @@ class StudentDataHandler {
     this.calculateRemarks();
     }
     
-    // this has to be Calulated dynamically
-    calculateCA(student) {
-        const keys = Object.keys(student);
-        const startIndex = keys.indexOf("Name") + 1;
-        const endIndex = keys.indexOf("Exam");
-        const relevantKeys = keys.slice(startIndex,endIndex);
-        return relevantKeys.reduce((sum, key) => sum + (isNaN(student[key]) || student[key] === '' ? 0 : parseInt(student[key])), 0);
-    }
+    // // this has to be Calulated dynamically
+    // calculateCA(student) {
+    //     const keys = Object.keys(student);
+    //     const startIndex = keys.indexOf("Name") + 1;
+    //     const endIndex = keys.indexOf("Exam");
+    //     const relevantKeys = keys.slice(startIndex,endIndex);
+    //     return relevantKeys.reduce((sum, key) => sum + (isNaN(student[key]) || student[key] === '' ? 0 : parseInt(student[key])), 0);
+    // }
 
     calculateTotal(student) {
-        if (student['Exam'] === '-' || student['Exam'] === '') {
+        if (student['CA'] === '-' || student['Exam'] === '') {
             return '-'
         } else {
             return Object.keys(student)
@@ -269,13 +269,7 @@ function populatetable(tabledata) {
         <tr data-rowindex='${index + 1}'>
             <td>${index + 1}</td>
             <td class="text-primary text-uppercase"><a class="inputdetailsformmodelbtn text-decoration-none" style="cursor:pointer">${data.Name}</a></td>
-            <td>${data['1sttest']}</td>
-            <td>${data['1stAss']}</td>
-            <td>${data['Project']}</td>
-            <td>${data['MidTermTest']}</td>
-            <td>${data['2ndTest']}</td>
-            <td>${data['2ndAss']}</td>
-            <td>${data['CA'] || '-'}</td>
+            <td>${data['CA']}</td>
             <td>${data['Exam']}</td> 
             <td>${data['Total'] || '-'}</td>
             <td>${data['Grade'] || '-'}</td>
@@ -631,26 +625,29 @@ class DataTable {
     const studentnameinput = inputform.querySelector('#student_name')
     studentnameinput.value = tabledata[1].innerText
 
-    const FirstTest = inputform.querySelector('#FirstTest')
-    FirstTest.value = tabledata[2].innerText
+    // const FirstTest = inputform.querySelector('#FirstTest')
+    // FirstTest.value = tabledata[2].innerText
 
-    const FirstAss = inputform.querySelector('#FirstAss')
-    FirstAss.value = tabledata[3].innerText
+    // const FirstAss = inputform.querySelector('#FirstAss')
+    // FirstAss.value = tabledata[3].innerText
 
-    const Project = inputform.querySelector('#Project')
-    Project.value = tabledata[4].innerText
+    // const Project = inputform.querySelector('#Project')
+    // Project.value = tabledata[4].innerText
         
-    const MidTermTest = inputform.querySelector('#MidTermTest')
-    MidTermTest.value = tabledata[5].innerText
+    // const MidTermTest = inputform.querySelector('#MidTermTest')
+    // MidTermTest.value = tabledata[5].innerText
 
-    const SecondAss = inputform.querySelector('#SecondAss')
-    SecondAss.value = tabledata[6].innerText
+    // const SecondAss = inputform.querySelector('#SecondAss')
+    // SecondAss.value = tabledata[6].innerText
 
-    const SecondTest = inputform.querySelector('#SecondTest')
-    SecondTest.value = tabledata[7].innerText
+    // const SecondTest = inputform.querySelector('#SecondTest')
+    // SecondTest.value = tabledata[7].innerText
+
+    const CA = inputform.querySelector('#CA')
+    CA.value = tabledata[2].innerText
 
     const Exam = inputform.querySelector('#Exam')
-    Exam.value = tabledata[9].innerText
+    Exam.value = tabledata[3].innerText
     
     $(inputStudentResultModal).modal('show');
 }
