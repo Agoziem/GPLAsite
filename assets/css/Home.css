@@ -1,6 +1,6 @@
 /* Define CSS Varibles for the Root Elements*/
 :root {
-    --Wine-red: #3b0505;
+    --Wine-red: black;
     --cream-color: #ffffff;
     --dark-cream: #E5D5B5;
     --royal-blue-light: #011B4D;
@@ -8,9 +8,9 @@
     --grey-color: #D9D9D9;
     --black: #000;
     --main-bg-color: #ffffff;
-    --bg-wine-red: #3b0505;
-    --bg-dark-wine-red: #220202;
-    --bg-dark-cream: #E5D5B5;
+    --bg-wine-red: black;
+    --bg-dark-wine-red: rgb(33, 33, 33);
+    --bg-dark-cream: #d2cfcf;
     --bg-white: #fff;
     --bg-royal-blue-light: #011B4D;
     --bg-light: rgba(229, 213, 181, .19);
@@ -29,7 +29,6 @@
     --card-border-radius: 17px;
     --big-card-shadow: 0px 3.50236px 59.5402px -16.6362px rgba(0, 0, 0, 0.25);
 }
-/*  */
 
 
 body {
@@ -69,11 +68,10 @@ body {
 
 .brand_image {
     object-fit: cover;
-    width: 72px;
-    height: 72px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
-
 
 /* //////////////////////// */
 /*text Style */
@@ -343,26 +341,38 @@ a {
 
 /* Hero Section design */
 
+
+.custom-shape-divider-bottom-1702447599 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1702447599 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 136px;
+}
+
+.custom-shape-divider-bottom-1702447599 .shape-fill {
+    fill: #FFFFFF;
+}
+
+
+
 #Hero {
-    height: 100%;
+    height: 100vh;
     position: relative;
 }
 
-.hero_sec_bg {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 30vw;
-    height: 100%;
-    background-color: var(--bg-dark-cream);
-    z-index: -1;
-}
-
-.hero_bubbles {
-    position: absolute;
-    bottom: 40px;
-    left: 30px;
-    width: 55px;
+.Hero_container{
+    margin: 2rem auto;
+    padding-top : 3.5rem;
 }
 
 .hero_image {
@@ -378,206 +388,128 @@ a {
     text-align: start;
 }
 
-
-.hero-features {
-    background-color: var(--bg-royal-blue-light);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    color: #fff;
-    padding: 0 20px 0 20px;
-    margin: 40px 0px 40px 0;
-    align-items: center;
-    border-radius: var(--card-border-radius);
-    width: 300px;
-}
-
-.hero-container{
-    padding-top: 18px;
-}
-
-.feature_item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.feature_item h1 {
-    color: #fff;
-    font-size: 40px;
-    margin-bottom: 3px;
-    margin-top: 16px;
-}
-
-
-
-@media (max-width:992px) {
-
-
-
-    #Hero {
-        height: 100%;
-        position: relative;
-    }
-
-    #Hero .display1 {
-        font-size: clamp(var(--display1-text-sm-size), 3vw, var(--display1-text-size));
-        line-height: 1.2;
-        text-align: center;
-    }
-
-    #Hero .display2 {
-        font-size: clamp(var(--display2-text-sm-size), 3.8vw, var(--display2-text-size));
-        text-align: center;
-    }
-
-    .hero_bubbles {
-        display: none;
-        position: absolute;
-        bottom: 40px;
-    }
-
-    .feature_item h1 {
-        font-size: 24px;
-    }
-
-    .feature_item p {
-        font-size: 14px;
-    }
-
-    .hero_sec_bg {
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
-        width: 100vw;
-        height: 50vh;
-        background-color: var(--bg-dark-cream);
-        z-index: -1;
-    }
-
-    .hero_image {
-        position: static;
-        /* max-width: 300px; */
-    }
-
-    h1 {
-        font-size: 31px;
-    }
-
-    .sideline_text {
-        font-size: 16px;
-    }
-}
-
-
-
-@media (max-width:1200px) {}
-
-/* //////////////////////////// */
-
-/* Traget Section */
-.Target {
-    background-color: var(--bg-light);
-    text-align: center;
-}
-
-.Target h1 {
-    text-align: center;
-}
-
-
 /* /////////////////////////// */
 
 
 
 
-/* Track Section */
+/* Track Section including Mission and Vision */
 
-.Track {
-    background-color: #fff;
+.Track{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Track_container{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-.Track_Card {
-    position: relative;
-    background-color: var(--btn-cream-color);
-    padding: 20px;
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--big-card-shadow);
-    max-width: 500px;
+.Track_container .card {
+    border-radius: 20px;
+    border: 2px solid var(--bg-dark-cream);
+    width: 310px;
+    height: 300px;
+    margin: 1.2rem;
+    padding: 0.9rem;
 }
 
-.Track_Card:nth-child(2) {
-    background-color: var(--bg-wine-red);
-    color: #fff;
+.Track_container .icon_container {
+    width: 70px;
+    height: 70px;
+    background-color: var(--bg-dark-cream);
+    border-radius: 50%;
+    margin: 15px auto;
 }
 
-.Track_Card_image {
-    position: absolute;
-    top: 50%;
-    left: -5%;
-    transform: translateY(-50%);
-    width: 75px;
-}
-
-.Track_Card_text {
-    padding-left: 40px;
-}
-
-.Track_Card_text_heading {
-    font-size: 25px;
-    text-align: center;
+.Track_container .card-title {
     font-weight: 700;
     font-family: var(--main-font-family);
+    text-align: center;
+    font-style: normal;
+    font-variant: normal;
 }
 
-.Track_Card_text_body {
-    font-size: 14px;
+.Track_container .card-text {
     font-weight: 700;
+    font-size: 14px;
+    line-height: 1.5em;
+    text-align: center;
 }
 
-
-
-/* /////////////////////////// *
+/* //////////////////////// */
 
 
 
 /* About Section */
 .About {
-    position: relative;
     background-color: var(--bg-dark-cream);
     padding: 6.5vw;
 }
 
 .About_container {
-    position: relative;
-    z-index: 1;
     background-color: var(--main-bg-color);
     box-shadow: var(--big-card-shadow);
 }
 
-.Rectangle_about {
-    position: absolute;
-    width: 200px;
-    top: 7%;
-    left: 3%;
-
+.about-grid{
+    padding: 30px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 100px;
+    gap: 20px;
 }
 
-.Circle_about {
-    position: absolute;
-    width: 200px;
-    bottom: 7%;
-    left: 3%;
+.about-grid-img{
+    background-color: #000;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-size: cover;
+    background-position: top center;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-.About_bubbles {
+.about-grid-img::before{
+    content: '';
     position: absolute;
-    width: 80px;
-    bottom: 7%;
-    right: 3%;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.4;
+    border-radius: 10px;
 }
 
+.about-grid-img span{
+    position: absolute;
+    z-index: 2;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.about-grid-img.integrity{
+    background-image: url('../images/integrity.jpg');
+   
+}
+
+.about-grid-img.enviroment{
+    background-image: url('../images/Classroom-enviroment.jpg');
+}
+.about-grid-img.outstanding{
+    background-image: url('../images/Outstanding.jpg');
+}
+.about-grid-img.excellence{
+    background-image: url('../images/Academic excellence.jpg');
+}
 /* //////////////////////////// */
 
 
@@ -649,58 +581,14 @@ a {
 
 /* ////////////////////////// */
 
-/* Articles Section */
-.Articles {
-    --Articles-bg-color: #FAF7F1;
-}
-
-.Article_container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    grid-gap: 20px;
-    
-}
-
-.Articles .card {
-    background-color: var(--Articles-bg-color);
-    border-radius: 20px;
-    border: none;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    justify-self: center;
-}
-
-.Articles .card-img-top {
-    width: 100%;
-    height: 187px;
-    object-fit: cover;
-    border-radius: 20px 20px 0 0;
-}
-
-.Articles .card-title {
-    font-weight: 700;
-    font-family: var(--main-font-family);
-    text-align: center;
-    font-style: normal;
-    font-variant: normal;
-}
-
-.Articles .card-text {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 1.5em;
-}
-
-/* //////////////////////// */
 
 /* Requirements Section */
 #Requirements {
     position: relative;
     /* background-color:#00072B; */
-    background: url('../images/Gathering.jpg');
+    background: url('../images/picture5.jpg');
     background-size: cover;
     background-position: top center;
-    position: relative;
 }
 
 #Requirements::before {
@@ -997,7 +885,7 @@ a {
     height: 3rem;
     margin-left: auto;
     content: "";
-    background-image: url(../images/plus.svg);
+    background-image: url(../images/plus-solid.svg);
     background-repeat: no-repeat;
     background-size: 1.25rem;
     background-color: var(--Wine-red);
@@ -1006,7 +894,7 @@ a {
 }
 
 .accordion-button:not(.collapsed)::after {
-    background-image: url(../images/minus.svg);
+    background-image: url(../images/minus-solid.svg);
     transform: rotate(0deg);
 
 }
@@ -1414,4 +1302,67 @@ a {
     cursor: pointer;
     padding: 0;
   }
+
+
+  /* Student Access Card */
+/* dimensions scaled down to 80% */
+  .student_card_container{
+    width: 898.015748px;
+    height: 1239.46px;
+    background-color: rgb(235, 235, 235);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center; /* Center along the horizontal axis */
+    align-items: center;
+    grid-auto-rows: 153.85px;
+    gap: 16px;
+    padding: 18px;
+    padding-top: 32px;
+  }
+
+  .studentcardimg{
+    width: 276.67px;
+    height: 153.85px;
+  }
+
+
+  .studentcard {
+    position: relative;
+    width: 276.67px;
+    height: 153.85px;
+  }
+  
+  .studentcardimg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  .text-overlay {
+    position: absolute;
+    top: 1.527559px;
+    left: 11.793701px;
+    color: black; 
+  }
+
+  .text-overlay h1 {
+    margin: 12px;
+    font-size: 29.516px;
+    font-weight: bolder;
+  }
+  
+  .text-overlay h2 {
+    margin: 0;
+    font-size: 11.4px;
+    font-weight: 900;
+  }
+  
+  .text-overlay p {
+    margin: -1px 0;
+    font-size: 11.072px; 
+    font-weight: 700;
+  }
+  
+
+
   

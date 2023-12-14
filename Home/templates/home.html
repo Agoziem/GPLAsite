@@ -1,0 +1,550 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+{% include 'main_navbar.html' %}
+<!-- Hero Section -->
+<section id="Hero">
+    <!-- <div class="notice">
+        <div class="notice-header">
+            <div class="d-flex align-items-start">
+                <i class="fa-solid fa-circle-info me-3"></i>
+                <h2>Important Notice</h2>
+            </div>
+            <a class="close-btn"><i class="fa fa-close"></i></a>
+        </div>
+        <div class="notice-body">
+            <p>School Resumption takes place on the 21st of this month, endeavor to send your Ward back to School.</p>
+        </div>
+    </div> -->
+    
+ 
+    <div class="container my-auto Hero_container">
+        <div class="row justify-content-center align-items-center ">
+            <div class="col-lg"> 
+                <div class="display1">
+                    For Accurate Teaching and Maximum learning
+                </div>
+                <div class="multiplerule my-3 d-flex justify-content-center justify-content-lg-start">
+                    <div class="Nrule"></div>
+                    <div class="Nrule2"></div>
+                </div>
+                <div class="display2">
+                    GracePath Learning Academy
+                </div>
+                <div class="d-flex mt-3 justify-content-center justify-content-lg-start ">
+                    <a href="/#Requirements" class="text-decoration-none btn btn-primary me-3 shadow-sm">Register Now
+                    </a>
+
+                    <!-- <a href="#" class="text-decoration-none btn btn-warning shadow-sm">Watch Demo <i
+                            class="fa-solid fa-play ms-2"></i>
+                    </a> -->
+                </div>
+            </div>
+
+            <div class="col-lg d-flex justify-content-center">
+                <img class="hero_image" src="" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Track Section-->
+<section id="Track" class="Track py-5 px-3">
+    <div class="sideline_text mb-2 text-center"> Visions & Missions </div>
+    <h1 class="text-center">Our Tracks</h4>
+        <div class="multiplerule mt-2 mb-3 mb-md-0 d-flex justify-content-center">
+            <div class="Nrule"></div>
+            <div class="Nrule2"></div>
+        </div>
+       <div class="Track_container">
+            <!--  Vision -->
+            <div class="card">
+                <div class="card-img-top">
+                    <div class="icon_container">
+                        
+                    </div>
+                </div>
+                <div class="card-title">
+                    Vision
+                </div>
+                <div class="card-text">
+                    To be a leading school committed to delivering academic excellence at all standard.
+                </div>
+            </div>
+
+            <!-- Mission -->
+            <div class="card">
+                <div class="icon_container">
+                        
+                </div>
+                <div class="card-title">
+                    Mission
+                </div>
+                <div class="card-text">
+                    To foster an inclusive and vibrant learning community that encourages academic excellence, social responsibility and personal growth.
+                </div>
+            </div>
+
+            <!-- Vision -->
+            <div class="card">
+                <div class="icon_container">
+                        
+                </div>
+                <div class="card-title">
+                    Values
+                </div>
+                <div class="card-text">
+                    Academic excellence,intergrity, hardwork, positive spirit, Empathy, respect for the environment.critical thinking, equal opportunities,boldness, modesty,trust and responsibility.
+                </div>
+            </div>
+       </div>
+</section>
+
+
+
+<!-- About -->
+<section id="About" class="About">
+    <div class=" About_container row rounded mb-4 align-items-center">
+        <div class="col-md col-lg pt-5 py-4 px-5">
+            <h4 class="sideline_text">About our School</h4>
+            <h1>Welcome to GPL Academy</h1>
+            <div class="multiplerule my-3 d-flex ">
+                <div class="Nrule"></div>
+                <div class="Nrule2"></div>
+            </div>
+            <p class="mb-2 fw-bold mb-3 small">Welcome to GPL Academy, a premier institution dedicated to nurturing young minds and shaping future leaders. At GPL, we believe in providing an exceptional educational experience that goes beyond the traditional classroom setting. Our commitment to academic excellence, character development, and a vibrant community sets us apart.
+            </p>
+            <a href="#" class="btn btn-primary mt-1 mb-2">
+                Know more about us <i class="fa fa-angle-double-right ms-1"></i>
+            </a>
+        </div>
+        <div class="col-md col-lg px-0 ">
+           <div class="about-grid">
+                <div class="about-grid-img excellence"><span>Academic excellence</span></div>
+                <div class="about-grid-img outstanding"><span>Outstanding Children</span></div>
+                <div class="about-grid-img enviroment"><span>Condusive enviroment</span></div>
+                <div class="about-grid-img integrity"><span>Integrity</span></div>
+           </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+
+<!-- Students Portal -->
+
+<section id="Portal" class="p-2 mt-4 mb-3">
+    <div class="container">
+        <div class="row px-2 align-items-center justify-content-between">
+            <div class="col-md text-start">
+                <img class="img-thumbnail shadow-sm" src="{% static 'images/Student Portal.jpg' %}" style="width: max(80%,250px);" alt="" />
+            </div>
+            <div class="col-md py-5 pt-3">
+                <h4 class="sideline_text">Students Section</h4>
+                <h1>Student's Portal</h1>
+                <div class="multiplerule my-3 d-flex ">
+                    <div class="Nrule"></div>
+                    <div class="Nrule2"></div>
+                </div>
+                <p class="fw-bold">
+                    Portal for Result Checking and Assessment ,for Payments such as payments of School fees,
+                    Textbooks,School Uniforms and other resources, Digital Library where Students can Assess their
+                    favourite E-Textbooks, Past Questions and Answers, at their own convinence etc
+                </p>
+                <!-- Example split danger button -->
+                <a class="btn btn-primary px-3" href="{% url 'Student_Portal:classes' %}">goto to Portal <i class="fa fa-angle-double-right ms-2"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Admission Requirements-->
+<section id="Requirements" class="Requirements p-2 mt-4 py-4 ">
+    <div class="reqtext container text-center py-4 ">
+        <div class="sideline_text text-center text-light">Admissions</div>
+        <h1 class=" text-center mb-2 text-light">Admission Requirements</h1>
+        <hr style="color: #fff;" />
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div>
+                    <div class="text-center sideline_text text-light"> Things Needed</div>
+                    <ol class=" text-start">
+                        <li class="p mb-1" style="color: #fff;">Completion of the admission form, whether gotten Online or Physical
+                        </li>
+                        <li class="p mb-1" style="color: #fff;">  2 Passport photograph  </li>
+                        <li class="p  mb-1" style="color: #fff;"> Birth certificate </li>
+                        <li class="p  mb-1" style="color: #fff;"> complete payment of admission fee</li>
+                        <li class="p  mb-1" style="color: #fff;"> A wooden locker and wooden back chair (please no iron
+                            locker
+                            or Seat)
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <a href="" class="btn btn-secondary mt-1">
+            Purchase Entrance Examination Form <i class="fa fa-angle-double-right ms-1"></i>
+        </a>
+    </div>
+</section>
+
+<!-- Teachers Section  -->
+
+<section id="Management" class="Management p-3 py-4">
+    <div class="container ">
+        <div class="sideline_text text-center">Management</div>
+        <h1 class="text-center">Meet the School Management</h1>
+        <div class="multiplerule my-3 d-flex justify-content-center">
+            <div class="Nrule"></div>
+            <div class="Nrule2"></div>
+        </div>
+        <!-- Slide -->
+
+        <div class="Slide-container swiper">
+            <div class="slider_content slider-content">
+            
+                    <div class="slider_wrapper swiper-wrapper">
+                        {% for management in managements %}
+                        <div class="Slidercard swiper-slide">
+                            <div class="card-body d-flex flex-column align-items-center p-0">
+                                <div class="card_profile_bg"></div>
+                                <div class="card_profile_image_box mb-3">
+                                    {% if management.managementimageURL == '' %}
+                                    <img src="{% static 'images/profile-default.png' %}" class="profile_image " alt="" />
+                                    {% else %}
+                                    <img src="{{management.managementimageURL }}" class="profile_image " alt="" />
+                                    {% endif %}
+                                </div>
+                                <div class="card-title text-center">
+                                    <h6 class="mb-0">{{ management.Profilename }}</h6>
+                                    <p class="text-muted my-1">
+                                        {{management.Role}} <br />
+                                        {{ management.Phonenumber }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <a href="{{ management.Twitterpage }}"><img class="img-fluid"
+                                            src="" alt=""></a>
+                                    <a href="{{ management.Facebookpage }}"><img class="img-fluid"
+                                            src="" alt="">
+                                    <a href="{{ management.Whatsapp }}"><img class="img-fluid"
+                                            src="" alt=""></a>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-button-next swipper-navBtn"></div>
+                    <div class="swiper-button-prev swipper-navBtn"></div>
+                    <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <!-- Teachers Section  -->
+
+    <div id="Teachers" class="Teachers container mt-4">
+        <div class="sideline_text text-center">Teachers</div>
+        <h1 class="text-center">Meet Our Professional Teachers</h1>
+        <div class="multiplerule my-3 d-flex justify-content-center">
+            <div class="Nrule"></div>
+            <div class="Nrule2"></div>
+        </div>
+        <!-- Slide -->
+        <div class="Slide-container swiper">
+            <div class="slider_content slider-content2 ">
+                <div class="slider_wrapper swiper-wrapper">
+                    {% for Teacher in Teachers %}
+                    <div class="Slidercard2 swiper-slide">
+                        <div class="card-body d-flex flex-column align-items-center p-0 ">
+                            <div class="card_profile_bg2"></div>
+                            <div class="card_profile_image_box2 mb-3">
+                                {% if Teacher.TopTeachersimageURL == '' %}
+                                <img src="{% static 'images/profile-default.png' %}" class="profile_image2" alt="" />
+                                {% else %}
+                                <img src="{{Teacher.TopTeachersimageURL}}" class="profile_image2" alt="" />
+                                {% endif %}
+                            </div>
+                            <div class="card-title2 text-center">
+                                <h6 class="mb-0">{{ Teacher.Profilename }}</h6>
+                                <p class="text-muted my-1">
+                                    {{Teacher.Role}} <br />
+                                    <span class="fw-bold">{{Teacher.Teacher_section}} section</span><br/>
+                                    {{ Teacher.Phonenumber }}
+                                </p>
+                            </div>
+                            <div>
+                                <a href="{{ Teacher.Twitterpage }}"><img class="img-fluid"
+                                        src="" alt=""></a>
+                                <a href="{{ Teacher.Facebookpage }}"><img class="img-fluid"
+                                        src="" alt=""></a>
+                                <a href="{{ Teacher.Whatsapp }}"><img class="img-fluid"
+                                        src="" alt=""></a>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-button-next swipper-navBtn swiper-button-next2 swipper-navBtn2"></div>
+                <div class="swiper-button-prev swiper-button-prev2 swipper-navBtn swipper-navBtn2"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Gallery -->
+
+<section id="gallery" class="gallery py-4 mb-3">
+    <div class=" container py-4 mb-0 text-center">
+        <div class="sideline_text text-center">Photo Catalog</div>
+        <h1 class="fw-bold">View Our Photo Gallery</h1>
+        <div class="d-flex justify-content-center">
+            <div class="Photogallery">
+                {% for picture in photos %}
+                <img class="grid_img img-fluid  img-thumbnail" src="{{ picture.imageURL }}" alt="">
+                {% endfor %}
+            </div>
+        </div>
+
+        <a href="" class=" btn btn-primary mt-3">
+            see more Pictures
+        </a>
+    </div>
+</section>
+
+<!-- FAQ & News Update -->
+
+<section id="FAQ" class="FAQ_News p-2 pb-4 my-4">
+    <div class="sideline_text text-center">be kept abrest with our news and update</div>
+    <h1 class="text-center">Events Update & FAQ</h1>
+    <div class="multiplerule my-3 d-flex justify-content-center">
+        <div class="Nrule"></div>
+        <div class="Nrule2"></div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md pt-3">
+                {% if events %}
+                {% for event in events %}
+                <div class="Events_Card mb-3">
+                    {% if event.EventimageURL == '' %}
+                    <img class="Events_Card_image d-none d-sm-block d-md-block" src="{% static 'images/no-image-placeholder.webp' %}"
+                        alt="">
+                    {% else %}
+                    <img class="Events_Card_image d-none d-sm-block d-md-block" src="{{ event.EventimageURL }}" alt="">
+                    {% endif %}
+                    <div class="Events_Card_text py-3 ">
+                        <h5 class="Events_Card_text_heading">{{ event.Eventtitle }}</h5>
+                        <div class="Events_Card_text_body">
+                            {% if event.Eventspeaker_Chairman %}
+                            <div class="Event_time_p">
+                                Speaker : {{ event.Eventspeaker_Chairman }}
+                            </div>
+                            {% endif %}
+                            {% if event.Eventvenue %}
+                            <div class="Event_time_p">
+                                Venue : {{ event.Eventvenue }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex justify-content-center mt-4 align-items-center">
+                            <div class="Events_Card_details d-flex d-flex justify-content-between align-items-center">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <div class="Event_time_p ms-2">
+                                    {{ event.Eventtime }}
+                                </div>
+                            </div>
+                            <div class="Events_Card_details mx-3 d-flex justify-content-between align-items-center">
+                                <i class="fa-solid fa-clock"></i>
+                                <div class="Event_time_p ms-2">
+                                    {{ event.Eventdate }}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% else %}
+                <div id="events">
+                    <div class="container-fluid py-5 ps-3 text-center">
+                        <h5 class="px-3">no Events yet !!</h5>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-md">
+                <div class="accordion text-dark accordion-flush" id="questions">
+                    <!-- Item 1 -->
+                    <div class="container" style="max-width: 400px;">
+                        {% for question in faqs %}
+                        <div class="accordion-item">
+                            <h5 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#question-{{ question.questionnumber}}"
+                                    style="font-family: 'League Spartan', sans-serif;">
+                                    {{ question.Questions }}
+                                </button>
+                            </h5>
+                            <div id="question-{{ question.questionnumber}}" class="accordion-collapse collapse"
+                                data-bs-parent="#questions">
+                                <div class="accordion-body">
+                                    {{ question.Answer }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Parents Reviews -->
+<div class="hr"></div>
+<section id="review" class="Review mb-5">
+    <div class="container mt-4">
+        <p class="sideline_text text-center mb-0 ">School Review</p>
+        <h1 class="text-center  fw-bold">Reviews from our Parents</h1>
+        <div class="multiplerule my-3 d-flex justify-content-center">
+            <div class="Nrule"></div>
+            <div class="Nrule2"></div>
+        </div>
+        {% if parentsreviews %}
+        <div class="Slide-container swiper">
+            <div class="slider_content slider-content3">
+                <div class="slider_wrapper swiper-wrapper">
+                    {% for review in parentsreviews %}
+                    <div class="ParentSlidercard swiper-slide">
+
+                        <!-- Position differently -->
+                        <div class="card_profile">
+                            <div class="card_profile_image_box me-2">
+                                {% if review.ParentsprofileimageURL == '' %}
+                                <img src="{% static 'images/profile-default.png' %}" class="parents_profile_image " alt="" />
+                                {% else %}
+                                <img src="{{review.ParentsprofileimageURL}}" class="parents_profile_image " alt="" />
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-title ms-2">
+                            <h6 class="mb-0">{{ review.Name }}</h6>
+                            <p class=" my-1">
+                                {{review.Occupation}} <br />
+                            </p>
+                        </div>
+                        
+                        <div class="card-text fw-bold">
+                            {{review.Review}}
+                        </div>
+                        <div class="card-bg"></div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-button-next swipper-navBtn swiper-button-next3 swipper-navBtn3"></div>
+                <div class="swiper-button-prev swiper-button-prev3 swipper-navBtn swipper-navBtn3"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        {% else %}
+        <div id="events" class="mt-3">
+            <div class="container-fluid py-5 ps-3 text-center">
+                <h5 class="px-3 sideline_text">no Reviews yet </h5>
+            </div>
+        </div>
+        {% endif %}
+        <!-- Slide -->
+    </div>
+</section>
+
+<!-- Map & Contact -->
+<section id="contact" class="Contact_form mt-5 py-5">
+    <div class="Contact_form_container px-0 px-md-4 pt-4 py-md-4">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md d-flex flex-column align-items-center">
+                <div class="sideline_text">Contact form </div>
+                <h1 class="text-center fw-bold mb-3">Send us your feedback</h1>
+                <div class="multiplerule my-3 d-flex justify-content-center">
+                    <div class="Nrule"></div>
+                    <div class="Nrule2"></div>
+                </div>
+                <div style="width: min(100%,465px)" class="d-flex flex-column align-items-center px-5 d-none">
+                    <ul class="list-group list-group-flush fs-6 ">
+                        {% for info in schools %}
+                        <li class="contact_list list-group-item">
+                            <span class="fw-bold me-2"><i class="fa-solid fa-envelope"></i></span> {{info.Emailaddress}}
+                        </li>
+                        <li class=" contact_list list-group-item">
+                            <span class="fw-bold me-2"><i class="fa-brands fa-whatsapp"></i></span> {{info.Whatsapp}}
+                        </li>
+                        <li class="contact_list list-group-item">
+                            <span class="fw-bold me-2"><i class="fa-solid fa-location-dot"></i></span>
+                            {{info.Schoollocation}}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- Contact form trigger  -->
+
+                    <!-- <div id="contactform_trigger" class="btn btn-primary w-75 mt-5 shadow-sm"> Send us a Message Today
+                        <i class="fa-solid fa-message ms-3" style="color:white;"></i>
+                    </div> -->
+
+                    <!-- ////////////////  -->
+
+                </div>
+                <div class="mt-4 d-flex flex-column align-items-center px-2">
+
+                    <!-- Alert after Submission  -->
+
+                    <div class="alert alert-success alert-dismissible" style="display: none;">
+                        <i class="bi bi-check-circle-fill mx-2 text-success h5"></i>
+                        
+                    </div>
+
+                    <div class="alert alert-danger alert-dismissible" style="display:none;">
+                        <i class="fa-solid fa-triangle-exclamation mx-2 text-danger h5"></i>
+                        
+                    </div>
+
+                    <form id="contact-form" class="form" style="width: 280px;font-weight: 600; color: #052640;">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
+                                placeholder="enter your name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                            <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="name@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+                            <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="6"
+                                required></textarea>
+                        </div>
+                        <button id="submit-btn" type="submit" class="btn btn-primary w-100 mb-2 shadow-sm"
+                            style="display:block;"> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md d-flex flex-column align-items-center mt-4 mt-md-0'>
+                <div id='map' style='width: 100%; height: 500px;' class="shadow-sm"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{% static 'js/home.js' %}"></script>
+{% include 'main_footer.html' %}
+{% endblock %}

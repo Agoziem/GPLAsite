@@ -33,8 +33,9 @@ class schoolSection(models.Model):
 		return str(self.section)
 
 class Management(models.Model):
-	Profileimage=models.ImageField(upload_to='assets', blank=True)
-	Profilename= models.CharField(max_length= 300, blank=True)
+	SN = models.IntegerField(blank=True)
+	Profileimage = models.ImageField(upload_to='assets', blank=True)
+	Profilename = models.CharField(max_length= 300, blank=True)
 	Role= models.CharField(max_length= 300, blank=True)
 	Phonenumber= models.CharField(max_length= 300, blank=True)
 	Emailaddress= models.CharField(max_length= 300, blank=True)
@@ -54,6 +55,7 @@ class Management(models.Model):
 	
 
 class TopTeacher(models.Model):
+	SN = models.IntegerField(blank=True)
 	Teacher_section = models.ForeignKey(schoolSection,on_delete=models.CASCADE , blank = True,null=True)
 	Profileimage=models.ImageField(upload_to='assets', blank=True)
 	Profilename= models.CharField(max_length= 300, blank=True)

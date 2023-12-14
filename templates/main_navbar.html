@@ -6,7 +6,7 @@
         <!-- First Part of the Nav bar -->
 
         <div class="d-flex justify-content-between">
-            <a href="{% url 'home' %}"><img src="{% static 'images/St Marks Logo.png' %}" alt="..."
+            <a href="{% url 'home' %}"><img src="{% static 'images/GPLA School Logo.jpeg' %}" alt="..."
                     class="brand_image img-fluid"></a>
         </div>
         <div class="d-flex d-lg-none align-items-center justify-content-center">
@@ -72,6 +72,9 @@
                     </a>
                     <ul class="ps-0 py-3" style="right: 46px;">
                         <li class="px-5"><a href="/admin" target="_blank">Admin</a></li>
+                        {% if user.is_superuser %}
+                        <li class="px-5"><a href="{% url 'cardactivate' %}">Students Card</a></li>
+                        {% endif %}
                     </ul>
                 </li>
             </ol>

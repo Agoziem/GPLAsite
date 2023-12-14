@@ -150,7 +150,41 @@ var swiper = new Swiper(".slider-content2", {
 }
 
 initSwiper2();
+
+
+function initSwiper3() { 
+  var swiper = new Swiper(".slider-content3", {
   
+      spaceBetween: 25,
+      slidesPerGroup: 1,
+      loop: true,
+      loopFillGroupWithBlank: true,
+      centerSlide: 'true',
+      fade: "true",
+      grabCursor: 'true',
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+        },
+        520: {
+          slidesPerView: 2,
+        },
+        950: {
+          slidesPerView: 3,
+        },
+      },
+    });
+  }
+  
+  initSwiper3();
 
   // get the elements we need
 // Get the envelope icon and dropdown menu
