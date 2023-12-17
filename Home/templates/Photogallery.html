@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+{% include 'main_navbar.html' %}
+
+<section id="section" class="mb-4 mt-3">
+    <h1>GPLA Images</h1>
+    <div class=" d-flex justify-content-center">
+        <div class="rule d-flex align-items-center">
+            <div class="rule_blue my-4"></div>
+            <div class="rule_ash my-4"></div>
+        </div>
+    </div>
+    <div class="lightbox">
+        <div class="wrapper">
+            <header>
+                <div class="details">
+                    <i class="fa-solid fa-camera" style="color: #6C757D;"></i>
+                    <span>Image Preview</span>
+                </div>
+                <div class="buttons"><i class="close-icon fa-solid fa-times"></i></div>
+            </header>
+            <div class="preview-img">
+                <div class="img"><img src="" alt="preview-img"></div>
+            </div>
+        </div>
+    </div>
+    <section class="gallery" style="background-color: white;">
+        <ul class="images">
+            {% for Picture in Pictures %}
+            <li class="img"><img src="{{ Picture.imageURL }}" alt="img"></li>
+            {% endfor %}
+        </ul>
+    </section>
+    <div class="d-flex justify-content-center mt-2">
+        <a href="{% url 'home' %}" class="btn btn-primary"><i class="fa-solid fa-share me-2 h6"
+                style="transform: scaleX(-1);color:white;"></i>back to Home page </a>
+    </div>
+</section>
+<script src="{% static 'js/photogallery.js' %}"></script>
+
+{% include 'main_footer.html' %}
+{% endblock %}

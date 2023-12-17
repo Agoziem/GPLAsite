@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+{% include 'main_navbar.html' %}
+<div id="Armdetailcover">
+    <div id="Armdetailcovertext">
+        <div id="Armdetailcover-text">
+           About GPLA
+        </div>
+        <p class="px-2">
+            Academic excellence today for a successful tomorrow
+        </p>
+    </div>
+</div>
+<!-- About info -->
+<section  class=" px-5 px-md-5 pt-1">
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <div class="rule d-flex align-items-center mt-2">
+            <div class="rule_blue my-4"></div>
+            <div class="rule_ash my-4"></div>
+        </div>
+        <h1 class="my-2 text-center">Welcome to GPLAcademy</h1>
+        <p class="leading_text text-center">
+            "At Gracepath Learning Academy, possibilities unfold, dreams take flight, and a world of potential awaits. Here, students embark on a journey where every day is an opportunity to shape a future brighter than their wildest dreams."
+        </p>
+        <div class="row align-items-center g-5">
+            <div class="col-md d-flex justify-content-center">
+                <img src="{% static 'images/Gracepath website images.png' %}" alt="" class="About-img">
+            </div>
+            <div class="col-md d-flex justify-content-center">
+                <div class="about-card d-flex flex-column justify-content-center pe-5">
+                    <div class="about_heading mt-2 fw-bold">Who we are ?</div>
+                    <span class="fst-italic mb-2"
+                        style="font-family: 'EB Garamond', serif; font-weight:500;color: #010141"> A model for excellence</span>
+                    <div>
+                        "Welcome to Gracepath Learning Academy, where educational excellence meets a nurturing environment. At Gracepath, we are committed to fostering a love for learning, cultivating critical thinking skills, and instilling values that prepare students for success in an ever-evolving world. Our dedicated faculty and innovative curriculum create an inspiring atmosphere where each student can flourish academically and personally. Join us at Gracepath, where the journey of education becomes a transformative experience."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Track Section-->
+<section id="Track" class="Track py-5 px-3">
+    <div class="sideline_text mb-2 text-center"> Visions & Missions </div>
+    <h1 class="text-center">Our Tracks</h4>
+        <div class="multiplerule mt-2 mb-3 mb-md-0 d-flex justify-content-center">
+            <div class="Nrule"></div>
+            <div class="Nrule2"></div>
+        </div>
+        <div class="Track_container row justify-content-center">
+            <!--  Vision -->
+            <div class="col-md-5 col-lg card">
+                <div class="card-img-top">
+                    <div class="icon_container">
+                        <img src="{% static 'images/Vision.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="card-title">
+                    Vision
+                </div>
+                <div class="card-text">
+                    To be a leading school committed to delivering academic excellence at all standard.
+                </div>
+            </div>
+
+            <!-- Mission -->
+            <div class="col-md-5 col-lg card">
+                <div class="icon_container">
+                    <img src="{% static 'images/Mission.png' %}" alt="">
+                </div>
+                <div class="card-title">
+                    Mission
+                </div>
+                <div class="card-text">
+                    To foster an inclusive and vibrant learning community that encourages academic excellence, social responsibility and personal growth.
+                </div>
+            </div>
+
+            <!-- Vision -->
+            <div class="col-md-5 col-lg card">
+                <div class="icon_container">
+                    <img src="{% static 'images/Value.png' %}" alt="">
+                </div>
+                <div class="card-title">
+                    Values
+                </div>
+                <div class="card-text">
+                    Academic excellence,intergrity, hardwork, positive spirit, Empathy, respect for the environment.critical thinking, equal opportunities,boldness, modesty,trust and responsibility.
+                </div>
+            </div>
+       </div>
+</section>
+
+<div class="long_rule"></div>
+
+
+<!-- Teachers and Management -->
+<section id="Management" class="Management p-3 py-4">
+    <div class="container ">
+        <div class="sideline_text text-center">Our School Management</div>
+        <h1 class="text-center">Meet the School Management</h1>
+        <div class="multiplerule my-3 d-flex justify-content-center">
+            <div class="Nrule"></div>
+            <div class="Nrule2"></div>
+        </div>
+        <!-- Slide -->
+
+        <div class="Slide-container swiper">
+            <div class="slider_content slider-content">
+                    <div class="slider_wrapper swiper-wrapper">
+                        {% for management in managements %}
+                        <div class="Slidercard swiper-slide">
+                            <div class="card-body d-flex flex-column align-items-center p-0">
+                                <div class="card_profile_bg"></div>
+                                <div class="card_profile_image_box mb-3">
+                                    {% if management.managementimageURL == '' %}
+                                    <img src="{% static 'images/profile-default.png' %}" class="profile_image " alt="" />
+                                    {% else %}
+                                    <img src="{{management.managementimageURL }}" class="profile_image " alt="" />
+                                    {% endif %}
+                                </div>
+                                <div class="card-title text-center">
+                                    <h6 class="mb-0">{{ management.Profilename }}</h6>
+                                    <p class="text-muted my-1">
+                                        {{management.Role}} <br />
+                                        {{ management.Phonenumber }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <a href="{{ management.Twitterpage }}"><img class="img-fluid"
+                                            src="" alt=""></a>
+                                    <a href="{{ management.Facebookpage }}"><img class="img-fluid"
+                                            src="" alt="">
+                                    <a href="{{ management.Whatsapp }}"><img class="img-fluid"
+                                            src="" alt=""></a>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-button-next swipper-navBtn"></div>
+                    <div class="swiper-button-prev swipper-navBtn"></div>
+                    <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <!-- Teachers Section  -->
+
+    <div id="Teachers" class="Teachers container mt-4">
+        <div class="sideline_text text-center">Our Teachers</div>
+        <h1 class="text-center">Meet Our Professional Teachers</h1>
+        <div class="multiplerule my-3 d-flex justify-content-center">
+            <div class="Nrule"></div>
+            <div class="Nrule2"></div>
+        </div>
+        <!-- Slide -->
+        <div class="Slide-container swiper">
+            <div class="slider_content slider-content2 ">
+                <div class="slider_wrapper swiper-wrapper">
+                    {% for Teacher in Teachers %}
+                    <div class="Slidercard2 swiper-slide">
+                        <div class="card-body d-flex flex-column align-items-center p-0 ">
+                            <div class="card_profile_bg2"></div>
+                            <div class="card_profile_image_box2 mb-3">
+                                {% if Teacher.TopTeachersimageURL == '' %}
+                                <img src="{% static 'images/profile-default.png' %}" class="profile_image2" alt="" />
+                                {% else %}
+                                <img src="{{Teacher.TopTeachersimageURL}}" class="profile_image2" alt="" />
+                                {% endif %}
+                            </div>
+                            <div class="card-title2 text-center">
+                                <h6 class="mb-0">{{ Teacher.Profilename }}</h6>
+                                <p class="text-muted my-1">
+                                    {{Teacher.Role}} <br />
+                                    <span class="fw-bold">{{Teacher.Teacher_section}} section</span><br/>
+                                    {{ Teacher.Phonenumber }}
+                                </p>
+                            </div>
+                            <div>
+                                <a href="{{ Teacher.Twitterpage }}"><img class="img-fluid"
+                                        src="" alt=""></a>
+                                <a href="{{ Teacher.Facebookpage }}"><img class="img-fluid"
+                                        src="" alt=""></a>
+                                <a href="{{ Teacher.Whatsapp }}"><img class="img-fluid"
+                                        src="" alt=""></a>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-button-next swipper-navBtn swiper-button-next2 swipper-navBtn2"></div>
+                <div class="swiper-button-prev swiper-button-prev2 swipper-navBtn swipper-navBtn2"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% include 'main_footer.html' %}
+{% endblock %}

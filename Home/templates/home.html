@@ -3,7 +3,7 @@
 {% block content%}
 {% include 'main_navbar.html' %}
 <!-- Hero Section -->
-<section id="Hero">
+<section id="Hero" class="pt-5 pt-lg-3">
     <!-- <div class="notice">
         <div class="notice-header">
             <div class="d-flex align-items-start">
@@ -19,30 +19,22 @@
     
  
     <div class="container my-auto Hero_container">
-        <div class="row justify-content-center align-items-center ">
-            <div class="col-lg"> 
-                <div class="display1">
-                    For Accurate Teaching and Maximum learning
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md px-2 px-md-0 ps-md-5 text-center text-lg-start"> 
+                <div class="display1 mb-2" data-aos="fade-up">
+                    GracePath Learning <br><span class="display_special">Academy</span> 
                 </div>
-                <div class="multiplerule my-3 d-flex justify-content-center justify-content-lg-start">
-                    <div class="Nrule"></div>
-                    <div class="Nrule2"></div>
+                <div class="display2 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    Academic excellence today for a successful tomorrow
                 </div>
-                <div class="display2">
-                    GracePath Learning Academy
-                </div>
-                <div class="d-flex mt-3 justify-content-center justify-content-lg-start ">
-                    <a href="/#Requirements" class="text-decoration-none btn btn-primary me-3 shadow-sm">Register Now
+                <div class="d-flex mt-3 justify-content-center justify-content-lg-start" data-aos="fade-up" data-aos-delay="200">
+                    <a href="/#Requirements" class="text-decoration-none btn btn-primary me-3 shadow-sm">View Admission Requirements
                     </a>
-
-                    <!-- <a href="#" class="text-decoration-none btn btn-warning shadow-sm">Watch Demo <i
-                            class="fa-solid fa-play ms-2"></i>
-                    </a> -->
                 </div>
             </div>
 
-            <div class="col-lg d-flex justify-content-center">
-                <img class="hero_image" src="" alt="">
+            <div class="col-md d-flex justify-content-center">
+                <img class="hero_image mt-4 mt-lg-4" src="{% static 'images/Hero Image.png' %}" alt="">
             </div>
         </div>
     </div>
@@ -56,12 +48,12 @@
             <div class="Nrule"></div>
             <div class="Nrule2"></div>
         </div>
-       <div class="Track_container">
+       <div class="Track_container row justify-content-center">
             <!--  Vision -->
-            <div class="card">
+            <div class="col-md-5 col-lg card" data-aos="fade-up" data-aos-delay="300">
                 <div class="card-img-top">
                     <div class="icon_container">
-                        
+                        <img src="{% static 'images/Vision.png' %}" alt="">
                     </div>
                 </div>
                 <div class="card-title">
@@ -73,9 +65,9 @@
             </div>
 
             <!-- Mission -->
-            <div class="card">
+            <div class="col-md-5 col-lg card" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon_container">
-                        
+                    <img src="{% static 'images/Mission.png' %}" alt="">
                 </div>
                 <div class="card-title">
                     Mission
@@ -86,9 +78,9 @@
             </div>
 
             <!-- Vision -->
-            <div class="card">
+            <div class="col-md-5 col-lg card" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon_container">
-                        
+                    <img src="{% static 'images/Value.png' %}" alt="">
                 </div>
                 <div class="card-title">
                     Values
@@ -107,14 +99,14 @@
     <div class=" About_container row rounded mb-4 align-items-center">
         <div class="col-md col-lg pt-5 py-4 px-5">
             <h4 class="sideline_text">About our School</h4>
-            <h1>Welcome to GPL Academy</h1>
-            <div class="multiplerule my-3 d-flex ">
+            <h1 data-aos="fade-in">Welcome to GPL Academy</h1>
+            <div class="multiplerule my-3 d-flex " data-aos="fade-in" data-aos-delay="100">
                 <div class="Nrule"></div>
                 <div class="Nrule2"></div>
             </div>
-            <p class="mb-2 fw-bold mb-3 small">Welcome to GPL Academy, a premier institution dedicated to nurturing young minds and shaping future leaders. At GPL, we believe in providing an exceptional educational experience that goes beyond the traditional classroom setting. Our commitment to academic excellence, character development, and a vibrant community sets us apart.
+            <p class="mb-2 fw-bold mb-3 small" data-aos="fade-in" data-aos-delay="200">Welcome to GPL Academy, a premier institution dedicated to nurturing young minds and shaping future leaders. At GPL, we believe in providing an exceptional educational experience that goes beyond the traditional classroom setting. Our commitment to academic excellence, character development, and a vibrant community sets us apart.
             </p>
-            <a href="#" class="btn btn-primary mt-1 mb-2">
+            <a href="{% url 'about' %}" class="btn btn-primary mt-1 mb-2" data-aos="fade-in" data-aos-delay="300">
                 Know more about us <i class="fa fa-angle-double-right ms-1"></i>
             </a>
         </div>
@@ -140,19 +132,19 @@
                 <img class="img-thumbnail shadow-sm" src="{% static 'images/Student Portal.jpg' %}" style="width: max(80%,250px);" alt="" />
             </div>
             <div class="col-md py-5 pt-3">
-                <h4 class="sideline_text">Students Section</h4>
-                <h1>Student's Portal</h1>
-                <div class="multiplerule my-3 d-flex ">
+                <h4 class="sideline_text" data-aos="fade-left">Students Section</h4>
+                <h1 data-aos="fade-left" data-aos-delay="100">Student's Portal</h1>
+                <div class="multiplerule my-3 d-flex " data-aos="fade-left" data-aos-delay="200">
                     <div class="Nrule"></div>
                     <div class="Nrule2"></div>
                 </div>
-                <p class="fw-bold">
+                <p class="fw-bold" data-aos="fade-left" data-aos-delay="300">
                     Portal for Result Checking and Assessment ,for Payments such as payments of School fees,
                     Textbooks,School Uniforms and other resources, Digital Library where Students can Assess their
                     favourite E-Textbooks, Past Questions and Answers, at their own convinence etc
                 </p>
                 <!-- Example split danger button -->
-                <a class="btn btn-primary px-3" href="{% url 'Student_Portal:classes' %}">goto to Portal <i class="fa fa-angle-double-right ms-2"></i></a>
+                <a class="btn btn-primary px-3" href="{% url 'Student_Portal:classes' %}" data-aos="fade-left" data-aos-delay="300">goto to Portal <i class="fa fa-angle-double-right ms-2"></i></a>
             </div>
         </div>
     </div>
@@ -161,20 +153,20 @@
 <!-- Admission Requirements-->
 <section id="Requirements" class="Requirements p-2 mt-4 py-4 ">
     <div class="reqtext container text-center py-4 ">
-        <div class="sideline_text text-center text-light">Admissions</div>
-        <h1 class=" text-center mb-2 text-light">Admission Requirements</h1>
-        <hr style="color: #fff;" />
+        <div class="sideline_text text-center text-light" data-aos="fade-up">Admissions</div>
+        <h1 class=" text-center mb-2 text-light" data-aos="fade-up" data-aos-delay="100">Admission Requirements</h1>
+        <hr style="color: #fff;"/>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div>
-                    <div class="text-center sideline_text text-light"> Things Needed</div>
+                    <div class="text-center sideline_text text-light" data-aos="fade-up" data-aos-delay="200"> Things Needed</div>
                     <ol class=" text-start">
-                        <li class="p mb-1" style="color: #fff;">Completion of the admission form, whether gotten Online or Physical
+                        <li class="p mb-1" style="color: #fff;" data-aos="fade-up" data-aos-delay="300">Completion of the admission form, whether gotten Online or Physical
                         </li>
-                        <li class="p mb-1" style="color: #fff;">  2 Passport photograph  </li>
-                        <li class="p  mb-1" style="color: #fff;"> Birth certificate </li>
-                        <li class="p  mb-1" style="color: #fff;"> complete payment of admission fee</li>
-                        <li class="p  mb-1" style="color: #fff;"> A wooden locker and wooden back chair (please no iron
+                        <li class="p mb-1" style="color: #fff;" data-aos="fade-up" data-aos-delay="400">  2 Passport photograph  </li>
+                        <li class="p  mb-1" style="color: #fff;" data-aos="fade-up" data-aos-delay="400"> Birth certificate </li>
+                        <li class="p  mb-1" style="color: #fff;" data-aos="fade-up" data-aos-delay="400"> complete payment of admission fee</li>
+                        <li class="p  mb-1" style="color: #fff;" data-aos="fade-up" data-aos-delay="400"> A wooden locker and wooden back chair (please no iron
                             locker
                             or Seat)
                         </li>
@@ -182,9 +174,9 @@
                 </div>
             </div>
         </div>
-        <a href="" class="btn btn-secondary mt-1">
+        <!-- <a href="" class="btn btn-secondary mt-1">
             Purchase Entrance Examination Form <i class="fa fa-angle-double-right ms-1"></i>
-        </a>
+        </a> -->
     </div>
 </section>
 
@@ -201,11 +193,10 @@
         <!-- Slide -->
 
         <div class="Slide-container swiper">
-            <div class="slider_content slider-content">
-            
+            <div class="slider_content slider-content">        
                     <div class="slider_wrapper swiper-wrapper">
                         {% for management in managements %}
-                        <div class="Slidercard swiper-slide">
+                        <div class="Slidercard swiper-slide" data-aos="Zoom-in" data-aos-delay="100">
                             <div class="card-body d-flex flex-column align-items-center p-0">
                                 <div class="card_profile_bg"></div>
                                 <div class="card_profile_image_box mb-3">
@@ -309,12 +300,12 @@
         <div class="d-flex justify-content-center">
             <div class="Photogallery">
                 {% for picture in photos %}
-                <img class="grid_img img-fluid  img-thumbnail" src="{{ picture.imageURL }}" alt="">
+                <img class="grid_img img-fluid img-thumbnail" src="{{ picture.imageURL }}" alt="">
                 {% endfor %}
             </div>
         </div>
 
-        <a href="" class=" btn btn-primary mt-3">
+        <a href="{% url 'photogallery' %}" class=" btn btn-primary mt-3">
             see more Pictures
         </a>
     </div>
@@ -411,8 +402,7 @@
 </section>
 
 <!-- Parents Reviews -->
-<div class="hr"></div>
-<section id="review" class="Review mb-5">
+<section id="review" class="Review">
     <div class="container mt-4">
         <p class="sideline_text text-center mb-0 ">School Review</p>
         <h1 class="text-center  fw-bold">Reviews from our Parents</h1>
@@ -469,7 +459,7 @@
 </section>
 
 <!-- Map & Contact -->
-<section id="contact" class="Contact_form mt-5 py-5">
+<section id="contact" class="Contact_form py-5">
     <div class="Contact_form_container px-0 px-md-4 pt-4 py-md-4">
         <div class="row justify-content-between align-items-center">
             <div class="col-md d-flex flex-column align-items-center">

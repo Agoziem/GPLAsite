@@ -7,6 +7,10 @@ from Home.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home_view, name='home'),
+    path('about/',about_view, name='about'),
+    path('submit_contact_form/',submit_contact_form, name='submit_contact_form'),
+    path('submit_sub_form/',submit_sub_form, name='submit_sub_form'),
+    path('photogallery/',photogallery_view, name='photogallery'),
     path('activate/',student_card_view, name='cardactivate'),
     path('Teachers_Portal/', include("Teachers_Portal.urls")),
     path('Student_Portal/', include("Student_Portal.urls")),

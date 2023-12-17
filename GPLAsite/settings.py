@@ -167,7 +167,7 @@ MEDIA_URL= '/media/'
 MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 
 JAZZMIN_SETTINGS = {
-    "site_logo":"images/GPLA School Logo.jpeg",
+    "site_logo":"images/GPLA School Logo(Small).jpg",
     "site_logo_classes": "img-circle",
     "login_logo": None,
     "copyright": "Grace Path Learning Academy 2023",

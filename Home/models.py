@@ -2,7 +2,6 @@ from django.db import models
 from ckeditor.fields import RichTextField
 
 
-
 class School(models.Model):
 	Schoolid=models.IntegerField()
 	Schoollogo=models.ImageField(upload_to='assets/Schoollogo', blank=True)
@@ -76,14 +75,6 @@ class TopTeacher(models.Model):
 			url=""
 		return url
 
-
-
-				
-class Subscription(models.Model):
-	Email= models.EmailField(blank = True,null=True)
-	
-	def __str__(self):
-		return str(self.Email)
 		
 class Header(models.Model):
 	About=RichTextField(blank=True,null=True)
@@ -108,7 +99,6 @@ class PhotoGallery(models.Model):
 		except:
 			url=''
 		return url
-
 
 class UpcomingEvents(models.Model):
 	Flier=models.ImageField(upload_to='assets/eventfliers', blank=True)
@@ -138,14 +128,6 @@ class FAQ(models.Model):
 	def __str__(self):
 		return str(self.Questions)
 
-class Contact(models.Model):
-	name = models.CharField(max_length=100)
-	message = models.CharField(max_length=80)
-	email = models.EmailField()
-
-	def __str__(self):
-		return str(self.email)
-
 class ParentsReview(models.Model):
 	Profileimage=models.ImageField(upload_to='assets/parentsProfileimages', blank=True )
 	Name=models.CharField(max_length= 300, blank=True)
@@ -162,3 +144,17 @@ class ParentsReview(models.Model):
 		except:
 			url=""
 		return url
+	
+class Subscription(models.Model):
+	Email= models.EmailField(blank = True,null=True)
+	
+	def __str__(self):
+		return str(self.Email)
+	
+class Contact(models.Model):
+	name = models.CharField(max_length=100)
+	message = models.CharField(max_length=80)
+	email = models.EmailField()
+
+	def __str__(self):
+		return str(self.email)
