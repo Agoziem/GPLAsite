@@ -977,7 +977,7 @@ a {
 
 .Photogallery img {
     height: 200px; /* set the height of the images */
-    width: auto; /* let the width adjust proportionally */
+    width: 100%; /* let the width adjust proportionally */
     object-fit: cover; /* maintain aspect ratio and crop to fill container */
 }
 
