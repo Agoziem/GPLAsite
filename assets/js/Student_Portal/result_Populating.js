@@ -18,7 +18,6 @@ function populateClass() {
                .then(response => response.json())
                .then(data => {
                     StudentsSelect.innerHTML = '';
-                    console.log(data)
                     data.forEach(student => {
                          const option = document.createElement('option');
                          option.value = student.student_name;

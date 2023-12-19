@@ -35,14 +35,14 @@ result_btn.addEventListener('click', () => {
     {
         margin: 0.2,
         filename: 'GPLA Result' + '.pdf',
-        image: { type: 'jpeg', quality: 1 },
+        image: { type: 'jpeg', quality: 0.98 },
         html2canvas: {
           scale: 2,
           // width: element.offsetWidth,
           // height: element.offsetHeight,
           useCORS: true,
           imageTimeout:0,
-          allowTaint:false,
+
           // y:0,
           // x:0,
         },
