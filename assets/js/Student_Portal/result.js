@@ -40,8 +40,7 @@ result_btn.addEventListener('click', () => {
           scale: 5,
           useCORS: true,
           imageTimeout:0,
-          allowTaint:false,
-          y:0,
+          allowTaint:false
         },
         jsPDF: { unit: 'px', format: 'a4', orientation: 'portrait' }
     };
