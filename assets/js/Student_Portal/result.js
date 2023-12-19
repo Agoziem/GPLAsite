@@ -35,14 +35,18 @@ result_btn.addEventListener('click', () => {
     {
         margin: 0.2,
         filename: 'GPLA Result' + '.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: 'jpeg', quality: 1 },
         html2canvas: {
-          scale: 4,
+          scale: 5,
+          width: element.offsetWidth,
+          height: element.offsetHeight,
           useCORS: true,
           imageTimeout:0,
-          allowTaint:false
+          allowTaint:false,
+          y:0,
+          x:0,
         },
-        jsPDF: { unit: 'in', format: 'a3', orientation: 'portrait' }
+        jsPDF: { unit: 'px', format: [element.offsetWidth, element.offsetHeight], orientation: 'portrait', hotfixes : ["px_scaling"] }
     };
     // New Promise-based usage:
     return new Promise((resolve, reject) => {
