@@ -41,10 +41,10 @@ result_btn.addEventListener('click', () => {
           width: element.offsetWidth,
           height: element.offsetHeight,
           useCORS: true,
-          imageTimeout:0,
-          allowTaint:false,
-          y:0,
-          x:0,
+          // imageTimeout:0,
+          // allowTaint:false,
+          // y:0,
+          // x:0,
         },
         jsPDF: { unit: 'px', format: [element.offsetWidth, element.offsetHeight], orientation: 'portrait', hotfixes : ["px_scaling"] }
     };
