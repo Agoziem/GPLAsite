@@ -5,7 +5,7 @@ const userInput = document.querySelector('#studentId');
 userInput.addEventListener('input', processinput)
 function processinput() {
      // Get the input element
-     const processedValue = userInput.value.toLowerCase().replace(/\s/g, '');
+     const processedValue = userInput.value.toUpperCase().replace(/\s/g, '');
      userInput.value = processedValue;
 }
 
@@ -14,7 +14,7 @@ classSelect.addEventListener('input',populateClass);
 function populateClass() {
    const classname = classSelect.value;
      if (classname) {
-          fetch(`/Result_portal/${classname}`)
+          fetch(`/Student_Portal/${classname}`)
                .then(response => response.json())
                .then(data => {
                     StudentsSelect.innerHTML = '';

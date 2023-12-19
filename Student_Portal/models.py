@@ -28,9 +28,18 @@ class Term(models.Model):
 class Class(models.Model):
 	Class_section = models.ForeignKey(schoolSection, on_delete=models.CASCADE, blank=True, null=True)
 	Class=models.CharField(max_length=100, blank=True)
+	Class_signature = models.ImageField(upload_to='assets/FormTeachersSignature', blank=True)
 	
 	def __str__(self):
 		return str(self.Class)
+	
+	@property
+	def signatureimageURL(self):
+		try:
+			url= self.Class_signature.url
+		except:
+			url=''
+		return url
 
 class Subject(models.Model):
 	subject_code = models.CharField(max_length=100)
@@ -59,6 +68,8 @@ class Assignments(models.Model):
 
 	def __str__(self):
 		return str(self.subject)
+	
+	
 	
 
 # Model for the Excel Files 

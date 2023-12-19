@@ -124,10 +124,10 @@ td {
 
 
 .result_table thead th{
-    background: orange;
-    background: -webkit-linear-gradient(orange, rgb(151, 100, 4));
-    background: -moz-linear-gradient(orange, rgb(151, 100, 4));
-    background: linear-gradient(orange, rgb(151, 100, 4));
+    background:#9c0101;
+    background: -webkit-linear-gradient(#9c0101, #480101);
+    background: -moz-linear-gradient(#9c0101, #480101);
+    background: linear-gradient(#9c0101, #610000, #480101);
     color: #fff;
     font-size: 14px;
     text-align: start;
@@ -143,7 +143,7 @@ td {
 }
 
 .result_table tbody tr:nth-child(even) {
-    background-color: var(--bg-light);
+    background-color: #f8f9fa;
 }
 
 .result_table td {
@@ -156,11 +156,11 @@ td {
 }
 
 
-.schoollogo {  
-    width: 120px;
-    height: 120px;
-}
-
+.schoollogo{
+    width: 100px;
+    height: 100px;
+} 
+    
 /* 
 #details {
     background-color: ;
@@ -172,6 +172,6 @@ padding: 0 250px 0 250px;
 }
 
 .details{
-    background-color: var(--bg-light);
+    background-color: var(--bg-dark-cream);
     border-left: rgb(145, 1, 1) 4px solid;
 }

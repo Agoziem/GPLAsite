@@ -164,9 +164,9 @@ textarea {
 }
 
 .btn-secondary {
-    background-color: var(--main-bg-color);
-    border-color: var(--main-bg-color);
-    color: var(--btn-wine-red);
+    background-color: black;
+    border-color: black;
+    color: #ffffff;
     font-weight: bold;
 }
 

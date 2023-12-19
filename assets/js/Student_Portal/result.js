@@ -2,8 +2,12 @@ const result_btn = document.getElementById('result_btn');
 const spinner = result_btn.querySelector('.spinner-border');
 const labels = document.querySelector('#labels')
 const data = document.querySelector('#data')
-console.log(labels);
-console.log(data);
+const modifiedlabelsList = labels.value.replace(/'/g, '"');
+const modifieddataList = data.value.replace(/'/g, '"');
+const Jsonlabellist = `${modifiedlabelsList}`
+const Jsondatalist = `${modifieddataList}`
+
+
 result_btn.addEventListener('click', () => {
     // Show spinner
     spinner.classList.remove('d-none');
@@ -54,10 +58,10 @@ result_btn.addEventListener('click', () => {
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: JSON.parse(labels),
+        labels: JSON.parse(Jsonlabellist),
         datasets: [{
           label: 'Total Scores',
-          data: JSON.parse(data),
+          data: JSON.parse(Jsondatalist),
           backgroundColor: ['orange', '#3b0505', '#020D23'],
           borderWidth: 1
           }]
