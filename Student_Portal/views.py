@@ -37,7 +37,7 @@ def Result_Portal_view(request):
 			studentClass=Class.objects.get(Class=request.POST['student_class'])
 			student = Students_Pin_and_ID.objects.get(student_name=student_name,student_class=studentClass,student_id=student_id,student_pin=Pin)
 			if Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).exists():
-				Student_Result_details=Student_Result_Data.objects.get(Student_name=student,Term=resultTerm,AcademicSession=resultSession)
+				Student_Result_details=Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).first()
 				if studentClass.Class_section == 'Secondary':
 					Student_Results=Result.objects.filter(students_result_summary=Student_Result_details)
 					for result in Student_Results:
