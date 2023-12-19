@@ -34,10 +34,15 @@ result_btn.addEventListener('click', () => {
     var opt =
     {
         margin: 0.2,
-        filename: 'Result' + '.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 4 },
-        jsPDF: { unit: 'in', format: 'A3', orientation: 'Portrait' }
+        filename: 'GPLA Result' + '.pdf',
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: {
+          scale: 5,
+          width: element.offsetWidth,
+          height: element.offsetHeight,
+          useCORS: true,
+        },
+        jsPDF: { unit: 'px', format: [element.offsetWidth, element.offsetHeight], orientation: 'Portrait', hotfixes : ["px_scaling"] }
     };
     // New Promise-based usage:
     return new Promise((resolve, reject) => {
@@ -62,7 +67,7 @@ result_btn.addEventListener('click', () => {
         datasets: [{
           label: 'Total Scores',
           data: JSON.parse(Jsondatalist),
-          backgroundColor: ['orange', '#3b0505', '#020D23'],
+          backgroundColor: ['#9c0101', 'black', '#d2cfcf'],
           borderWidth: 1
           }]
         },

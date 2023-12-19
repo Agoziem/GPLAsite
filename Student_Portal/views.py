@@ -31,64 +31,63 @@ def Result_Portal_view(request):
 		data=[]
 		Annual_Result=False
 		# Get the Student details, the c Students_Result_Details and the Results (Both Annual & Termly )
-		# try:
-		resultTerm=Term.objects.get(term=term)
-		resultSession= AcademicSession.objects.get(session=academic_session)
-		studentClass=Class.objects.get(Class=request.POST['student_class'])
-		print(student_name,studentClass,student_id,Pin)
-		student = Students_Pin_and_ID.objects.get(student_name=student_name,student_class=studentClass,student_id=student_id,student_pin=Pin)
-		if Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).exists():
-			Student_Result_details=Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).first()
-			if studentClass.Class_section == 'Secondary':
-				Student_Results=Result.objects.filter(students_result_summary=Student_Result_details)
-				for result in Student_Results:
-					labels.append(result.Subject.subject_name)
-					data.append(result.Total)
+		try:
+			resultTerm=Term.objects.get(term=term)
+			resultSession= AcademicSession.objects.get(session=academic_session)
+			studentClass=Class.objects.get(Class=request.POST['student_class'])
+			student = Students_Pin_and_ID.objects.get(student_name=student_name,student_class=studentClass,student_id=student_id,student_pin=Pin)
+			if Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).exists():
+				Student_Result_details=Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).first()
+				if studentClass.Class_section == 'Secondary':
+					Student_Results=Result.objects.filter(students_result_summary=Student_Result_details)
+					for result in Student_Results:
+						labels.append(result.Subject.subject_name)
+						data.append(result.Total)
+				else:
+					Student_Results=PrimaryResult.objects.filter(students_result_summary=Student_Result_details)
+					for result in Student_Results:
+						labels.append(result.Subject.subject_name)
+						data.append(result.Total_100)
+				
+				if AnnualStudent.objects.filter(Student_name=student).exists():
+					Annual_Result=True
+					Annual_Student_Result_details=AnnualStudent.objects.get(Student_name=student,AcademicSession=resultSession)
+					Annual_Student_Results=AnnualResult.objects.filter(students_result_data=Annual_Student_Result_details)
+					PromotionVerdict=int(float(Annual_Student_Result_details.Average))
+					context={
+						"student_details":student,
+						"Result_details":Student_Result_details,
+						"Results":Student_Results,
+						"labels":labels,
+						"data":data,
+						"AnnualStudent":Annual_Student_Result_details,
+						'AnnualResult': Annual_Student_Results,
+						"Annual_Result":Annual_Result,
+						"PromotionVerdict":PromotionVerdict,
+						}
+					return render(request,"Result.html", context)
+				else:
+					Annual_Result=False	
+					context={
+						"Annual_Result":Annual_Result,
+						"student_details":student,
+						"Result_details":Student_Result_details,
+						"Results":Student_Results,
+						"labels":labels,
+						"data":data,
+								}
+					return render(request,"Result.html", context)
 			else:
-				Student_Results=PrimaryResult.objects.filter(students_result_summary=Student_Result_details)
-				for result in Student_Results:
-					labels.append(result.Subject.subject_name)
-					data.append(result.Total_100)
-			
-			if AnnualStudent.objects.filter(Student_name=student).exists():
-				Annual_Result=True
-				Annual_Student_Result_details=AnnualStudent.objects.get(Student_name=student,AcademicSession=resultSession)
-				Annual_Student_Results=AnnualResult.objects.filter(students_result_data=Annual_Student_Result_details)
-				PromotionVerdict=int(float(Annual_Student_Result_details.Average))
-				context={
-					"student_details":student,
-					"Result_details":Student_Result_details,
-					"Results":Student_Results,
-					"labels":labels,
-					"data":data,
-					"AnnualStudent":Annual_Student_Result_details,
-					'AnnualResult': Annual_Student_Results,
-					"Annual_Result":Annual_Result,
-					"PromotionVerdict":PromotionVerdict,
-					}
-				return render(request,"Result.html", context)
-			else:
-				Annual_Result=False	
-				context={
-					"Annual_Result":Annual_Result,
-					"student_details":student,
-					"Result_details":Student_Result_details,
-					"Results":Student_Results,
-					"labels":labels,
-					"data":data,
-							}
-				return render(request,"Result.html", context)
-		else:
-			return render(request,"404.html")
+				return render(request,"404.html")
 
-		# iexcept Students_Pn_and_ID.DoesNotExist:
-		# 	context={
-		# 		"classes":classes,
-		# 		"Terms":Terms,
-		# 		"academic_session":academicsession
-		# 	}
-		# 	messages.error(request, 'Check your Student id or the Pin and try again , make sure you are entering it Correctly')
-		# 	return render(request, "Result_Portal.html",context)
+		except Students_Pin_and_ID.DoesNotExist:
+			context={
+				"classes":classes,
+				"Terms":Terms,
+				"academic_session":academicsession
+			}
+			messages.error(request, 'Check your Student id or the Pin and try again , make sure you are entering it Correctly')
+			return render(request, "Result_Portal.html",context)
 	
 	context={
 		"classes":classes,
