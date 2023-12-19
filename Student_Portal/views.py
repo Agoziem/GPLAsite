@@ -35,6 +35,7 @@ def Result_Portal_view(request):
 		resultTerm=Term.objects.get(term=term)
 		resultSession= AcademicSession.objects.get(session=academic_session)
 		studentClass=Class.objects.get(Class=request.POST['student_class'])
+		print(student_name,studentClass,student_id,Pin)
 		student = Students_Pin_and_ID.objects.get(student_name=student_name,student_class=studentClass,student_id=student_id,student_pin=Pin)
 		if Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).exists():
 			Student_Result_details=Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).first()
