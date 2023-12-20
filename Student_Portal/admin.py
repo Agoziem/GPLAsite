@@ -37,8 +37,8 @@ class ClassAdmin(admin.ModelAdmin):
 class Student_Result_DataAdmin(admin.ModelAdmin):
     list_display = ('Student_name', 'Position', 'display_Class', 'Average')
     ordering = ('Student_name', 'Position', 'Average')
-    search_fields = ('Position', 'Average')
-    list_filter = ('Student_name', 'Position', 'Average')
+    search_fields = ('Student_name.student_class','Position', 'Average')
+    list_filter = ('Student_name.student_class','Student_name', 'Position', 'Average')
 
     def display_Class(self, obj):
         return obj.Student_name.student_class
@@ -78,8 +78,13 @@ class AnnualStudentAdmin(admin.ModelAdmin):
 
 @admin.register(AnnualResult)
 class AnnualResultAdmin(admin.ModelAdmin):
-    list_display = ('students_result_data', 'Subject')
+    list_display = ('students_result_data', 'Subject','get_student_class')
     ordering = ('students_result_data', 'Subject')
     search_fields = ('students_result_data__Student_name__student_class', 'Subject__subject_name')
     list_filter = ('students_result_data__Student_name__student_class', 'Subject__subject_name')
+
+    def get_student_class(self, obj):
+        return obj.students_result_data__Student_name__student_class
+
+    get_student_class.short_description = 'Student Class'
 
