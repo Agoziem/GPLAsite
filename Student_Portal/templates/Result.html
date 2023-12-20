@@ -242,12 +242,13 @@
     <section class="px-3 pt-2">
       <div class="result_table">
         <table>
-          {% if student_details.student_class.Class_section == 'Secondary' %}
+          {% if student_details.student_class.Class_section == 'Primary' %}
+
           <thead>
             <tr>
               <th scope="col">S/N</th>
               <th scope="col">Subjects</th>
-              <th scope="col">CA (40)</th>
+              <th scope="col">Test (40)</th>
               <th scope="col">Exam (60)</th>
               <th scope="col">Total (100)</th>
               <th scope="col">Grade</th>
@@ -260,9 +261,9 @@
             <tr>
               <td>{{forloop.counter}}</td>
               <td>{{data.Subject}}</td>
-              <td> {{data.CA}}</td>
+              <td> {{data.Test}}</td>
               <td> {{data.Exam}}</td>
-              <td>{{data.Total}}</td>
+              <td>{{data.Total_100}}</td>
               <td>{{data.Grade}}</td>
               <td>{{data.SubjectPosition}}</td>
               <td>{{data.Remark}}</td>
@@ -270,13 +271,15 @@
             {% endfor %}
           </tbody>
 
+      
         {% else %}
 
+        
         <thead>
           <tr>
             <th scope="col">S/N</th>
             <th scope="col">Subjects</th>
-            <th scope="col">Test (40)</th>
+            <th scope="col">CA (40)</th>
             <th scope="col">Exam (60)</th>
             <th scope="col">Total (100)</th>
             <th scope="col">Grade</th>
@@ -289,15 +292,17 @@
           <tr>
             <td>{{forloop.counter}}</td>
             <td>{{data.Subject}}</td>
-            <td> {{data.Test}}</td>
+            <td> {{data.CA}}</td>
             <td> {{data.Exam}}</td>
-            <td>{{data.Total_100}}</td>
+            <td>{{data.Total}}</td>
             <td>{{data.Grade}}</td>
             <td>{{data.SubjectPosition}}</td>
             <td>{{data.Remark}}</td>
           </tr>
           {% endfor %}
         </tbody>
+
+
         {% endif %}
         </table>
       </div>
