@@ -39,11 +39,13 @@ def Result_Portal_view(request):
 			if Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).exists():
 				Student_Result_details=Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).first()
 				if studentClass.Class_section == 'Secondary':
+					print('is Secondary')
 					Student_Results=Result.objects.filter(students_result_summary=Student_Result_details)
 					for result in Student_Results:
 						labels.append(result.Subject.subject_name)
 						data.append(result.Total)
 				else:
+					print('is Primary')
 					Student_Results=PrimaryResult.objects.filter(students_result_summary=Student_Result_details)
 					for result in Student_Results:
 						labels.append(result.Subject.subject_name)
