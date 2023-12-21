@@ -2,11 +2,11 @@
     width: 150px;
     height: 150px;
 }
- .display1{
+ .container_404 .display1{
     line-height: 7.5vh;
     text-align: center;
 }
 
-p{
+.container_404 p{
     text-align: center;
 }
