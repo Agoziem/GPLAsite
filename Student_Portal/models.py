@@ -11,7 +11,7 @@ import random
 from ckeditor.fields import RichTextField
 from Home.models import schoolSection
 
-
+# 
 
 class AcademicSession(models.Model):
 	session = models.CharField(max_length=100, blank=True)
@@ -135,7 +135,7 @@ class Student_Result_Data(models.Model):
 
 
 	def __str__(self):
-		return str(self.Student_name.student_name+"-"+self.Student_name.student_class.Class)
+		return str(self.Student_name.student_name+ " " +"-"+ " " + self.Term.term)
 
 class PrimaryResult(models.Model):
 	students_result_summary = models.ForeignKey(Student_Result_Data,on_delete=models.CASCADE,blank=True,null=True)
