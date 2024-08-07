@@ -11,6 +11,7 @@ import secrets
 ROLE_CHOICES = [
         ('Teacher', 'Teacher'),
         ('ClassTeacher', 'ClassTeacher'),
+		('Admin', 'Admin'),
     ]
 
 SECTION_CHOICES = [

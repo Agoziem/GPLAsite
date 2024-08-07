@@ -1,14 +1,13 @@
-// imports
-import ClassResulthandler from "./utils/ClassResulthandler.js";
-import ClassResultDataTable from "./datatable/ClassResultDatatable.js";
+import AnnualClassResultHandler from "./utils/Annualclassresulthandler.js";
+import AnnualClassResultDataTable from "./datatable/AnnualClassResultDatatable.js";
 import {
-  getstudentresult,
+  getannualclassresult,
   publishstudentresult,
 } from "./utils/serveractions.js";
 
-// ------------------------------------------------------
-// DOM Elements
-// ------------------------------------------------------
+// ---------------------------------------------------
+// DOM elements
+// ---------------------------------------------------
 const classinput = document.querySelector(".classinput");
 const subjectlistinput = document.querySelector(".subjectlist");
 const subjectlist = subjectlistinput.value;
@@ -16,19 +15,12 @@ const modifiedList = subjectlist.replace(/'/g, '"');
 let jsonstring = `${modifiedList}`;
 let mainsubjectlist = JSON.parse(jsonstring);
 const alertcontainer = document.querySelector(".alertcontainer");
-const termSelect = document.getElementById("termSelect");
 const academicSessionSelect = document.getElementById("academicSessionSelect");
 const publishButton = document.getElementById("publishbtn");
 
-// ------------------------------------------------------
-// Event Listeners
-// ------------------------------------------------------
-
-publishButton.addEventListener("click", publishResult);
-
-termSelect.addEventListener("change", function () {
-  saveSelection();
-});
+// ---------------------------------------------------
+// Global variables
+// ---------------------------------------------------
 
 academicSessionSelect.addEventListener("change", function () {
   saveSelection();
@@ -38,39 +30,36 @@ window.addEventListener("DOMContentLoaded", () => {
   loadSelection();
 });
 
-//   ------------------------------------------------------
-//   Global Variables
-//   ------------------------------------------------------
+publishButton.addEventListener("click", () => {
+  publishResult();
+});
+
+// ---------------------------------------------------
+// Event listener for the form submission
+// ---------------------------------------------------
+
 let ClassResult = [];
+
 let classdata = {
   studentclass: classinput.value,
 };
+
 let state;
-// ------------------------------------------------------
+
+// ---------------------------------------------------
 // Function to save selected values to localStorage
-// ------------------------------------------------------
+// ---------------------------------------------------
 function saveSelection() {
-  localStorage.setItem("selectedTerm", termSelect.value);
   localStorage.setItem("selectedAcademicSession", academicSessionSelect.value);
-  classdata.selectedTerm = termSelect.value;
   classdata.selectedAcademicSession = academicSessionSelect.value;
   readJsonFromFile();
 }
 
-// ------------------------------------------------------
+// ---------------------------------------------------
 // Function to load saved values from localStorage
-// ------------------------------------------------------
+// ---------------------------------------------------
 function loadSelection() {
-  const savedTerm = localStorage.getItem("selectedTerm");
   const savedAcademicSession = localStorage.getItem("selectedAcademicSession");
-
-  if (savedTerm !== null) {
-    termSelect.value = savedTerm;
-    classdata.selectedTerm = termSelect.value;
-  } else {
-    classdata.selectedTerm = termSelect.value;
-  }
-
   if (savedAcademicSession !== null) {
     academicSessionSelect.value = savedAcademicSession;
     classdata.selectedAcademicSession = academicSessionSelect.value;
@@ -80,28 +69,27 @@ function loadSelection() {
   readJsonFromFile();
 }
 
-// ------------------------------------------------------
+// ---------------------------------------------------
 // function to get Student Result
-// ------------------------------------------------------
+// ---------------------------------------------------
 async function readJsonFromFile() {
   try {
-    const url = "/Teachers_Portal/getstudentsubjecttotals/";
-    const jsonData = await getstudentresult(url,classdata);
-    const studentHandler = new ClassResulthandler(jsonData);
+    const jsonData = await getannualclassresult(classdata);
+    const studentHandler = new AnnualClassResultHandler(jsonData);
     const studentsWithCalculatedFields = studentHandler.getStudents();
     ClassResult = studentsWithCalculatedFields;
     updateResultBadge("update", studentsWithCalculatedFields[0]);
     showStudentSubjectResults(studentsWithCalculatedFields[0]);
     populatetable(studentsWithCalculatedFields);
-    const dataTable = new ClassResultDataTable();
+    const dataTable = new AnnualClassResultDataTable();
   } catch (error) {
     console.error("Error reading JSON file:", error);
   }
 }
 
-// ------------------------------------------------------
+// ---------------------------------------------------
 // function to Populate the Table
-// ------------------------------------------------------
+// ---------------------------------------------------
 function populatetable(tabledata) {
   const tbody = document.querySelector("#dataTable").lastElementChild;
   tbody.innerHTML = tabledata
@@ -111,17 +99,16 @@ function populatetable(tabledata) {
         <tr>
             <td>${index + 1}</td>
             <td class="text-primary">${data.Name}</td>
-            ${data.subjects
-              .map(
-                (subject) =>
-                  `<td>${subject.Total !== "-" ? subject.Total : ""}</td>`
-              )
-              .join("")}
+            ${data.subjects.map(
+              (subject) =>
+                `<td>${subject.Average !== "-" ? subject.Average : ""}</td>`
+            )}
             <td>${data.Total}</td>
-            <td>${data.Ave}</td>
+            <td>${data.Average}</td>
             <td>${data.Grade}</td>
             <td>${data.Position}</td>
             <td>${data.Remarks}</td>
+            <td>${data.Verdict}</td>
         </tr>`
     )
     .join("");
@@ -133,23 +120,23 @@ function populatetable(tabledata) {
 function publishResult() {
   const url =
     state === "published"
-      ? "/Teachers_Portal/unpublishclassresult/"
-      : "/Teachers_Portal/publishstudentresult/";
+      ? "/Teachers_Portal/unpublishannualclassresult/"
+      : "/Teachers_Portal/publishannualclassresult/";
+
   if (ClassResult.length === 0) {
     displayalert("alert-warning", "No result to publish");
     return;
   }
   const data = ClassResult;
   (classdata.studentclass = classinput.value),
-    (classdata.selectedTerm = termSelect.value),
     (classdata.selectedAcademicSession = academicSessionSelect.value),
     publishstudentresult(url, data, classdata, displayalert);
   updateResultBadge("setbadge", data[0]);
 }
 
-// ------------------------------------------------------------------
-// function to display Alert /////////////////////////////////////
-// ------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
+// functions to disable the button when the Term and Academic Session have not been
+// ----------------------------------------------------------------------------------
 function displayalert(type, message) {
   const alertdiv = document.createElement("div");
   alertdiv.classList.add(
@@ -161,7 +148,7 @@ function displayalert(type, message) {
   );
   alertdiv.setAttribute("role", "alert");
   alertdiv.innerHTML = `
-                        <i class="fa-solid fa-circle-check h6 me-2"></i>
+                        <i class="fa-solid fa-circle-check me-2"></i>
                         <div>
                            ${message}
                         </div>

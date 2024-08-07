@@ -14,6 +14,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG_ENV = config('DEBUG_ENV', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['127.0.0.1',"gplasite-production.up.railway.app",'www.gracepathlearningacademy.com','gracepathlearningacademy.com']
 
@@ -83,23 +84,24 @@ WSGI_APPLICATION = 'GPLAsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('NAME'),
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': config('HOST'),
-        'PORT': config('PORT'),
+if DEBUG_ENV:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('NAME'),
+            'USER': config('USER'),
+            'PASSWORD': config('PASSWORD'),
+            'HOST': config('HOST'),
+            'PORT': config('PORT'),
+        }
+    }
 
 import dj_database_url
 db_from_env=dj_database_url.config(conn_max_age=600)
@@ -142,29 +144,28 @@ LOGIN_URL = 'Accounts:login'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+if DEBUG_ENV:
+    STATIC_URL = '/static/'
+    STATIC_ROOT=os.path.join(BASE_DIR,'static')
+    STATICFILES_DIRS= [os.path.join(BASE_DIR, "assets"),]
 
+    MEDIA_URL= '/media/'
+    MEDIA_ROOT= os.path.join(BASE_DIR,'media')
+else:
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default='')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', default='')
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME', default='')
+    AWS_S3_SIGNATURE_NAME = config('AWS_S3_SIGNATURE_NAME', default='')
+    AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME', default='')
+    AWS_S3_CUSTOM_DOMAIN='%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE='GPLAsite.storages.MediaStore'
 
+    STATIC_ROOT=os.path.join(BASE_DIR,'static')
+    AWS_LOCATION = 'static'
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, "assets"),]
+    STATIC_URL='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN,AWS_LOCATION)
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default='')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', default='')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME', default='')
-AWS_S3_SIGNATURE_NAME = config('AWS_S3_SIGNATURE_NAME', default='')
-AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME', default='')
-AWS_S3_CUSTOM_DOMAIN='%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE='GPLAsite.storages.MediaStore'
-
-STATIC_ROOT=os.path.join(BASE_DIR,'static')
-AWS_LOCATION = 'static'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "assets"),]
-STATIC_URL='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN,AWS_LOCATION)
-
-# STATIC_URL = '/static/'
-# STATIC_ROOT=os.path.join(BASE_DIR,'static')
-# STATICFILES_DIRS= [os.path.join(BASE_DIR, "assets"),]
-
-# MEDIA_URL= '/media/'
-# MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 
 JAZZMIN_SETTINGS = {
     "site_logo":"images/GPLA School Logo(Small).jpg",

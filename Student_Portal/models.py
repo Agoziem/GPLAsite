@@ -1,17 +1,11 @@
 from django.db import models
-from openpyxl import Workbook,load_workbook
-import boto3
-import io
 import base64
 base64.encodestring = base64.encodebytes
 base64.decodestring = base64.decodebytes
-# from openpyxl.utils import get_column_letter
-import os
 import random
 from ckeditor.fields import RichTextField
 from Home.models import schoolSection
 
-# 
 
 class AcademicSession(models.Model):
 	session = models.CharField(max_length=100, blank=True)
@@ -132,7 +126,7 @@ class Student_Result_Data(models.Model):
 	Remark=models.CharField(max_length=100, blank=True,null=True , default="-")
 	Term=models.ForeignKey(Term,on_delete=models.CASCADE,blank=True,null=True)
 	AcademicSession=models.ForeignKey(AcademicSession,on_delete=models.CASCADE,blank=True,null=True)
-
+	published=models.BooleanField(default=False)
 
 	def __str__(self):
 		return str(self.Student_name.student_name+ " " +"-"+ " " + self.Term.term)
@@ -146,7 +140,7 @@ class PrimaryResult(models.Model):
 	Grade=models.CharField(max_length=100, blank=True,null=True , default="-")
 	SubjectPosition=models.CharField(max_length=100, blank=True,null=True , default="-")
 	Remark=models.CharField(max_length= 100, blank=True,null=True , default="-")
-
+	published = models.BooleanField(default=False)
 
 	def __str__(self):
 		return str(self.students_result_summary.Student_name.student_name +"-"+ self.Subject.subject_name)
@@ -166,6 +160,7 @@ class Result(models.Model):
 	Grade=models.CharField(max_length=100, blank=True,null=True , default="-")
 	SubjectPosition=models.CharField(max_length=100, blank=True,null=True , default="-")
 	Remark=models.CharField(max_length= 100, blank=True,null=True , default="-")
+	published = models.BooleanField(default=False)
 
 
 	def __str__(self):
@@ -182,14 +177,17 @@ class AnnualStudent(models.Model):
 	Totalnumber=models.CharField(max_length=100, blank=True,null=True , default="-")
 	Average=models.CharField(max_length=100, blank=True,null=True , default="-")
 	Position=models.CharField(max_length=100, blank=True,null=True , default="-")
-	AcademicSession=models.ForeignKey(AcademicSession,on_delete=models.CASCADE,blank=True,null=True)
+	academicsession=models.ForeignKey(AcademicSession,on_delete=models.CASCADE,blank=True,null=True)
+	published=models.BooleanField(default=False)
+	Remark=models.CharField(max_length=100, blank=True,null=True , default="-")
+	Verdict=models.CharField(max_length=100, blank=True,null=True , default="-")
 
 	def __str__(self):
 		return str(self.Student_name.student_name +"-"+ self.Student_name.student_class.Class)
 
 
 class AnnualResult(models.Model):
-	students_result_data = models.ForeignKey(AnnualStudent,on_delete=models.CASCADE)
+	Student_name = models.ForeignKey(AnnualStudent,on_delete=models.CASCADE)
 	Subject= models.ForeignKey(Subject,on_delete=models.CASCADE)
 	FirstTermTotal= models.CharField(max_length=100, blank=True,null=True,default="-")
 	SecondTermTotal= models.CharField(max_length=100, blank=True,null=True,default="-")
@@ -199,6 +197,7 @@ class AnnualResult(models.Model):
 	Grade=models.CharField(max_length=100, blank=True,null=True,default="-")
 	SubjectPosition=models.CharField(max_length=100, blank=True,null=True,default="-")
 	Remark=models.CharField(max_length= 100, blank=True,null=True, default="-")
+	published = models.BooleanField(default=False)
 
 	
 	def __str__(self):
