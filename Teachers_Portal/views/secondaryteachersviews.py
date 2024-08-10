@@ -199,6 +199,9 @@ def publish_annual_results(request):
         student = Students_Pin_and_ID.objects.get(student_id=result['studentID'], student_name=result['Name'], student_class=class_object)
         studentAnnual = AnnualStudent.objects.get(Student_name=student, academicsession=session)
         student_annual_details = AnnualResult.objects.get(Student_name=studentAnnual, Subject=subject_object)
+        student_annual_details.FirstTermTotal = result["terms"]["1st Term"]
+        student_annual_details.SecondTermTotal = result["terms"]["2nd Term"]
+        student_annual_details.ThirdTermTotal = result["terms"]["3rd Term"]
         student_annual_details.Total = result['Total']
         student_annual_details.Average = result['Average']
         student_annual_details.Grade = result['Grade']

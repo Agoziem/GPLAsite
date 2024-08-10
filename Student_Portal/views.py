@@ -49,7 +49,7 @@ def Result_Portal_view(request):
 						labels.append(result.Subject.subject_name)
 						data.append(result.Total)
 				
-				if AnnualStudent.objects.filter(Student_name=student,published=True).exists():
+				if AnnualStudent.objects.filter(Student_name=student,published=True).exists() and resultTerm.term == "3rd Term":
 					Annual_Result=True
 					Annual_Student_Result_details=AnnualStudent.objects.get(Student_name=student,academicsession=resultSession,published=True)
 					Annual_Student_Results=AnnualResult.objects.filter(Student_name=Annual_Student_Result_details,published=True)

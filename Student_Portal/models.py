@@ -201,4 +201,4 @@ class AnnualResult(models.Model):
 
 	
 	def __str__(self):
-		return str(self.students_result_data.Student_name +"-"+ self.Subject.subject_name)
+		return str(self.Student_name.Student_name.student_name +"-"+ self.Subject.subject_name)

@@ -78,13 +78,7 @@ class AnnualStudentAdmin(admin.ModelAdmin):
 
 @admin.register(AnnualResult)
 class AnnualResultAdmin(admin.ModelAdmin):
-    list_display = ('Student_name', 'Subject','get_student_class')
+    list_display = ('Student_name', 'Subject')
     ordering = ('Student_name', 'Subject')
-    search_fields = ('Student_name__Student_name__student_class', 'Subject__subject_name')
-    list_filter = ('Student_name__Student_name__student_class', 'Subject__subject_name')
-
-    def get_student_class(self, obj):
-        return obj.students_result_data__Student_name__student_class
-
-    get_student_class.short_description = 'Student Class'
-
+    search_fields = ('Student_name', 'Subject__subject_name')
+    list_filter = ('Student_name', 'Subject__subject_name')
