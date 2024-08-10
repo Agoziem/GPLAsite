@@ -52,7 +52,7 @@ def Result_Portal_view(request):
 				if AnnualStudent.objects.filter(Student_name=student,published=True).exists():
 					Annual_Result=True
 					Annual_Student_Result_details=AnnualStudent.objects.get(Student_name=student,academicsession=resultSession,published=True)
-					Annual_Student_Results=AnnualResult.objects.filter(students_result_data=Annual_Student_Result_details,published=True)
+					Annual_Student_Results=AnnualResult.objects.filter(Student_name=Annual_Student_Result_details,published=True)
 					context={
 						"student_details":student,
 						"Result_details":Student_Result_details,
