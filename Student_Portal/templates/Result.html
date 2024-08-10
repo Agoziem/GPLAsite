@@ -344,7 +344,6 @@
       <div class="details container p-4 rounded d-flex">
         <div>
           <span class="fw-bold">Class :</span> {{ student_details.student_class }}<br>
-          <span class="fw-bold">Term :</span> {{ AnnualStudent.Term }}<br>
           <span class="fw-bold">Session :</span> {{ AnnualStudent.academicsession }}<br>
           <span class="fw-bold">Total score :</span> {{ AnnualStudent.TotalScore|floatformat:2 }}<br>
           <span class="fw-bold">Average :</span> {{ AnnualStudent.Average|floatformat:2 }}<br>
@@ -377,9 +376,9 @@
             <tr>
               <td>{{forloop.counter}}</td>
               <td>{{data.Subject}}</td>
-              <td>{{data.FirstTermTotal}}</td>
-              <td>{{data.SecondTermTotal}}</td>
-              <td>{{data.ThirdTermTotal}}</td>
+              <td>{{data.FirstTerm}}</td>
+              <td>{{data.SecondTerm}}</td>
+              <td>{{data.ThirdTerm}}</td>
               <td>{{data.Total|floatformat}} </td>
               <td>{{data.Average|floatformat:2}}</td>
               <td>{{data.Grade}}</td>
