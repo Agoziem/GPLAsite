@@ -96,7 +96,7 @@ async function readJsonFromFile() {
     if (classsession.value === "Primary") {
       url = "/Teachers_Portal/primaryannualresultcomputation/";
     } else {
-      url = "/Teachers_Portal/annualclassresultcomputation/";
+      url = "/Teachers_Portal/annualresultcomputation/";
     }
     const jsonData = await getannualresultdata(url,classdata);
     const studentHandler = new AnnualResulthandler(jsonData);

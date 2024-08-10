@@ -40,12 +40,13 @@ urlpatterns = [
 	path('primaryupdatestudentresults/',primary_update_student_result_view , name='primaryupdatestudentresults'),   
 	path('primarysubmitallstudentresult/',primary_submitallstudentresult_view , name='primarysubmitallstudentresult'),
     path('primaryunsubmitallstudentresult/',primary_unsubmitallstudentresult_view , name='primarysubmitallstudentresult'),
-    path('<str:Classname>/<int:id>/annualresult_computation/',annualresult_computation , name='annualresult_computation'),
     
+    path('<str:Classname>/<int:id>/annualresult_computation/',annualresult_computation , name='annualresult_computation'),
     path('primaryannualresultcomputation/',primary_annual_result_computation_view , name='annualresultcomputation'),
     path('annualresultcomputation/',annual_result_computation_view , name='annualresultcomputation'),
     path('publishannualresults/',publish_annual_results , name='publishannualresults'),
     path('unpublishannualresults/',unpublish_annual_results , name='unpublishannualresults'),
+    
 	# Admin urls
     path('schoolresults/',schoolresult_view , name='schoolresults'),
     path('getprimaryclasspublishedResults/',getprimaryclasspublishedResults , name='getprimaryclasspublishedResults'),

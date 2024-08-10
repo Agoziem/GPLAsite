@@ -36,24 +36,23 @@ def Result_Portal_view(request):
 			resultSession= AcademicSession.objects.get(session=academic_session)
 			studentClass=Class.objects.get(Class=request.POST['student_class'])
 			student = Students_Pin_and_ID.objects.get(student_name=student_name,student_class=studentClass,student_id=student_id,student_pin=Pin)
-			if Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).exists():
-				Student_Result_details=Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession).first()
+			if Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession,published=True).exists():
+				Student_Result_details=Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession,published=True).first()
 				if studentClass.Class_section.section == 'Primary':
-					Student_Results=PrimaryResult.objects.filter(students_result_summary=Student_Result_details)
+					Student_Results=PrimaryResult.objects.filter(students_result_summary=Student_Result_details,published=True)
 					for result in Student_Results:
 						labels.append(result.Subject.subject_name)
 						data.append(result.Total_100)
 				else:
-					Student_Results=Result.objects.filter(students_result_summary=Student_Result_details)
+					Student_Results=Result.objects.filter(students_result_summary=Student_Result_details,published=True)
 					for result in Student_Results:
 						labels.append(result.Subject.subject_name)
 						data.append(result.Total)
 				
-				if AnnualStudent.objects.filter(Student_name=student).exists():
+				if AnnualStudent.objects.filter(Student_name=student,published=True).exists():
 					Annual_Result=True
-					Annual_Student_Result_details=AnnualStudent.objects.get(Student_name=student,AcademicSession=resultSession)
-					Annual_Student_Results=AnnualResult.objects.filter(students_result_data=Annual_Student_Result_details)
-					PromotionVerdict=int(float(Annual_Student_Result_details.Average))
+					Annual_Student_Result_details=AnnualStudent.objects.get(Student_name=student,academicsession=resultSession,published=True)
+					Annual_Student_Results=AnnualResult.objects.filter(students_result_data=Annual_Student_Result_details,published=True)
 					context={
 						"student_details":student,
 						"Result_details":Student_Result_details,
@@ -63,7 +62,6 @@ def Result_Portal_view(request):
 						"AnnualStudent":Annual_Student_Result_details,
 						'AnnualResult': Annual_Student_Results,
 						"Annual_Result":Annual_Result,
-						"PromotionVerdict":PromotionVerdict,
 						}
 					return render(request,"Result.html", context)
 				else:

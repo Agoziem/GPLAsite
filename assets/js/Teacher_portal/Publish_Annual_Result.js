@@ -1,4 +1,4 @@
-import AnnualClassResultHandler from "./utils/Annualclassresulthandler.js";
+import AnnualClassResultHandler from "./utils/AnnualClassResulthandler.js";
 import AnnualClassResultDataTable from "./datatable/AnnualClassResultDatatable.js";
 import {
   getannualclassresult,

@@ -345,26 +345,12 @@
         <div>
           <span class="fw-bold">Class :</span> {{ student_details.student_class }}<br>
           <span class="fw-bold">Term :</span> {{ AnnualStudent.Term }}<br>
-          <span class="fw-bold">Session :</span> {{ AnnualStudent.Academicsession }}<br>
+          <span class="fw-bold">Session :</span> {{ AnnualStudent.academicsession }}<br>
           <span class="fw-bold">Total score :</span> {{ AnnualStudent.TotalScore|floatformat:2 }}<br>
           <span class="fw-bold">Average :</span> {{ AnnualStudent.Average|floatformat:2 }}<br>
           <span class="fw-bold">Position :</span> {{ AnnualStudent.Position }}<br>
           <span class="fw-bold">Number in Class :</span> {{ AnnualStudent.Totalnumber }}<br>
-          <span class="fw-bold">Principal's Verdict :</span>
-
-          {% if student_details.Class == "SS1A" or student_details.Class == "SS1B" or student_details.Class == "SS1C" or student_details.Class == "SS2A" or student_details.Class == "SS2B" %}
-            {% if PromotionVerdict >= 50 %}
-            Promoted
-            {% else %}
-            Not Promoted
-            {% endif %}
-          {% else %}
-            {% if PromotionVerdict >= 45 %}
-            Promoted
-            {% else %}
-            Not Promoted
-            {% endif %}
-         {% endif %}
+          <span class="fw-bold">Principal's Verdict :</span> {{ AnnualStudent.Verdict }}<br>
         </div>
       </div>
     </section>

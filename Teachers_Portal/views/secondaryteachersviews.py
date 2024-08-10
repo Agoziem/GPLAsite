@@ -184,7 +184,6 @@ def annual_result_computation_view(request):
         except Exception as e:
             print(f"Exception: {e}")
             continue
-
     return JsonResponse(students_annuals, safe=False)
 
 
