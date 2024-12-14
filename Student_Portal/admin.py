@@ -71,14 +71,29 @@ class ResultAdmin(admin.ModelAdmin):
 
 @admin.register(AnnualStudent)
 class AnnualStudentAdmin(admin.ModelAdmin):
-    list_display = ('Student_name', 'TotalScore', 'Average', 'Position')
-    ordering = ('Student_name', 'TotalScore', 'Average', 'Position')
-    search_fields = ('TotalScore', 'Average', 'Position')
-    list_filter = ('Student_name', 'TotalScore', 'Average', 'Position')
+    list_display = ('get_student_name', 'TotalScore', 'Average', 'Position', 'academicsession', 'published')
+    ordering = ('Student_name__student_name', 'TotalScore', 'Average', 'Position')
+    search_fields = ('Student_name__student_name', 'TotalScore', 'Average', 'Position', 'academicsession__session_name')
+    list_filter = ('academicsession', 'published')
+
+    # Helper method to display the related student name in the admin panel
+    def get_student_name(self, obj):
+        return obj.Student_name.student_name
+    get_student_name.short_description = "Student Name"
 
 @admin.register(AnnualResult)
 class AnnualResultAdmin(admin.ModelAdmin):
-    list_display = ('Student_name', 'Subject')
-    ordering = ('Student_name', 'Subject')
-    search_fields = ('Student_name', 'Subject__subject_name')
-    list_filter = ('Student_name', 'Subject__subject_name')
+    list_display = ('get_student_name', 'get_subject_name', 'FirstTermTotal', 'SecondTermTotal', 'ThirdTermTotal', 'Total', 'Average', 'Grade', 'published')
+    ordering = ('students_result_data__Student_name__student_name', 'Subject__subject_name')
+    search_fields = ('students_result_data__Student_name__student_name', 'Subject__subject_name', 'Grade', 'Remark')
+    list_filter = ('Subject__subject_name', 'published')
+
+    # Helper method to display the related student name in the admin panel
+    def get_student_name(self, obj):
+        return obj.students_result_data.Student_name.student_name
+    get_student_name.short_description = "Student Name"
+
+    # Helper method to display the related subject name in the admin panel
+    def get_subject_name(self, obj):
+        return obj.Subject.subject_name
+    get_subject_name.short_description = "Subject Name"
