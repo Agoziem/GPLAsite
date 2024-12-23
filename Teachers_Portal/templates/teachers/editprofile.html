@@ -84,7 +84,44 @@
                     </div>
                 </div>
 
-            
+            <!-- Form Teacher -->
+          <div class="col-md-6">
+            <label for="roleSelect" class="form-label">Role</label>
+            <select
+              id="roleSelect"
+              class="form-select"
+              name="Role"
+              required
+            >
+              
+              <option value="Teacher" {% if teacher.Role == "Teacher" %}selected{% endif %}>
+                Teacher
+              </option>
+              <option value="ClassTeacher" {% if teacher.Role == "ClassTeacher" %}selected{% endif %}>
+                Class Teacher
+              </option>
+              <option value="Admin" {% if teacher.Role == "Admin" %}selected{% endif %}>
+                Admin
+              </option>
+            </select>
+            <div class="invalid-feedback">Please select a role.</div>
+          </div>
+          
+          <div class="col-md-6" id="classFormedContainer" style="display: none;">
+            <label for="classFormedSelect" class="form-label">Class Formed</label>
+            <select id="classFormedSelect" class="form-select" name="classFormed">
+              <option value="">Select a class</option>
+              {% for class in classes %}
+              <option
+                value="{{ class.id }}"
+                {% if class.id == teacher.classFormed.id %}selected{% endif %}
+              >
+                {{ class.Class }}
+              </option>
+              {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select a class.</div>
+          </div>
                 
                 <!-- classes Taught -->
                 <div class="col-md-6">

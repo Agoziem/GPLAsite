@@ -22,8 +22,21 @@ def profile_view(request,id):
     form = TeacherForm(instance=teacher)
     if request.method == 'POST':
         form = TeacherForm(request.POST, instance=teacher)
+        role = request.POST.get("Role")
+        class_formed = request.POST.get("classFormed")
         if form.is_valid():
-            form.save() 
+            # Update the Role
+            teacher = form.save(commit=False)
+            teacher.Role = role
+
+            # Only assign classFormed if Role is 'Form-teacher'
+            if role == "ClassTeacher":
+                if class_formed:
+                    teacher.classFormed_id = class_formed
+            else:
+                teacher.classFormed = None  # Reset if Role is not Form-teacher
+            teacher.save()
+            form.save_m2m()
             return redirect('Teachers_Portal:Teachers_dashboard')
     
     context={

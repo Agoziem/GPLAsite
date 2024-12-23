@@ -16,3 +16,27 @@
     }, false)
   })
 })()
+
+
+const roleSelect = document.getElementById("roleSelect")
+
+roleSelect?.addEventListener("input", () => {
+  toggleClassFormed(roleSelect)
+})
+
+function toggleClassFormed(roleSelect) {
+  const classFormedContainer = document.getElementById("classFormedContainer");
+  if (roleSelect.value === "ClassTeacher") {
+    classFormedContainer.style.display = "block";
+    document.getElementById("classFormedSelect").required = true;
+  } else {
+    classFormedContainer.style.display = "none";
+    document.getElementById("classFormedSelect").required = false;
+  }
+}
+
+// Call the function on page load to set the initial state
+document.addEventListener("DOMContentLoaded", function () {
+  const roleSelect = document.getElementById("roleSelect");
+  toggleClassFormed(roleSelect);
+});
