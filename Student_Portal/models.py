@@ -1,7 +1,4 @@
 from django.db import models
-import base64
-base64.encodestring = base64.encodebytes
-base64.decodestring = base64.decodebytes
 import random
 from ckeditor.fields import RichTextField
 from Home.models import schoolSection
@@ -92,12 +89,12 @@ class Students_Pin_and_ID(models.Model):
 		return str(self.student_name)
 
 	def save(self, *args, **kwargs):
-		if self.id:  # if object exists in database
+		if self.pk:  # if object exists in database
 			super().save(*args, **kwargs)
 		else:
 			while not self.student_id:
         	# Split the full_name field value into a list of names 
-				names = self.student_name.split()
+				names = str(self.student_name).split()
 				# Remove extra spaces from each name in the list	
 				names = [name.upper().strip() for name in names]
 				# Join the names back together with a single space in between
@@ -129,10 +126,10 @@ class Student_Result_Data(models.Model):
 	published=models.BooleanField(default=False)
 
 	def __str__(self):
-		return str(self.Student_name.student_name+ " " +"-"+ " " + self.Term.term)
+		return f"{self.Student_name.student_name} - {self.Term.term if self.Term else 'No Term'} - {self.AcademicSession.session if self.AcademicSession else 'No Session'}"
 
 class PrimaryResult(models.Model):
-	students_result_summary = models.ForeignKey(Student_Result_Data,on_delete=models.CASCADE,blank=True,null=True)
+	students_result_summary = models.ForeignKey(Student_Result_Data,on_delete=models.CASCADE,blank=True, null=True)
 	Subject= models.ForeignKey(Subject,on_delete=models.CASCADE)
 	Test= models.CharField(max_length=100, blank=True,null=True , default="-")
 	Exam= models.CharField(max_length=100, blank=True,null=True , default="-")
@@ -143,10 +140,10 @@ class PrimaryResult(models.Model):
 	published = models.BooleanField(default=False)
 
 	def __str__(self):
-		return str(self.students_result_summary.Student_name.student_name +"-"+ self.Subject.subject_name)
-	
+		return f"{self.students_result_summary.Student_name.student_name} - {self.Subject.subject_name}" if self.students_result_summary else "No Student Result Summary"
+
 class Result(models.Model):
-	students_result_summary = models.ForeignKey(Student_Result_Data,on_delete=models.CASCADE,blank=True,null=True)
+	students_result_summary = models.ForeignKey(Student_Result_Data,on_delete=models.CASCADE, blank=True, null=True)
 	Subject= models.ForeignKey(Subject,on_delete=models.CASCADE)
 	FirstTest= models.CharField(max_length=100, blank=True,null=True , default="-")
 	FirstAss= models.CharField(max_length=100, blank=True,null=True , default="-")
@@ -164,7 +161,7 @@ class Result(models.Model):
 
 
 	def __str__(self):
-		return str(self.students_result_summary.Student_name.student_name +"-"+ self.Subject.subject_name)
+		return f"{self.students_result_summary.Student_name.student_name} - {self.Subject.subject_name}" if self.students_result_summary else "No Student Result Summary"
 
 
 
@@ -183,7 +180,7 @@ class AnnualStudent(models.Model):
 	Verdict=models.CharField(max_length=100, blank=True,null=True , default="-")
 
 	def __str__(self):
-		return str(self.Student_name.student_name +"-"+ self.Student_name.student_class.Class)
+		return f"{self.Student_name.student_name} - {self.Student_name.student_class.Class}"
 
 
 class AnnualResult(models.Model):
@@ -201,4 +198,4 @@ class AnnualResult(models.Model):
 
 	
 	def __str__(self):
-		return str(self.Student_name.Student_name.student_name +"-"+ self.Subject.subject_name)
+		return f"{self.Student_name.Student_name.student_name} - {self.Subject.subject_name}"

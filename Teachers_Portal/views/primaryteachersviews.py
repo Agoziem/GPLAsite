@@ -139,8 +139,8 @@ def primary_annual_result_computation_view(request):
     for student in students:
         studentAnnual, created = AnnualStudent.objects.get_or_create(Student_name=student, academicsession=session)
         student_annual_details, created = AnnualResult.objects.get_or_create(Student_name=studentAnnual, Subject=subject_object)
-        
-        student_annual_details.Total = 0  # Ensure Total is initialized to zero
+
+        student_annual_details.Total = str(0)  # Ensure Total is initialized to zero
         termsobject = {}  # Reset for each student
 
         for term in terms:

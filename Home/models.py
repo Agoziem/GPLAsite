@@ -83,7 +83,7 @@ class Header(models.Model):
 	Mission=models.TextField(blank=True,null=True)
 	
 	def snippet(self):
-		return self.About[:220] + '...'
+		return self.About[:220] + '...' if self.About else ''
 
 class PhotoGallery(models.Model):
 	Photo=models.ImageField(upload_to='assets/photogallery')
