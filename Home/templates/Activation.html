@@ -3,6 +3,21 @@
 {% block content%}
 {% include 'main_navbar.html' %}
 <section class=" py-4 d-flex flex-column align-items-center">
+    <!-- Academic Session Filter -->
+    <div class="mb-4 w-75">
+        <form method="get" class="d-flex align-items-center justify-content-center">
+            <label for="session" class="me-3 fw-bold">Select Academic Session:</label>
+            <select name="session" id="session" class="form-select w-auto me-3" onchange="this.form.submit()">
+                {% for session in academic_sessions %}
+                <option value="{{ session.id }}" {% if selected_session.id == session.id %}selected{% endif %}>
+                    {{ session.session }}
+                </option>
+                {% endfor %}
+            </select>
+            <noscript><button type="submit" class="btn btn-primary">Filter</button></noscript>
+        </form>
+    </div>
+
     <!-- GPLA Card Front -->
     <div class="d-flex mb-4 align-items-center">
         <h3>GPL Academy Students Card (Front)</h3>
@@ -39,15 +54,15 @@
         <h3>GPL Academy Students Card (Back)</h3>
         <div class="ms-3">
             {% if students.has_previous %}
-            <a href="?page=1">&laquo First</a>
-            <a href="?page={{ students.previous_page_number }}">Previous</a>
+            <a href="?session={{ selected_session.id }}&page=1">&laquo First</a>
+            <a href="?session={{ selected_session.id }}&page={{ students.previous_page_number }}">Previous</a>
             {% endif %}
 
             page <span class="fw-bold">{{ students.number }}</span> of <span class="fw-bold">{{ students.paginator.num_pages }}</span>
 
             {% if students.has_next %}
-            <a class="me-2" href="?page={{ students.next_page_number }}">Next</a>
-            <a class="me-2" href="?page={{ students.paginator.num_pages }}">Last &raquo</a>
+            <a class="me-2" href="?session={{ selected_session.id }}&page={{ students.next_page_number }}">Next</a>
+            <a class="me-2" href="?session={{ selected_session.id }}&page={{ students.paginator.num_pages }}">Last &raquo</a>
             {% endif %}
         </div>
         <button id="download_back_btn" class="btn btn-primary ms-5">download Cards 
@@ -55,14 +70,14 @@
         </button>
     </div>
     <div id="student_card_back_container" class="student_card_container">
-        {% for student in students %}
+        {% for student_data in students %}
         <div class="studentcard">
             <img class="studentcardimg" src="{% static 'images/GPLA Back (empty).jpg' %}" alt="">
             <div class="text-overlay">
-                <h1>{{ student.student_class }}</h1>
-                <h2>{{ student.student_name }}</h2>
-                <p>{{ student.student_id }}</p>
-                <p>{{ student.student_pin }}</p>
+                <h1>{{ student_data.student_class }}</h1>
+                <h2>{{ student_data.student.student_name }}</h2>
+                <p>{{ student_data.student.student_id }}</p>
+                <p>{{ student_data.student.student_pin }}</p>
             </div>
         </div>
         {% endfor %}
@@ -73,3 +88,4 @@
 <script src="{% static 'js/Access_cards.js' %}"></script>
 {% include 'main_footer.html' %}
 {% endblock %}
+

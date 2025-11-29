@@ -5,19 +5,28 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import JsonResponse
 
-# get students for each Class
+# get students for each Class and academic session
 
 def get_Students(request, Classname):
 	classobject=Class.objects.get(Class=Classname)
-	Students = Students_Pin_and_ID.objects.filter(student_class=classobject)
-	Students_list = list(Students.values('id', 'student_name'))
+	# Get academic session from request
+	Session=request.GET.get('session')
+	if Session:
+		session = AcademicSession.objects.get(session=Session)
+		enrollments = StudentEnrollment.objects.filter(student_class=classobject, academic_session=session)
+	else:
+		# Get students from the most recent enrollment for this class
+		enrollments = StudentEnrollment.objects.filter(student_class=classobject).select_related('student')
+	
+	Students_list = [{'id': enrollment.student.pk, 'student_name': enrollment.student.student_name} 
+	                 for enrollment in enrollments]
 	return JsonResponse(Students_list, safe=False)
 
 # Result Portal View 
 def Result_Portal_view(request):
 	classes=Class.objects.all()
 	Terms=Term.objects.all()
-	academicsession= AcademicSession.objects.all()
+	academic_sessions= AcademicSession.objects.all()
 	if request.method == 'POST':
 	# get the Student name from the request
 		student_name=str(request.POST['student_name'])
@@ -28,15 +37,32 @@ def Result_Portal_view(request):
 		labels=[]
 		data=[]
 		Annual_Result=False
-		# Get the Student details, the c Students_Result_Details and the Results (Both Annual & Termly )
+		# Get the Student details, the Students_Result_Details and the Results (Both Annual & Termly )
 		try:
 			resultTerm=Term.objects.get(term=term)
 			resultSession= AcademicSession.objects.get(session=academic_session)
 			studentClass=Class.objects.get(Class=request.POST['student_class'])
-			student = Students_Pin_and_ID.objects.get(student_name=student_name,student_class=studentClass,student_id=student_id,student_pin=Pin)
+			
+			# Get student and verify enrollment for this class in this session
+			student = Students_Pin_and_ID.objects.get(student_name=student_name, student_id=student_id, student_pin=Pin)
+			enrollment = StudentEnrollment.objects.filter(
+				student=student, 
+				student_class=studentClass, 
+				academic_session=resultSession
+			).first()
+			
+			if not enrollment:
+				messages.error(request, 'Student is not enrolled in this class for the selected session')
+				context={
+					"classes":classes,
+					"Terms":Terms,
+					"academic_sessions":academic_sessions
+				}
+				return render(request, "Result_Portal.html", context)
+			
 			if Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession,published=True).exists():
 				Student_Result_details=Student_Result_Data.objects.filter(Student_name=student,Term=resultTerm,AcademicSession=resultSession,published=True).first()
-				if studentClass.Class_section.section == 'Primary':
+				if studentClass.Class_section and studentClass.Class_section.section == 'Primary':
 					Student_Results=PrimaryResult.objects.filter(students_result_summary=Student_Result_details,published=True)
 					for result in Student_Results:
 						labels.append(result.Subject.subject_name)
@@ -53,6 +79,7 @@ def Result_Portal_view(request):
 					Annual_Student_Results=AnnualResult.objects.filter(Student_name=Annual_Student_Result_details,published=True)
 					context={
 						"student_details":student,
+						"enrollment": enrollment,
 						"Result_details":Student_Result_details,
 						"Results":Student_Results,
 						"labels":labels,
@@ -67,6 +94,7 @@ def Result_Portal_view(request):
 					context={
 						"Annual_Result":Annual_Result,
 						"student_details":student,
+						"enrollment": enrollment,
 						"Result_details":Student_Result_details,
 						"Results":Student_Results,
 						"labels":labels,
@@ -80,7 +108,7 @@ def Result_Portal_view(request):
 			context={
 				"classes":classes,
 				"Terms":Terms,
-				"academic_session":academicsession
+				"academic_sessions":academic_sessions
 			}
 			messages.error(request, 'Check your Student id or the Pin and try again , make sure you are entering it Correctly')
 			return render(request, "Result_Portal.html",context)
@@ -88,7 +116,7 @@ def Result_Portal_view(request):
 	context={
 		"classes":classes,
 		"Terms":Terms,
-		"academic_session":academicsession
+		"academic_sessions":academic_sessions
 	}
 	return render(request, "Result_Portal.html",context)
 	

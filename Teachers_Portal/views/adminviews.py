@@ -26,9 +26,16 @@ def getclasspublishedResults(request):
         termobject = Term.objects.get(term=term)
         academic_sessionobject = AcademicSession.objects.get(session=academic_session)
         subject_allocations = Subjectallocation.objects.get(classname=classobject)
-        classstudent = Students_Pin_and_ID.objects.filter(student_class=classobject).first()
+        # Get first student enrolled in this class for this session
+        enrollment = StudentEnrollment.objects.filter(student_class=classobject, academic_session=academic_sessionobject).select_related('student').first()
+        classstudent = enrollment.student if enrollment else None
         classresultdata = {
         }
+        if not classstudent:
+            classresultdata["classname"] = classobject.Class
+            classresultdata['published'] = False
+            classresultdata['subjects'] = []
+            return JsonResponse(classresultdata, safe=False)
         try:
             resultsummary = Student_Result_Data.objects.get(Student_name=classstudent,Term=termobject,AcademicSession=academic_sessionobject)
             classresultdata["classname"] =  classobject.Class
@@ -65,9 +72,16 @@ def getprimaryclasspublishedResults(request):
         termobject = Term.objects.get(term=term)
         academic_sessionobject = AcademicSession.objects.get(session=academic_session)
         subject_allocations = Subjectallocation.objects.get(classname=classobject)
-        classstudent = Students_Pin_and_ID.objects.filter(student_class=classobject).first()
+        # Get first student enrolled in this class for this session
+        enrollment = StudentEnrollment.objects.filter(student_class=classobject, academic_session=academic_sessionobject).select_related('student').first()
+        classstudent = enrollment.student if enrollment else None
         classresultdata = {
         }
+        if not classstudent:
+            classresultdata["classname"] = classobject.Class
+            classresultdata['published'] = False
+            classresultdata['subjects'] = []
+            return JsonResponse(classresultdata, safe=False)
         try:
             resultsummary = Student_Result_Data.objects.get(Student_name=classstudent,Term=termobject,AcademicSession=academic_sessionobject)
             classresultdata["classname"] =  classobject.Class
@@ -112,8 +126,15 @@ def getclassannualpublishedResults(request):
         classobject = Class.objects.get(Class=class_)
         academic_sessionobject = AcademicSession.objects.get(session=academic_session)
         subject_allocations = Subjectallocation.objects.get(classname=classobject)
-        classstudent = Students_Pin_and_ID.objects.filter(student_class=classobject).first()
+        # Get first student enrolled in this class for this session
+        enrollment = StudentEnrollment.objects.filter(student_class=classobject, academic_session=academic_sessionobject).select_related('student').first()
+        classstudent = enrollment.student if enrollment else None
         classannualresultdata = {}
+        if not classstudent:
+            classannualresultdata["classname"] = classobject.Class
+            classannualresultdata['published'] = False
+            classannualresultdata['subjects'] = []
+            return JsonResponse(classannualresultdata, safe=False)
         try:
             annualresultsummary = AnnualStudent.objects.get(Student_name=classstudent,academicsession=academic_sessionobject)
             classannualresultdata["classname"] =  classobject.Class

@@ -35,13 +35,15 @@ def get_students_result_view(request):
         subjectobject = Subject.objects.get(subject_name=data['studentsubject'])
         term=Term.objects.get(term=data['selectedTerm'])
         session=AcademicSession.objects.get(session=data['selectedAcademicSession'])
-        students = Students_Pin_and_ID.objects.filter(student_class=classobject)
+        # Get students enrolled in this class for this session
+        enrollments = StudentEnrollment.objects.filter(student_class=classobject, academic_session=session).select_related('student')
+        students = [enrollment.student for enrollment in enrollments]
         for studentresult in students:
             student_result_details,created = Student_Result_Data.objects.get_or_create(Student_name=studentresult,Term=term,AcademicSession=session)
             student_result_object, created = Result.objects.get_or_create(Subject=subjectobject, students_result_summary=student_result_details)
             
             studentResults.append({
-                'Name': student_result_object.students_result_summary.Student_name.student_name,
+                'Name': student_result_object.students_result_summary.Student_name.student_name, # type: ignore
                 # '1sttest': student_result_object.FirstTest,
                 # '1stAss': student_result_object.FirstAss,
                 # 'Project': student_result_object.Project,
@@ -66,7 +68,11 @@ def update_student_result_view(request):
     classobject= Class.objects.get(Class=Classdata)
     term=Term.objects.get(term=data['classdata']['selectedTerm'])
     session=AcademicSession.objects.get(session=data['classdata']['selectedAcademicSession'])
-    studentobject= Students_Pin_and_ID.objects.get(student_name=student,student_class=classobject)
+    # Get student and verify enrollment
+    studentobject= Students_Pin_and_ID.objects.get(student_name=student)
+    enrollment = StudentEnrollment.objects.filter(student=studentobject, student_class=classobject, academic_session=session).first()
+    if not enrollment:
+        return JsonResponse('Student not enrolled in this class for this session', safe=False)
     subjectobject = Subject.objects.get(subject_name=subject)
     student_result_details = Student_Result_Data.objects.get(Student_name=studentobject,Term=term,AcademicSession=session)
     studentResult = Result.objects.get(students_result_summary=student_result_details, Subject=subjectobject)
@@ -92,7 +98,11 @@ def submitallstudentresult_view(request):
     for result in data['data']:
         classobject= Class.objects.get(Class=Classdata)
         subjectobject = Subject.objects.get(subject_name=subject)
-        studentobject= Students_Pin_and_ID.objects.get(student_name=result['Name'],student_class=classobject)
+        # Get student and verify enrollment
+        studentobject= Students_Pin_and_ID.objects.get(student_name=result['Name'])
+        enrollment = StudentEnrollment.objects.filter(student=studentobject, student_class=classobject, academic_session=session).first()
+        if not enrollment:
+            continue
         student_result_details = Student_Result_Data.objects.get(Student_name=studentobject,Term=term,AcademicSession=session)
         studentResult = Result.objects.get(students_result_summary=student_result_details, Subject=subjectobject)
         # studentResult.FirstTest=result['1sttest']
@@ -121,7 +131,11 @@ def unsubmitallstudentresult_view(request):
     for result in data['data']:
         classobject= Class.objects.get(Class=Classdata)
         subjectobject = Subject.objects.get(subject_name=subject)
-        studentobject= Students_Pin_and_ID.objects.get(student_name=result['Name'],student_class=classobject)
+        # Get student and verify enrollment
+        studentobject= Students_Pin_and_ID.objects.get(student_name=result['Name'])
+        enrollment = StudentEnrollment.objects.filter(student=studentobject, student_class=classobject, academic_session=session).first()
+        if not enrollment:
+            continue
         student_result_details = Student_Result_Data.objects.get(Student_name=studentobject,Term=term,AcademicSession=session)
         studentResult = Result.objects.get(students_result_summary=student_result_details, Subject=subjectobject)
         studentResult.published=False
@@ -153,7 +167,9 @@ def annual_result_computation_view(request):
     class_object = Class.objects.get(Class=class_name)
     session = AcademicSession.objects.get(session=academic_session)
     subject_object = Subject.objects.get(subject_name=subject_name)
-    students = Students_Pin_and_ID.objects.filter(student_class=class_object)
+    # Get students enrolled in this class for this session
+    enrollments = StudentEnrollment.objects.filter(student_class=class_object, academic_session=session).select_related('student')
+    students = [enrollment.student for enrollment in enrollments]
     terms = Term.objects.all()
     
     students_annuals = []
@@ -161,7 +177,7 @@ def annual_result_computation_view(request):
         studentAnnual, created = AnnualStudent.objects.get_or_create(Student_name=student, academicsession=session)
         student_annual_details, created = AnnualResult.objects.get_or_create(Student_name=studentAnnual, Subject=subject_object)
         
-        student_annual_details.Total = 0  # Ensure Total is initialized to zero
+        student_annual_details.Total = str(0)  # Ensure Total is initialized to zero
         termsobject = {}  # Reset for each student
 
         for term in terms:
@@ -196,7 +212,11 @@ def publish_annual_results(request):
     session = AcademicSession.objects.get(session=academic_session)
     subject_object = Subject.objects.get(subject_name=subject_name)
     for result in data['data']:
-        student = Students_Pin_and_ID.objects.get(student_id=result['studentID'], student_name=result['Name'], student_class=class_object)
+        # Get student and verify enrollment
+        student = Students_Pin_and_ID.objects.get(student_id=result['studentID'], student_name=result['Name'])
+        enrollment = StudentEnrollment.objects.filter(student=student, student_class=class_object, academic_session=session).first()
+        if not enrollment:
+            continue
         studentAnnual = AnnualStudent.objects.get(Student_name=student, academicsession=session)
         student_annual_details = AnnualResult.objects.get(Student_name=studentAnnual, Subject=subject_object)
         student_annual_details.FirstTermTotal = result["terms"]["1st Term"]
@@ -221,7 +241,11 @@ def unpublish_annual_results(request):
     session = AcademicSession.objects.get(session=academic_session)
     subject_object = Subject.objects.get(subject_name=subject_name)
     for studentdata in data['data']:
-        student = Students_Pin_and_ID.objects.get(student_name=studentdata['Name'], student_class=class_object)
+        # Get student and verify enrollment
+        student = Students_Pin_and_ID.objects.get(student_name=studentdata['Name'])
+        enrollment = StudentEnrollment.objects.filter(student=student, student_class=class_object, academic_session=session).first()
+        if not enrollment:
+            continue
         studentAnnual = AnnualStudent.objects.get(Student_name=student, academicsession=session)
         student_annual_details = AnnualResult.objects.get(Student_name=studentAnnual, Subject=subject_object)
         student_annual_details.published = False

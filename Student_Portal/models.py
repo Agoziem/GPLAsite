@@ -82,11 +82,23 @@ class Students_Pin_and_ID(models.Model):
 	Sex=models.CharField(max_length=100, blank=True,null=True)
 	Age=models.CharField(max_length=100, blank=True,null=True)
 	student_pin=models.CharField(max_length=100, blank=True,null=True)
-	student_class=models.ForeignKey(Class, on_delete=models.CASCADE )
 	student_password=models.CharField(max_length=100, blank=True,null=True,default="No password")
 
 	def __str__(self):
 		return str(self.student_name)
+	
+	def get_current_class(self, session=None):
+		"""Get the current class for the student. If session is provided, get class for that session."""
+		if session:
+			enrollment = StudentEnrollment.objects.filter(student=self, academic_session=session).first()
+		else:
+			enrollment = StudentEnrollment.objects.filter(student=self).order_by('-academic_session__session').first()
+		return enrollment.student_class if enrollment else None
+	
+	def get_class_for_session(self, session):
+		"""Get the class for a specific academic session."""
+		enrollment = StudentEnrollment.objects.filter(student=self, academic_session=session).first()
+		return enrollment.student_class if enrollment else None
 
 	def save(self, *args, **kwargs):
 		if self.pk:  # if object exists in database
@@ -107,6 +119,22 @@ class Students_Pin_and_ID(models.Model):
 					self.student_id = student_id
 					self.student_pin = random_14_digit
 			super().save(*args, **kwargs)
+
+
+class StudentEnrollment(models.Model):
+	"""Model to track which class a student is enrolled in for each academic session"""
+	student = models.ForeignKey(Students_Pin_and_ID, on_delete=models.CASCADE, related_name='enrollments')
+	student_class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='student_enrollments')
+	academic_session = models.ForeignKey(AcademicSession, on_delete=models.CASCADE, related_name='enrollments')
+	enrollment_date = models.DateField(auto_now_add=True)
+	is_active = models.BooleanField(default=True)
+
+	class Meta:
+		unique_together = ('student', 'academic_session')
+		ordering = ['-academic_session__session', 'student__student_name']
+
+	def __str__(self):
+		return f"{self.student.student_name} - {self.student_class.Class} ({self.academic_session.session})"
 
 
 
@@ -180,7 +208,9 @@ class AnnualStudent(models.Model):
 	Verdict=models.CharField(max_length=100, blank=True,null=True , default="-")
 
 	def __str__(self):
-		return f"{self.Student_name.student_name} - {self.Student_name.student_class.Class}"
+		enrollment = StudentEnrollment.objects.filter(student=self.Student_name, academic_session=self.academicsession).first()
+		class_name = enrollment.student_class.Class if enrollment else "No Class"
+		return f"{self.Student_name.student_name} - {class_name}"
 
 
 class AnnualResult(models.Model):
