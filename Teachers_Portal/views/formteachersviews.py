@@ -118,7 +118,7 @@ def PublishResults_view(request,Classname):
     Terms=Term.objects.all()
     academic_session= AcademicSession.objects.all()
     class_object = Class.objects.get(Class=Classname)
-    subjects_allocation = Subjectallocation.objects.filter(classname=class_object).first()
+    subjects_allocation = Subjectallocation.objects.filter(classname=class_object).order_by('-id').first()
     subject_code = []
     for subobject in subjects_allocation.subjects.all(): # type: ignore
         subject_code.append(subobject.subject_code)
@@ -136,7 +136,7 @@ def getstudentsubjecttotals_view(request):
     class_object = Class.objects.get(Class=data['studentclass'])
     term_object = Term.objects.get(term=data['selectedTerm'])
     session_object = AcademicSession.objects.get(session=data['selectedAcademicSession'])
-    subjects_allocated = Subjectallocation.objects.filter(classname=class_object).first()
+    subjects_allocated = Subjectallocation.objects.filter(classname=class_object).order_by('-id').first()
     # Get students enrolled in this class for this session
     enrollments = StudentEnrollment.objects.filter(student_class=class_object, academic_session=session_object).select_related('student')
     students = [enrollment.student for enrollment in enrollments]
@@ -249,7 +249,7 @@ def unpublish_classresults_view(request):
 def PublishAnnualResults_view(request,Classname):
     academic_session= AcademicSession.objects.all()
     class_object = Class.objects.get(Class=Classname)
-    subjects_allocation = Subjectallocation.objects.filter(classname=class_object).first()
+    subjects_allocation = Subjectallocation.objects.filter(classname=class_object).order_by('-id').first()
     subject_code = []
     for subobject in subjects_allocation.subjects.all(): # type: ignore
         subject_code.append(subobject.subject_code)
@@ -269,7 +269,7 @@ def annual_class_computation_view(request):
     # Get students enrolled in this class for this session
     enrollments = StudentEnrollment.objects.filter(student_class=classobject, academic_session=Acadsessionobject).select_related('student')
     students = [enrollment.student for enrollment in enrollments]
-    subjects_allocated = Subjectallocation.objects.filter(classname=classobject).first()
+    subjects_allocated = Subjectallocation.objects.filter(classname=classobject).order_by('-id').first()
     final_list = []
     published = False
     for student in students:

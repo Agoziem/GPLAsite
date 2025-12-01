@@ -25,7 +25,7 @@ def getclasspublishedResults(request):
         classobject = Class.objects.get(Class=class_)
         termobject = Term.objects.get(term=term)
         academic_sessionobject = AcademicSession.objects.get(session=academic_session)
-        subject_allocations = Subjectallocation.objects.get(classname=classobject)
+        subject_allocations = Subjectallocation.objects.filter(classname=classobject).order_by('-id').first()
         # Get first student enrolled in this class for this session
         enrollment = StudentEnrollment.objects.filter(student_class=classobject, academic_session=academic_sessionobject).select_related('student').first()
         classstudent = enrollment.student if enrollment else None
@@ -41,7 +41,7 @@ def getclasspublishedResults(request):
             classresultdata["classname"] =  classobject.Class
             classresultdata['published'] = resultsummary.published
             subjectResults = []
-            for subject in subject_allocations.subjects.all():
+            for subject in subject_allocations.subjects.all(): # type: ignore
                 Subjectresult = {}
                 try:
                     subject_results = Result.objects.get(students_result_summary=resultsummary,Subject=subject)
@@ -71,7 +71,7 @@ def getprimaryclasspublishedResults(request):
         classobject = Class.objects.get(Class=class_)
         termobject = Term.objects.get(term=term)
         academic_sessionobject = AcademicSession.objects.get(session=academic_session)
-        subject_allocations = Subjectallocation.objects.get(classname=classobject)
+        subject_allocations = Subjectallocation.objects.filter(classname=classobject).order_by('-id').first()
         # Get first student enrolled in this class for this session
         enrollment = StudentEnrollment.objects.filter(student_class=classobject, academic_session=academic_sessionobject).select_related('student').first()
         classstudent = enrollment.student if enrollment else None
@@ -87,7 +87,7 @@ def getprimaryclasspublishedResults(request):
             classresultdata["classname"] =  classobject.Class
             classresultdata['published'] = resultsummary.published
             subjectResults = []
-            for subject in subject_allocations.subjects.all():
+            for subject in subject_allocations.subjects.all(): # type: ignore
                 Subjectresult = {}
                 try:
                     subject_results = PrimaryResult.objects.get(students_result_summary=resultsummary,Subject=subject)
@@ -125,7 +125,7 @@ def getclassannualpublishedResults(request):
         academic_session = data.get('session')
         classobject = Class.objects.get(Class=class_)
         academic_sessionobject = AcademicSession.objects.get(session=academic_session)
-        subject_allocations = Subjectallocation.objects.get(classname=classobject)
+        subject_allocations = Subjectallocation.objects.filter(classname=classobject).order_by('-id').first()
         # Get first student enrolled in this class for this session
         enrollment = StudentEnrollment.objects.filter(student_class=classobject, academic_session=academic_sessionobject).select_related('student').first()
         classstudent = enrollment.student if enrollment else None
@@ -140,7 +140,7 @@ def getclassannualpublishedResults(request):
             classannualresultdata["classname"] =  classobject.Class
             classannualresultdata['published'] = annualresultsummary.published
             annualsubjectResults = []
-            for subject in subject_allocations.subjects.all():
+            for subject in subject_allocations.subjects.all(): # type: ignore
                 Subjectresult = {}
                 try:
                     subject_results = AnnualResult.objects.get(Student_name=annualresultsummary,Subject=subject)
