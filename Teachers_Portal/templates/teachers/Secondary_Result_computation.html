@@ -178,10 +178,10 @@
           style="background-color: rgb(209 201 243 / 19%)"
         >
           <input type="text" value="{{ class.Class }}" hidden />
-          <div class="mb-2">
-            <label>Subject: </label>
+          <div class="mb-3">
+            <label class="form-label fw-bold">Subject: </label>
             <select class="form-select" name="subject" required>
-              <option value="" disabled selected>Select your Class</option>
+              <option value="" disabled selected>Select Subject</option>
               {% for subject in subjects_taught_for_class %}
               <option value="{{ subject.subject_name }}">
                 {{ subject.subject_name }}
@@ -189,8 +189,8 @@
               {% endfor %}
             </select>
           </div>
-          <div class="mb-2">
-            <label for="academicSessionSelect">Academic Session:</label>
+          <div class="mb-3">
+            <label for="academicSessionSelect" class="form-label fw-bold">Academic Session:</label>
             <select
               id="academicSessionSelect"
               name="AcademicSession"
@@ -198,7 +198,7 @@
               required
             >
               <option value="" disabled selected>
-                Select the Academic Session
+                Select Academic Session
               </option>
               {% for Session in academic_session %}
               <option value="{{ Session.session }}">
@@ -207,23 +207,23 @@
               {% endfor %}
             </select>
           </div>
-          <div class="mb-4">
-            <label for="termSelect">Term:</label>
+          <div class="mb-3">
+            <label for="termSelect" class="form-label fw-bold">Term:</label>
             <select id="termSelect" name="Term" class="form-select" required>
-              <option value="" disabled selected>Select the Term</option>
+              <option value="" disabled selected>Select Term</option>
               {% for Term in Terms %}
               <option value="{{ Term.term }}">{{ Term.term }}</option>
               {% endfor %}
             </select>
           </div>
-          <button type="submit" class="btn btn-primary w-100 mb-4">
-            <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary w-100 mb-3">
+            <div class="d-flex justify-content-center align-items-center">
               <div id="updatesubjectspinner" class="d-none me-2">
                 <div class="spinner-border spinner-border-sm" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>
               </div>
-              <div id="subjectbtnmessage">load Results</div>
+              <div id="subjectbtnmessage">Load Results</div>
             </div>
           </button>
         </form>
