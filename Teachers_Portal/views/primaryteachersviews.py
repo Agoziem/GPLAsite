@@ -16,7 +16,11 @@ def primary_result_computation_view(request,Classname,id):
     academic_session= AcademicSession.objects.all()
     classobject = Class.objects.get(Class=Classname)
     subjectsforclass=Subjectallocation.objects.filter(classname=classobject).order_by('-id').first()
-    subjects_taught_for_class = teacher.subjects_taught.filter(id__in=subjectsforclass.subjects.values_list('id', flat=True)) # type: ignore
+    if subjectsforclass:
+        subjects_taught_for_class = teacher.subjects_taught.filter(id__in=subjectsforclass.subjects.values_list('id', flat=True))
+    else:
+        subjects_taught_for_class = teacher.subjects_taught.none()
+    print(subjects_taught_for_class)
     context={
         'class':classobject,
         "Terms":Terms,

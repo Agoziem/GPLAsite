@@ -175,7 +175,7 @@
             <label class="form-label fw-bold">Subject: </label>
             <select class="form-select" name="subject" required>
               <option value="" disabled selected>Select Subject</option>
-              {% for subject in subjects_taught_for_class.subjects.all %}
+              {% for subject in subjects_taught_for_class %}
               <option value="{{ subject.subject_name }}">
                 {{ subject.subject_name }}
               </option>
