@@ -66,7 +66,9 @@ def updatestudent_view(request):
     student_class=data['studentclass']
     classobject = Class.objects.get(Class=student_class)
     try:
-        updateStudent = Students_Pin_and_ID.objects.get(id=student_id)
+        updateStudent = Students_Pin_and_ID.objects.filter(id=student_id).order_by("id").first()
+        if not updateStudent:
+            return JsonResponse({'error': 'Student not found' }, safe=False)
         updateStudent.student_name=student_name
         updateStudent.Sex= student_sex
         updateStudent.save()
@@ -99,7 +101,9 @@ def DeleteStudents_view(request):
     studentnamesdeleted=[]   
     try:
         for id in studentidstodelete:
-            student = Students_Pin_and_ID.objects.get(id=id)
+            student = Students_Pin_and_ID.objects.filter(id=id).order_by("id").first()
+            if not student:
+                return JsonResponse({'error': f'Student with id {id} not found' }, safe=False)
             studentnamesdeleted.append(student.student_name)
             student.delete()
         context={
@@ -182,7 +186,9 @@ def publishstudentresult_view(request):
         resultterm = Term.objects.get(term=termobject)
         resultsession = AcademicSession.objects.get(session=Acadsessionobject)
         # Get student by name and verify enrollment
-        student = Students_Pin_and_ID.objects.get(student_name=studentdata['Name'])
+        student = Students_Pin_and_ID.objects.filter(student_name=studentdata['Name']).order_by("id").first()
+        if not student:
+            continue
         enrollment = StudentEnrollment.objects.filter(student=student, student_class=classobject, academic_session=resultsession).first()
         if not enrollment:
             continue
@@ -211,7 +217,9 @@ def unpublish_classresults_view(request):
         acad_session_object = AcademicSession.objects.get(session=data['classdata']['selectedAcademicSession'])
         class_object = Class.objects.get(Class=data['classdata']['studentclass'])
         for student_data in data['data']:
-            student = Students_Pin_and_ID.objects.get(student_name=student_data['Name'])
+            student = Students_Pin_and_ID.objects.filter(student_name=student_data['Name']).order_by("id").first()
+            if not student:
+                continue
             # Verify enrollment
             enrollment = StudentEnrollment.objects.filter(student=student, student_class=class_object, academic_session=acad_session_object).first()
             if not enrollment:
@@ -310,7 +318,9 @@ def publish_annualstudentresult_view(request):
             classobject=Class.objects.get(Class=Classdata)
             resultsession = AcademicSession.objects.get(session=Acadsessionobject)
             # Get student and verify enrollment
-            student = Students_Pin_and_ID.objects.get(student_name=studentdata['Name'])
+            student = Students_Pin_and_ID.objects.filter(student_name=studentdata['Name']).order_by("id").first()
+            if not student:
+                continue
             enrollment = StudentEnrollment.objects.filter(student=student, student_class=classobject, academic_session=resultsession).first()
             if not enrollment:
                 continue
