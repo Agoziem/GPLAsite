@@ -156,7 +156,7 @@ function populatetable(tabledata) {
   tbody.innerHTML = tabledata
     .map(
       (data, index) => `
-        <tr data-rowindex='${index + 1}'>
+        <tr data-rowindex='${index + 1}' data-pk='${data["id"]}'>
             <td>${index + 1}</td>
             <td class="text-primary text-uppercase"><a class="inputdetailsformmodelbtn text-decoration-none" style="cursor:pointer">${
               data.Name

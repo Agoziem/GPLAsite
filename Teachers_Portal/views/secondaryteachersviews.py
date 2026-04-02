@@ -46,6 +46,7 @@ def get_students_result_view(request):
             student_result_object, created = Result.objects.get_or_create(Subject=subjectobject, students_result_summary=student_result_details)
             
             studentResults.append({
+                'id': student_result_object.students_result_summary.Student_name.pk,
                 'Name': student_result_object.students_result_summary.Student_name.student_name, # type: ignore
                 # '1sttest': student_result_object.FirstTest,
                 # '1stAss': student_result_object.FirstAss,
@@ -67,12 +68,11 @@ def update_student_result_view(request):
     data=json.loads(request.body)
     subject=data['classdata']['studentsubject']
     Classdata=data['classdata']['studentclass']
-    student=data['formDataObject']['Name']
     classobject= Class.objects.get(Class=Classdata)
     term=Term.objects.get(term=data['classdata']['selectedTerm'])
     session=AcademicSession.objects.get(session=data['classdata']['selectedAcademicSession'])
-    # Get student and verify enrollment
-    studentobject= Students_Pin_and_ID.objects.filter(student_name=student).order_by("id").first()
+    # Get student by pk and verify enrollment
+    studentobject= Students_Pin_and_ID.objects.filter(pk=data['formDataObject']['id']).first()
     if not studentobject:
         return JsonResponse('Student not found', safe=False)
     enrollment = StudentEnrollment.objects.filter(student=studentobject, student_class=classobject, academic_session=session).first()
@@ -103,8 +103,8 @@ def submitallstudentresult_view(request):
     for result in data['data']:
         classobject= Class.objects.get(Class=Classdata)
         subjectobject = Subject.objects.get(subject_name=subject)
-        # Get student and verify enrollment
-        studentobject= Students_Pin_and_ID.objects.filter(student_name=result['Name']).order_by("id").first()
+        # Get student by pk and verify enrollment
+        studentobject= Students_Pin_and_ID.objects.filter(pk=result['id']).first()
         if not studentobject:
             continue
         enrollment = StudentEnrollment.objects.filter(student=studentobject, student_class=classobject, academic_session=session).first()
@@ -138,8 +138,8 @@ def unsubmitallstudentresult_view(request):
     for result in data['data']:
         classobject= Class.objects.get(Class=Classdata)
         subjectobject = Subject.objects.get(subject_name=subject)
-        # Get student and verify enrollment
-        studentobject= Students_Pin_and_ID.objects.filter(student_name=result['Name']).order_by("id").first()
+        # Get student by pk and verify enrollment
+        studentobject= Students_Pin_and_ID.objects.filter(pk=result['id']).first()
         if not studentobject:
             continue
         enrollment = StudentEnrollment.objects.filter(student=studentobject, student_class=classobject, academic_session=session).first()
@@ -201,6 +201,7 @@ def annual_result_computation_view(request):
                 continue
         try:
             students_annuals.append({
+                "id": student.pk,
                 "studentID": student.student_id,
                 'Name': student.student_name,
                 'terms': termsobject,
@@ -222,7 +223,7 @@ def publish_annual_results(request):
     subject_object = Subject.objects.get(subject_name=subject_name)
     for result in data['data']:
         # Get student and verify enrollment
-        student = Students_Pin_and_ID.objects.filter(student_id=result['studentID'], student_name=result['Name']).order_by("id").first()
+        student = Students_Pin_and_ID.objects.filter(pk=result['id']).first()
         if not student:
             continue
         enrollment = StudentEnrollment.objects.filter(student=student, student_class=class_object, academic_session=session).first()
@@ -252,8 +253,8 @@ def unpublish_annual_results(request):
     session = AcademicSession.objects.get(session=academic_session)
     subject_object = Subject.objects.get(subject_name=subject_name)
     for studentdata in data['data']:
-        # Get student and verify enrollment
-        student = Students_Pin_and_ID.objects.filter(student_name=studentdata['Name']).order_by("id").first()
+        # Get student by pk and verify enrollment
+        student = Students_Pin_and_ID.objects.filter(pk=studentdata['id']).first()
         if not student:
             continue
         enrollment = StudentEnrollment.objects.filter(student=student, student_class=class_object, academic_session=session).first()
