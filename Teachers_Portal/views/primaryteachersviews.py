@@ -42,18 +42,23 @@ def primary_get_students_result_view(request):
         enrollments = StudentEnrollment.objects.filter(student_class=classobject, academic_session=session).select_related('student')
         studentsobjects = [enrollment.student for enrollment in enrollments]
         for student_result in studentsobjects:
-            student_result_details, created = Student_Result_Data.objects.get_or_create(Student_name=student_result,Term=term,AcademicSession=session)
-            student_result_object, created = PrimaryResult.objects.get_or_create(Subject=subjectobject, students_result_summary=student_result_details)
-            studentResults.append({
-                'id': student_result_object.students_result_summary.Student_name.pk,
-                'Name': student_result_object.students_result_summary.Student_name.student_name, # type: ignore
-                'Test': student_result_object.Test,
-                'Exam': student_result_object.Exam,
-                "published": student_result_object.published,
-            })
+            try:
+                student_result_details, created = Student_Result_Data.objects.get_or_create(Student_name=student_result,Term=term,AcademicSession=session)
+                student_result_object, created = PrimaryResult.objects.get_or_create(Subject=subjectobject, students_result_summary=student_result_details)
+                studentResults.append({
+                    'id': student_result_object.students_result_summary.Student_name.pk, # type: ignore
+                    'Name': student_result_object.students_result_summary.Student_name.student_name, # type: ignore
+                    'Test': student_result_object.Test,
+                    'Exam': student_result_object.Exam,
+                    "published": student_result_object.published,
+                })
+            except Exception as e:
+                print(f"Error processing student {student_result}: {e}")
+                continue
         return JsonResponse(studentResults, safe=False)
-    except:
-        return JsonResponse(studentResults, safe=False)
+    except Exception as e:
+        print(f"primary_get_students_result_view error: {e}")
+        return JsonResponse({'error': str(e)}, safe=False)
 
 @login_required
 def primary_update_student_result_view(request):

@@ -42,25 +42,29 @@ def get_students_result_view(request):
         enrollments = StudentEnrollment.objects.filter(student_class=classobject, academic_session=session).select_related('student')
         students = [enrollment.student for enrollment in enrollments]
         for studentresult in students:
-            student_result_details,created = Student_Result_Data.objects.get_or_create(Student_name=studentresult,Term=term,AcademicSession=session)
-            student_result_object, created = Result.objects.get_or_create(Subject=subjectobject, students_result_summary=student_result_details)
-            
-            studentResults.append({
-                'id': student_result_object.students_result_summary.Student_name.pk,
-                'Name': student_result_object.students_result_summary.Student_name.student_name, # type: ignore
-                # '1sttest': student_result_object.FirstTest,
-                # '1stAss': student_result_object.FirstAss,
-                # 'Project': student_result_object.Project,
-                # 'MidTermTest': student_result_object.MidTermTest,
-                # '2ndTest': student_result_object.SecondAss,
-                # '2ndAss': student_result_object.SecondTest,
-                'CA': student_result_object.CA,
-                'Exam': student_result_object.Exam,
-                'published': student_result_object.published
-            })
+            try:
+                student_result_details,created = Student_Result_Data.objects.get_or_create(Student_name=studentresult,Term=term,AcademicSession=session)
+                student_result_object, created = Result.objects.get_or_create(Subject=subjectobject, students_result_summary=student_result_details)
+                studentResults.append({
+                    'id': student_result_object.students_result_summary.Student_name.pk, #type: ignore
+                    'Name': student_result_object.students_result_summary.Student_name.student_name, # type: ignore
+                    # '1sttest': student_result_object.FirstTest,
+                    # '1stAss': student_result_object.FirstAss,
+                    # 'Project': student_result_object.Project,
+                    # 'MidTermTest': student_result_object.MidTermTest,
+                    # '2ndTest': student_result_object.SecondAss,
+                    # '2ndAss': student_result_object.SecondTest,
+                    'CA': student_result_object.CA,
+                    'Exam': student_result_object.Exam,
+                    'published': student_result_object.published
+                })
+            except Exception as e:
+                print(f"Error processing student {studentresult}: {e}")
+                continue
         return JsonResponse(studentResults, safe=False)
-    except:
-        return JsonResponse(studentResults, safe=False)
+    except Exception as e:
+        print(f"get_students_result_view error: {e}")
+        return JsonResponse({'error': str(e)}, safe=False)
 
 
 @login_required
