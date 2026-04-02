@@ -35,7 +35,12 @@ def get_students_result_view(request):
     studentResults = []
     try:
         classobject = Class.objects.get(Class=data['studentclass'])
-        subjectobject = Subject.objects.get(subject_name=data['studentsubject'])
+        subjectsforclass = Subjectallocation.objects.filter(classname=classobject).order_by('-id').first()
+        if not subjectsforclass:
+            return JsonResponse({'error': 'No subject allocation found for this class'}, safe=False)
+        subjectobject = subjectsforclass.subjects.filter(subject_name=data['studentsubject']).first()
+        if not subjectobject:
+            return JsonResponse({'error': 'Subject not found in allocation for this class'}, safe=False)
         term=Term.objects.get(term=data['selectedTerm'])
         session=AcademicSession.objects.get(session=data['selectedAcademicSession'])
         # Get students enrolled in this class for this session
@@ -82,7 +87,10 @@ def update_student_result_view(request):
     enrollment = StudentEnrollment.objects.filter(student=studentobject, student_class=classobject, academic_session=session).first()
     if not enrollment:
         return JsonResponse('Student not enrolled in this class for this session', safe=False)
-    subjectobject = Subject.objects.get(subject_name=subject)
+    subjectsforclass = Subjectallocation.objects.filter(classname=classobject).order_by('-id').first()
+    subjectobject = subjectsforclass.subjects.filter(subject_name=subject).first() if subjectsforclass else None
+    if not subjectobject:
+        return JsonResponse('Subject not found for this class', safe=False)
     student_result_details = Student_Result_Data.objects.get(Student_name=studentobject,Term=term,AcademicSession=session)
     studentResult = Result.objects.get(students_result_summary=student_result_details, Subject=subjectobject)
     # studentResult.FirstTest  = data['formDataObject']['1sttest']
@@ -104,9 +112,12 @@ def submitallstudentresult_view(request):
     Classdata=data['classdata']['studentclass']
     term=Term.objects.get(term=data['classdata']['selectedTerm'])
     session=AcademicSession.objects.get(session=data['classdata']['selectedAcademicSession'])
+    classobject= Class.objects.get(Class=Classdata)
+    subjectsforclass = Subjectallocation.objects.filter(classname=classobject).order_by('-id').first()
+    subjectobject = subjectsforclass.subjects.filter(subject_name=subject).first() if subjectsforclass else None
+    if not subjectobject:
+        return JsonResponse('Subject not found for this class', safe=False)
     for result in data['data']:
-        classobject= Class.objects.get(Class=Classdata)
-        subjectobject = Subject.objects.get(subject_name=subject)
         # Get student by pk and verify enrollment
         studentobject= Students_Pin_and_ID.objects.filter(pk=result['id']).first()
         if not studentobject:
@@ -139,9 +150,12 @@ def unsubmitallstudentresult_view(request):
     Classdata=data['classdata']['studentclass']
     term=Term.objects.get(term=data['classdata']['selectedTerm'])
     session=AcademicSession.objects.get(session=data['classdata']['selectedAcademicSession'])
+    classobject= Class.objects.get(Class=Classdata)
+    subjectsforclass = Subjectallocation.objects.filter(classname=classobject).order_by('-id').first()
+    subjectobject = subjectsforclass.subjects.filter(subject_name=subject).first() if subjectsforclass else None
+    if not subjectobject:
+        return JsonResponse('Subject not found for this class', safe=False)
     for result in data['data']:
-        classobject= Class.objects.get(Class=Classdata)
-        subjectobject = Subject.objects.get(subject_name=subject)
         # Get student by pk and verify enrollment
         studentobject= Students_Pin_and_ID.objects.filter(pk=result['id']).first()
         if not studentobject:
