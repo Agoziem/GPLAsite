@@ -89,6 +89,7 @@ def primary_update_student_result_view(request):
         return JsonResponse('Subject not found for this class', safe=False)
     student_result_details = Student_Result_Data.objects.get(Student_name=studentobject, Term=term, AcademicSession=session)
     studentResult = PrimaryResult.objects.get(students_result_summary=student_result_details, Subject=subjectobject)
+    studentResult.Test = data['formDataObject']['Test']
     studentResult.Exam = data['formDataObject']['Exam']
     studentResult.save()
     return JsonResponse('Result Updated Successfully', safe=False)
