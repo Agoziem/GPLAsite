@@ -73,8 +73,11 @@ def primary_update_student_result_view(request):
     classobject= Class.objects.get(Class=Classdata)
     term=Term.objects.get(term=data['classdata']['selectedTerm'])
     session=AcademicSession.objects.get(session=data['classdata']['selectedAcademicSession'])
+    student_id = data['formDataObject'].get('id')
+    if not student_id:
+        return JsonResponse('Student ID is missing', safe=False)
     # Get student by pk and verify enrollment
-    studentobject= Students_Pin_and_ID.objects.filter(pk=data['formDataObject']['id']).first()
+    studentobject = Students_Pin_and_ID.objects.filter(pk=student_id).first()
     if not studentobject:
         return JsonResponse('Student not found', safe=False)
     enrollment = StudentEnrollment.objects.filter(student=studentobject, student_class=classobject, academic_session=session).first()
@@ -84,6 +87,8 @@ def primary_update_student_result_view(request):
     subjectobject = subjectsforclass.subjects.filter(subject_name=subject).first() if subjectsforclass else None
     if not subjectobject:
         return JsonResponse('Subject not found for this class', safe=False)
+    student_result_details = Student_Result_Data.objects.get(Student_name=studentobject, Term=term, AcademicSession=session)
+    studentResult = PrimaryResult.objects.get(students_result_summary=student_result_details, Subject=subjectobject)
     studentResult.Exam = data['formDataObject']['Exam']
     studentResult.save()
     return JsonResponse('Result Updated Successfully', safe=False)
