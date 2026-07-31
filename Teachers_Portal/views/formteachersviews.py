@@ -290,9 +290,9 @@ def annual_class_computation_view(request):
         for subobject in subjects_allocated.subjects.all(): # type: ignore
             subject = {}
             try:
-                subject_object = Subject.objects.get(subject_code=subobject.subject_code)
+                # subobject is already the correct Subject instance — no need to re-fetch
                 studentAnnual = AnnualStudent.objects.get(Student_name=student, academicsession=Acadsessionobject)
-                subjectAnnual = AnnualResult.objects.get(Student_name=studentAnnual, Subject=subject_object)
+                subjectAnnual = AnnualResult.objects.get(Student_name=studentAnnual, Subject=subobject)
                 subject['subject_code'] = subobject.subject_code
                 subject['subject_name'] = subobject.subject_name
                 subject['Average'] = subjectAnnual.Average

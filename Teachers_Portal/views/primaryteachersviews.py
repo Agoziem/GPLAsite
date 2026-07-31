@@ -170,50 +170,61 @@ def annualresult_computation(request,Classname,id):
     return render(request,'teachers/Annual_Results.html',context)
 
 def primary_annual_result_computation_view(request):
-    data = json.loads(request.body)
-    subject_name = data['studentsubject']
-    class_name = data['studentclass']
-    academic_session = data['selectedAcademicSession']
-    
-    class_object = Class.objects.get(Class=class_name)
-    session = AcademicSession.objects.get(session=academic_session)
-    subject_object = Subject.objects.get(subject_name=subject_name)
-    # Get students enrolled in this class for this session
-    enrollments = StudentEnrollment.objects.filter(student_class=class_object, academic_session=session).select_related('student')
-    students = [enrollment.student for enrollment in enrollments]
-    terms = Term.objects.all()
-    
-    students_annuals = []
-    for student in students:
-        studentAnnual, created = AnnualStudent.objects.get_or_create(Student_name=student, academicsession=session)
-        student_annual_details, created = AnnualResult.objects.get_or_create(Student_name=studentAnnual, Subject=subject_object)
+    try:
+        data = json.loads(request.body)
+        subject_name = data['studentsubject']
+        class_name = data['studentclass']
+        academic_session = data['selectedAcademicSession']
 
-        student_annual_details.Total = str(0)  # Ensure Total is initialized to zero
-        termsobject = {}  # Reset for each student
+        class_object = Class.objects.get(Class=class_name)
+        session = AcademicSession.objects.get(session=academic_session)
 
-        for term in terms:
+        # Look up subject from the class allocation to avoid MultipleObjectsReturned
+        # when subjects with the same name exist for different sections
+        subjectsforclass = Subjectallocation.objects.filter(classname=class_object).order_by('-id').first()
+        subject_object = subjectsforclass.subjects.filter(subject_name=subject_name).first() if subjectsforclass else None
+        if not subject_object:
+            return JsonResponse({'error': 'Subject not found in allocation for this class'}, safe=False)
+
+        # Get students enrolled in this class for this session
+        enrollments = StudentEnrollment.objects.filter(student_class=class_object, academic_session=session).select_related('student')
+        students = [enrollment.student for enrollment in enrollments]
+        terms = Term.objects.all()
+
+        students_annuals = []
+        for student in students:
+            studentAnnual, created = AnnualStudent.objects.get_or_create(Student_name=student, academicsession=session)
+            student_annual_details, created = AnnualResult.objects.get_or_create(Student_name=studentAnnual, Subject=subject_object)
+
+            student_annual_details.Total = str(0)
+            termsobject = {}
+
+            for term in terms:
+                try:
+                    student_result_details, _ = Student_Result_Data.objects.get_or_create(
+                        Student_name=student, Term=term, AcademicSession=session)
+                    student_result, _ = PrimaryResult.objects.get_or_create(
+                        students_result_summary=student_result_details, Subject=subject_object)
+                    termsobject[term.term] = student_result.Total_100
+                except Exception as e:
+                    print(f"Exception: {e}")
+                    continue
             try:
-                student_result_details, _ = Student_Result_Data.objects.get_or_create(
-                    Student_name=student, Term=term, AcademicSession=session)
-                student_result, _ = PrimaryResult.objects.get_or_create(
-                    students_result_summary=student_result_details, Subject=subject_object)
-                termsobject[term.term] = student_result.Total_100
+                students_annuals.append({
+                    "id": student.pk,
+                    "studentID": student.student_id,
+                    'Name': student.student_name,
+                    'terms': termsobject,
+                    'published': student_annual_details.published
+                })
             except Exception as e:
                 print(f"Exception: {e}")
                 continue
-        try:
-            students_annuals.append({
-                "id": student.pk,
-                "studentID": student.student_id,
-                'Name': student.student_name,
-                'terms': termsobject,
-                'published': student_annual_details.published
-            })
-        except Exception as e:
-            print(f"Exception: {e}")
-            continue
 
-    return JsonResponse(students_annuals, safe=False)
+        return JsonResponse(students_annuals, safe=False)
+    except Exception as e:
+        print(f"primary_annual_result_computation_view error: {e}")
+        return JsonResponse({'error': str(e)}, safe=False)
 
 
 def publish_annual_results(request):
@@ -223,7 +234,10 @@ def publish_annual_results(request):
     academic_session = data['classdata']['selectedAcademicSession']
     class_object = Class.objects.get(Class=class_name)
     session = AcademicSession.objects.get(session=academic_session)
-    subject_object = Subject.objects.get(subject_name=subject_name)
+    subjectsforclass = Subjectallocation.objects.filter(classname=class_object).order_by('-id').first()
+    subject_object = subjectsforclass.subjects.filter(subject_name=subject_name).first() if subjectsforclass else None
+    if not subject_object:
+        return JsonResponse({'error': 'Subject not found in allocation for this class'}, safe=False)
     for result in data['data']:
         # Get student and verify enrollment
         student = Students_Pin_and_ID.objects.filter(pk=result['id']).first()
@@ -254,7 +268,10 @@ def unpublish_annual_results(request):
     academic_session = data['classdata']['selectedAcademicSession']
     class_object = Class.objects.get(Class=class_name)
     session = AcademicSession.objects.get(session=academic_session)
-    subject_object = Subject.objects.get(subject_name=subject_name)
+    subjectsforclass = Subjectallocation.objects.filter(classname=class_object).order_by('-id').first()
+    subject_object = subjectsforclass.subjects.filter(subject_name=subject_name).first() if subjectsforclass else None
+    if not subject_object:
+        return JsonResponse({'error': 'Subject not found in allocation for this class'}, safe=False)
     for studentdata in data['data']:
         # Get student by pk and verify enrollment
         student = Students_Pin_and_ID.objects.filter(pk=studentdata['id']).first()

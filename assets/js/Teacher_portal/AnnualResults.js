@@ -98,15 +98,19 @@ async function readJsonFromFile() {
     } else {
       url = "/Teachers_Portal/annualresultcomputation/";
     }
-    const jsonData = await getannualresultdata(url,classdata);
+    const jsonData = await getannualresultdata(url, classdata);
+    if (!jsonData) return; // empty fields guard — no request was made
     const studentHandler = new AnnualResulthandler(jsonData);
     const studentsWithCalculatedFields = studentHandler.getStudents();
     studentResult = studentsWithCalculatedFields;
-    updateResultBadge("update", studentsWithCalculatedFields[0]);
+    if (studentsWithCalculatedFields.length > 0) {
+      updateResultBadge("update", studentsWithCalculatedFields[0]);
+    }
     populatetable(studentsWithCalculatedFields);
     const dataTable = new AnnualStudentResultDatatable();
   } catch (error) {
     console.error("Error reading JSON file:", error);
+    displayalert("alert-danger", `Error loading results: ${error.message}`);
   }
 }
 

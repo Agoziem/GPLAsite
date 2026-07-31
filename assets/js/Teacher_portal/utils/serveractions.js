@@ -12,17 +12,24 @@ async function getstudentdata(url,classdata) {
     return;
   }
   showSpinner("updatesubjectspinner", "subjectbtnmessage", "Loading...");
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRFToken": csrftoken,
-    },
-    body: JSON.stringify(classdata),
-  });
-  const data = await response.json();
-  hideSpinner("updatesubjectspinner", "subjectbtnmessage", "load Results");
-  return data;
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify(classdata),
+    });
+    const data = await response.json();
+    // If the server returned an error object, throw so callers can handle it
+    if (!Array.isArray(data) && data.error) {
+      throw new Error(data.error);
+    }
+    return data;
+  } finally {
+    hideSpinner("updatesubjectspinner", "subjectbtnmessage", "Load Results");
+  }
 }
 
 // ---------------------------------------------------
@@ -30,17 +37,24 @@ async function getstudentdata(url,classdata) {
 // ---------------------------------------------------
 async function getannualresultdata(url,classdata) {
   showSpinner("updatesubjectspinner", "subjectbtnmessage", "Loading...");
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRFToken": csrftoken,
-    },
-    body: JSON.stringify(classdata),
-  });
-  const data = await response.json();
-  hideSpinner("updatesubjectspinner", "subjectbtnmessage", "load Results");
-  return data;
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify(classdata),
+    });
+    const data = await response.json();
+    // If the server returned an error object, throw so callers can handle it
+    if (!Array.isArray(data) && data.error) {
+      throw new Error(data.error);
+    }
+    return data;
+  } finally {
+    hideSpinner("updatesubjectspinner", "subjectbtnmessage", "load Results");
+  }
 }
 
 // -----------------------------------------------------

@@ -136,16 +136,18 @@ async function readJsonFromFile() {
   try {
     const url = "/Teachers_Portal/getstudentresults/";
     const jsonData = await getstudentdata(url, classdata);
-    console.log(jsonData);
+    if (!jsonData) return; // empty fields guard — no request was made
     const studentHandler = new StudentDataHandler(jsonData);
     const studentsWithCalculatedFields = studentHandler.getStudents();
-    //   populaterowcheckbox(studentsWithCalculatedFields)
     studentResult = studentsWithCalculatedFields;
-    updateResultBadge("update", studentsWithCalculatedFields[0]);
+    if (studentsWithCalculatedFields.length > 0) {
+      updateResultBadge("update", studentsWithCalculatedFields[0]);
+    }
     populatetable(studentsWithCalculatedFields);
     const dataTable = new DataTable(inputStudentResultModal, inputform);
   } catch (error) {
     console.error("Error reading JSON file:", error);
+    displayalert("alert-danger", `Error loading results: ${error.message}`);
   }
 }
 
